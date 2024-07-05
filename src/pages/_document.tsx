@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-page-custom-font */
+import { Html, Head, Main, NextScript } from 'next/document';
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+export default function Document() {
 	return (
-		<html lang="en">
-			<head>
+		<Html lang="en">
+			<Head>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link
 					rel="preconnect"
@@ -14,13 +14,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 					href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
 					rel="stylesheet"
 				/>
-			</head>
 
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
 			<body>
-				<main>{children}</main>
+				<Main />
+				<NextScript />
 			</body>
-		</html>
+		</Html>
 	);
-};
-
-export default RootLayout;
+}
