@@ -2,6 +2,7 @@ import { movieApi } from '@/redux/services';
 import * as R from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
+// https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#configuring-the-store
 const reducer = combineReducers({
 	[movieApi.reducerPath]: movieApi.reducer,
 	movie: R.movieReducer,

@@ -51,6 +51,16 @@ export const movieApi = createApi({
 					language,
 				},
 			}),
+			transformResponse: (response: T.FetchSimilarMovieRes) => {
+				const { page, results, total_pages, total_results } = response;
+
+				return {
+					entities: normalize(results || {}, [movieEntity]).entities,
+					totalPages: total_pages,
+					totalResults: total_results,
+					page,
+				};
+			},
 		}),
 	}),
 });
