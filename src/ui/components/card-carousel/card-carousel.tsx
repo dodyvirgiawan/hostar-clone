@@ -4,7 +4,8 @@ import { CardCarouselProps } from './card-carousel.type';
 import ForwardIcon from '../../../../public/assets/arrow-forward.svg';
 import BackIcon from '../../../../public/assets/arrow-back.svg';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { RenderIf } from '../render-if';
 
 const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	const { title, children, ...otherProps } = props;
@@ -16,13 +17,20 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 
 	const cardContainerRef = useRef<HTMLDivElement>(null);
 
+	const renderPrevArrow = useMemo(() => scrollOffset < 0, [scrollOffset]);
+	const renderNextArrow = useMemo(
+		() => scrollOffset > maxScrollOffset,
+		[scrollOffset, maxScrollOffset],
+	);
+
 	useEffect(() => {
-		if (cardContainerRef.current) {
-			const maxOffset =
-				cardContainerRef.current.scrollWidth -
-				cardContainerRef.current.clientWidth;
-			setMaxScrollOffset(-maxOffset);
-		}
+		if (!cardContainerRef.current) return;
+
+		const maxOffset =
+			cardContainerRef.current.scrollWidth -
+			cardContainerRef.current.clientWidth;
+
+		setMaxScrollOffset(-maxOffset);
 	}, [cardContainerRef]);
 
 	const scrollNext = () => {
@@ -74,29 +82,33 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 					</div>
 				</div>
 
-				<div
-					onClick={scrollPrev}
-					className={clsx(styles.leftArrowContainer, {
-						[styles.hide]: !hovered,
-						[styles.show]: !!hovered,
-					})}
-				>
-					<div className={styles.logoContainer}>
-						<Image alt="Previous" src={BackIcon} />
+				<RenderIf isTrue={renderPrevArrow}>
+					<div
+						onClick={scrollPrev}
+						className={clsx(styles.leftArrowContainer, {
+							[styles.hide]: !hovered,
+							[styles.show]: !!hovered,
+						})}
+					>
+						<div className={styles.logoContainer}>
+							<Image alt="Previous" src={BackIcon} />
+						</div>
 					</div>
-				</div>
+				</RenderIf>
 
-				<div
-					onClick={scrollNext}
-					className={clsx(styles.rightArrowContainer, {
-						[styles.hide]: !hovered,
-						[styles.show]: !!hovered,
-					})}
-				>
-					<div className={styles.logoContainer}>
-						<Image alt="Next" src={ForwardIcon} />
+				<RenderIf isTrue={renderNextArrow}>
+					<div
+						onClick={scrollNext}
+						className={clsx(styles.rightArrowContainer, {
+							[styles.hide]: !hovered,
+							[styles.show]: !!hovered,
+						})}
+					>
+						<div className={styles.logoContainer}>
+							<Image alt="Next" src={ForwardIcon} />
+						</div>
 					</div>
-				</div>
+				</RenderIf>
 			</div>
 		</div>
 	);
