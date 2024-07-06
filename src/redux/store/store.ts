@@ -1,4 +1,4 @@
-import { movieApi, trendingApi, tvApi } from '@/redux/services';
+import { discoverApi, movieApi, trendingApi, tvApi } from '@/redux/services';
 import * as R from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
@@ -7,12 +7,14 @@ const reducer = combineReducers({
 	[movieApi.reducerPath]: movieApi.reducer,
 	[tvApi.reducerPath]: tvApi.reducer,
 	[trendingApi.reducerPath]: trendingApi.reducer,
+	[discoverApi.reducerPath]: discoverApi.reducer,
 	movie: R.movieReducer,
 	tv: R.tvReducer,
 	trending: R.trendingReducer,
 	genre: R.genreReducer,
 	episode: R.episodeReducer,
 	season: R.seasonReducer,
+	discover: R.discoverReducer,
 });
 
 export const configureStoreWithMiddlewares = () => {
@@ -22,7 +24,8 @@ export const configureStoreWithMiddlewares = () => {
 			getDefaultMiddleware()
 				.concat(movieApi.middleware)
 				.concat(tvApi.middleware)
-				.concat(trendingApi.middleware),
+				.concat(trendingApi.middleware)
+				.concat(discoverApi.middleware),
 	});
 
 	return enhancedStore;

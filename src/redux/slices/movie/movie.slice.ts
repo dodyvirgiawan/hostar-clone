@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { movieApi, trendingApi } from '@/redux/services';
+import { discoverApi, movieApi, trendingApi } from '@/redux/services';
 import { MovieInitialState, MovieModel } from './movie.type';
 
 export const movieAdapter = createEntityAdapter<MovieModel>();
@@ -85,6 +85,16 @@ const movieSlice = createSlice({
 			)
 			.addMatcher(
 				trendingApi.endpoints.fetchTrendingMovie.matchFulfilled,
+				(state, action) => {
+					const { entities } = action.payload;
+
+					const { movie = {} } = entities;
+
+					movieAdapter.upsertMany(state, movie);
+				},
+			)
+			.addMatcher(
+				discoverApi.endpoints.fetchDiscoverMovie.matchFulfilled,
 				(state, action) => {
 					const { entities } = action.payload;
 

@@ -1,20 +1,13 @@
-import { TMDB_API_KEY, TMDB_API_V3 } from '@/constants/api';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import * as T from './trending.type';
 import { normalize } from 'normalizr';
 import { movieEntity } from '../movie/movie.entity';
 import { tvEntity } from '../tv/tv.entity';
+import { generateBaseQuery } from '@/redux/base-queries/base-query';
 
 export const trendingApi = createApi({
 	reducerPath: 'trendingApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: `${TMDB_API_V3}/trending`,
-		paramsSerializer: (params) => {
-			const urlParams = new URLSearchParams(params);
-			urlParams.append('api_key', TMDB_API_KEY);
-			return urlParams.toString();
-		},
-	}),
+	baseQuery: generateBaseQuery({ prefix: 'trending' }),
 	endpoints: (builder) => ({
 		fetchAllTrending: builder.query<
 			T.NormalizedFetchAllTrendingRes,

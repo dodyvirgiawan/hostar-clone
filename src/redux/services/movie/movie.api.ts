@@ -1,20 +1,13 @@
-import { TMDB_API_KEY, TMDB_API_V3 } from '@/constants/api';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import * as T from './movie.type';
 import { normalize } from 'normalizr';
 import { movieEntity } from './movie.entity';
 import { MovieModel } from '@/redux/slices';
+import { generateBaseQuery } from '@/redux/base-queries/base-query';
 
 export const movieApi = createApi({
 	reducerPath: 'movieApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: `${TMDB_API_V3}/movie`,
-		paramsSerializer: (params) => {
-			const urlParams = new URLSearchParams(params);
-			urlParams.append('api_key', TMDB_API_KEY);
-			return urlParams.toString();
-		},
-	}),
+	baseQuery: generateBaseQuery({ prefix: 'movie' }),
 	endpoints: (builder) => ({
 		fetchTopRatedMovie: builder.query<
 			T.NormalizedFetchTopRatedMovieRes,

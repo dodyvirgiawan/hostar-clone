@@ -1,20 +1,13 @@
-import { TMDB_API_KEY, TMDB_API_V3 } from '@/constants/api';
 import * as T from './tv.type';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { normalize } from 'normalizr';
 import { episodeEntity, tvEntity } from './tv.entity';
 import { TvModel } from '@/redux/slices';
+import { generateBaseQuery } from '@/redux/base-queries/base-query';
 
 export const tvApi = createApi({
 	reducerPath: 'tvApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: `${TMDB_API_V3}/tv`,
-		paramsSerializer: (params) => {
-			const urlParams = new URLSearchParams(params);
-			urlParams.append('api_key', TMDB_API_KEY);
-			return urlParams.toString();
-		},
-	}),
+	baseQuery: generateBaseQuery({ prefix: 'tv' }),
 	endpoints: (builder) => ({
 		fetchTopRatedTv: builder.query<
 			T.NormalizedFetchTopRatedTvRes,
