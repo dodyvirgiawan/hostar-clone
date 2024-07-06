@@ -1,7 +1,7 @@
 @import '@/styles/colors';
 
 .sidebarRoot {
-  background: $primary-color;
+  background: $background-dark;
   position: fixed;
   left: 0;
   height: 100%;
@@ -12,6 +12,7 @@
   justify-content: center;
   align-items: start;
   flex-direction: column;
+  z-index: 10;
 
   & > *:not(:first-child) {
     margin-top: 16px;
@@ -19,7 +20,7 @@
 
   &:hover {
     width: 200px;
-    background: $primary-color-dark;
+    background: $background-darker;
   }
 
   .logoContainer {

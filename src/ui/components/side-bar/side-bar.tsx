@@ -11,8 +11,6 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
 	const [expand, setIsExpand] = useState(false);
 
-	console.log(menus);
-
 	const onMouseOver = () => {
 		setIsExpand(true);
 	};
