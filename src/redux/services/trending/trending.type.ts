@@ -16,7 +16,7 @@ export interface NormalizedFetchAllTrendingRes {
 	};
 	tv: {
 		entities: {
-			movie?: Record<string, MovieModel>;
+			tv?: Record<string, TvModel>;
 		};
 		result: string[];
 	};

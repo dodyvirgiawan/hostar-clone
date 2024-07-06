@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { movieApi } from '@/redux/services';
+import { movieApi, trendingApi } from '@/redux/services';
 import { MovieInitialState, MovieModel } from './movie.type';
 
 export const movieAdapter = createEntityAdapter<MovieModel>();
@@ -71,6 +71,16 @@ const movieSlice = createSlice({
 					if (!id) return;
 
 					state.selectedMovieId = id;
+				},
+			)
+			.addMatcher(
+				trendingApi.endpoints.fetchAllTrending.matchFulfilled,
+				(state, action) => {
+					const { movie } = action.payload;
+
+					const { movie: movieEntities = {} } = movie.entities;
+
+					movieAdapter.upsertMany(state, movieEntities);
 				},
 			);
 	},

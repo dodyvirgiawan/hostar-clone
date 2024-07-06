@@ -8,8 +8,9 @@ const reducer = combineReducers({
 	[tvApi.reducerPath]: tvApi.reducer,
 	[trendingApi.reducerPath]: trendingApi.reducer,
 	movie: R.movieReducer,
-	genre: R.genreReducer,
 	tv: R.tvReducer,
+	trending: R.trendingReducer,
+	genre: R.genreReducer,
 });
 
 export const configureStoreWithMiddlewares = () => {
