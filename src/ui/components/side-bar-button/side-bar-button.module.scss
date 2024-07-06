@@ -10,17 +10,18 @@
     padding: 8px;
     border-radius: 4px;
     width: 100%;
-    transition: scale 0.5s;
+    transition: scale 0.3s, color 0.1s;
     scale: 1;
+    color: $font-dark;
   
     &:hover {
-      background-color: $primary-color-darker;
+      color: $font-light;
       scale: 1.05;
     }
   
     .title {
       margin-left: 16px;
-      color: $font-light;
+      color: inherit;
       width: 100%;
       transition: opacity 0.2s;
     }
