@@ -210,6 +210,108 @@ const HomeMain: React.FC = () => {
 						/>
 					</div>
 				</CardCarousel>
+
+				<CardCarousel title="Top Rated TV Series of the Week">
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title="first"
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title={sampleMovie.title}
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+
+					<div className={styles.cardWrapper}>
+						<CardMovie
+							id={sampleMovie.id}
+							title="last"
+							overview={sampleMovie.overview}
+							posterUrl={sampleMovie.poster_path}
+							backdropUrl={sampleMovie.backdrop_path}
+						/>
+					</div>
+				</CardCarousel>
 			</div>
 		</PageLayout>
 	);
