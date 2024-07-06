@@ -43,6 +43,7 @@ export const tvApi = createApi({
 				};
 			},
 		}),
+
 		fetchSimilarTvById: builder.query<
 			T.NormalizedFetchSimilarTvRes,
 			T.FetchSimilarTvArgs
@@ -70,6 +71,7 @@ export const tvApi = createApi({
 				};
 			},
 		}),
+
 		fetchTvDetailById: builder.query<
 			T.NormalizedFetchTvDetailByIdRes,
 			T.FetchTvDetailByIdArgs

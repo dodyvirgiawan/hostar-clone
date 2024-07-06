@@ -61,6 +61,7 @@ export const trendingApi = createApi({
 				};
 			},
 		}),
+
 		fetchTrendingMovie: builder.query<
 			T.NormalizedFetchTrendingMovieRes,
 			T.FetchTrendingMovieArgs
@@ -87,6 +88,7 @@ export const trendingApi = createApi({
 				};
 			},
 		}),
+
 		fetchTrendingTv: builder.query<
 			T.NormalizedFetchTrendingTvRes,
 			T.FetchTrendingTvArgs

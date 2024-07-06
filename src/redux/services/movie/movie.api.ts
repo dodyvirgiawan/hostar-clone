@@ -44,6 +44,7 @@ export const movieApi = createApi({
 				};
 			},
 		}),
+
 		fetchSimilarMovieById: builder.query<
 			T.NormalizedFetchSimilarMovieRes,
 			T.FetchSimilarMovieArgs
@@ -71,6 +72,7 @@ export const movieApi = createApi({
 				};
 			},
 		}),
+
 		fetchMovieDetailById: builder.query<
 			T.NormalizedFetchMovieDetailByIdRes,
 			T.FetchMovieDetailByIdArgs
