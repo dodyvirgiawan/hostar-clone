@@ -1,0 +1,41 @@
+@import '@/styles/colors';
+
+.sidebarButtonRoot {
+  width: 100%;
+
+  .wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+    transition: scale 0.5s;
+    scale: 1;
+  
+    &:hover {
+      background-color: $primary-color-darker;
+      scale: 1.05;
+    }
+  
+    .title {
+      margin-left: 16px;
+      color: $font-light;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+  
+    .expanded {
+      opacity: 1;
+    }
+  
+    .notExpanded {
+      opacity: 0;
+    }
+  
+    .logoContainer {
+      color: $primary-color;
+    }
+  }
+
+}

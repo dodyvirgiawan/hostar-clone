@@ -4,3 +4,45 @@ html {
   color: $font-dark;
 	font-family: 'Inter', sans-serif;
 }
+
+.font-h1 {
+  font-size: 36px;
+  line-height: 1.5;
+  font-weight: bold;
+  margin: 0;
+}
+
+.font-h2 {
+  font-size: 30px;
+  line-height: 1.5;
+  font-weight: bold;
+  margin: 0;
+}
+
+.font-h3 {
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: bold;
+  margin: 0;
+}
+
+.font-h4 {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: bold;
+  margin: 0;
+}
+
+.font-h5 {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: bold;
+  margin: 0;
+}
+
+.font-p {
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: normal;
+  margin: 0;
+}

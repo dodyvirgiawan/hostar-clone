@@ -1,10 +1,11 @@
+import { PageLayout } from '@/ui/layouts';
 import styles from './home-main.module.scss';
 
 const HomeMain: React.FC = () => {
 	return (
-		<div className={styles.sample}>
-			<p>Hello World</p>
-		</div>
+		<PageLayout>
+			<div className={styles.sampleChildren}></div>
+		</PageLayout>
 	);
 };
 
