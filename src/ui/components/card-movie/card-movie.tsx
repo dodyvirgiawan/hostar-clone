@@ -29,7 +29,7 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 	const [expand, setIsExpand] = useState(false);
 
 	// ? Need to debounce because don't want to immediate expand (500ms)
-	const debouncedExpand = useDebounce(expand, 600);
+	const debouncedExpand = useDebounce(expand, 400);
 
 	const onMouseOver = () => {
 		setIsExpand(true);

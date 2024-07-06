@@ -1,5 +1,6 @@
 export * from './button';
 
+export * from './card-carousel';
 export * from './card-movie';
 export * from './card-tv-series';
 
