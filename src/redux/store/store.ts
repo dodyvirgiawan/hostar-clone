@@ -11,6 +11,7 @@ const reducer = combineReducers({
 	tv: R.tvReducer,
 	trending: R.trendingReducer,
 	genre: R.genreReducer,
+	episode: R.episodeReducer,
 });
 
 export const configureStoreWithMiddlewares = () => {

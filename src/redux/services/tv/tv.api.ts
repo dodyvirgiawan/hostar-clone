@@ -2,7 +2,7 @@ import { TMDB_API_KEY, TMDB_API_V3 } from '@/constants/api';
 import * as T from './tv.type';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { normalize } from 'normalizr';
-import { tvEntity } from './tv.entity';
+import { episodeEntity, tvEntity } from './tv.entity';
 import { TvModel } from '@/redux/slices';
 
 export const tvApi = createApi({
@@ -96,6 +96,30 @@ export const tvApi = createApi({
 				};
 			},
 		}),
+
+		fetchTvSeasonDetail: builder.query<
+			T.NormalizedFetchTvSeasonDetailRes,
+			T.FetchTvSeasonDetailArgs
+		>({
+			query: ({ series_id, season_number, language = 'en-US' }) => ({
+				url: `${series_id}/season/${season_number}`,
+				method: 'GET',
+				params: {
+					language,
+				},
+			}),
+			transformResponse: (response: T.FetchTvSeasonDetailRes) => {
+				const { episodes } = response;
+
+				const normalizedResults = normalize(episodes || {}, [episodeEntity]);
+				const { entities, result } = normalizedResults;
+
+				return {
+					entities,
+					result,
+				};
+			},
+		}),
 	}),
 });
 
@@ -103,4 +127,5 @@ export const {
 	useFetchTopRatedTvQuery,
 	useFetchSimilarTvByIdQuery,
 	useFetchTvDetailByIdQuery,
+	useFetchTvSeasonDetailQuery,
 } = tvApi;

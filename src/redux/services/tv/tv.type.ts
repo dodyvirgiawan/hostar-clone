@@ -1,4 +1,4 @@
-import { GenreModel, TvModel } from '@/redux/slices';
+import { EpisodeModel, GenreModel, TvModel } from '@/redux/slices';
 
 // ============ TOP RATED TV SERIES ============
 
@@ -65,4 +65,29 @@ export interface FetchTvDetailByIdArgs {
 	id: string;
 	language?: string;
 	append_to_response?: string; // ? This is needed to append genres
+}
+
+// ============ FETCH TV SEASON DETAIL ============
+
+export interface FetchTvSeasonDetailRes {
+	id: string;
+	name: string;
+	overview: string;
+	poster_path: string;
+	air_date: string;
+	season_number: string;
+	episodes: EpisodeModel[];
+}
+
+export interface NormalizedFetchTvSeasonDetailRes {
+	entities: {
+		episode?: Record<string, EpisodeModel>;
+	};
+	result: string[];
+}
+
+export interface FetchTvSeasonDetailArgs {
+	series_id: string;
+	season_number: string;
+	language?: string;
 }
