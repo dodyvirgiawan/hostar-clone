@@ -15,21 +15,44 @@ const trendingSlice = createSlice({
 	initialState: trendingInitialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addMatcher(
-			trendingApi.endpoints.fetchAllTrending.matchFulfilled,
-			(state, action) => {
-				const { movie, tv, page, totalPages, totalResults } = action.payload;
+		builder
+			.addMatcher(
+				trendingApi.endpoints.fetchAllTrending.matchFulfilled,
+				(state, action) => {
+					const { movie, tv, page, totalPages, totalResults } = action.payload;
 
-				const trendingMovieIds = movie.result;
-				const trendingTvIds = tv.result;
+					const trendingMovieIds = movie.result;
+					const trendingTvIds = tv.result;
 
-				state.trendingMovieIds = trendingMovieIds;
-				state.trendingTvIds = trendingTvIds;
-				state.totalPages = totalPages;
-				state.page = page;
-				state.totalResults = totalResults;
-			},
-		);
+					state.trendingMovieIds = trendingMovieIds;
+					state.trendingTvIds = trendingTvIds;
+					state.totalPages = totalPages;
+					state.page = page;
+					state.totalResults = totalResults;
+				},
+			)
+			.addMatcher(
+				trendingApi.endpoints.fetchTrendingMovie.matchFulfilled,
+				(state, action) => {
+					const { result, page, totalPages, totalResults } = action.payload;
+
+					state.trendingMovieIds = result;
+					state.totalPages = totalPages;
+					state.page = page;
+					state.totalResults = totalResults;
+				},
+			)
+			.addMatcher(
+				trendingApi.endpoints.fetchTrendingTv.matchFulfilled,
+				(state, action) => {
+					const { result, page, totalPages, totalResults } = action.payload;
+
+					state.trendingTvIds = result;
+					state.totalPages = totalPages;
+					state.page = page;
+					state.totalResults = totalResults;
+				},
+			);
 	},
 });
 

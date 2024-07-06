@@ -82,6 +82,16 @@ const tvSlice = createSlice({
 
 					tvAdapter.upsertMany(state, tvEntities);
 				},
+			)
+			.addMatcher(
+				trendingApi.endpoints.fetchTrendingTv.matchFulfilled,
+				(state, action) => {
+					const { entities } = action.payload;
+
+					const { tv = {} } = entities;
+
+					tvAdapter.upsertMany(state, tv);
+				},
 			);
 	},
 });

@@ -61,7 +61,63 @@ export const trendingApi = createApi({
 				};
 			},
 		}),
+		fetchTrendingMovie: builder.query<
+			T.NormalizedFetchTrendingMovieRes,
+			T.FetchTrendingMovieArgs
+		>({
+			query: ({ time_window, language = 'en-US' }) => ({
+				url: `movie/${time_window}`,
+				method: 'GET',
+				params: {
+					language,
+				},
+			}),
+			transformResponse: (response: T.FetchTrendingMovieRes) => {
+				const { page, results, total_pages, total_results } = response;
+
+				const normalizedResult = normalize(results || {}, [movieEntity]);
+				const { entities, result } = normalizedResult;
+
+				return {
+					entities,
+					result,
+					totalPages: total_pages,
+					totalResults: total_results,
+					page,
+				};
+			},
+		}),
+		fetchTrendingTv: builder.query<
+			T.NormalizedFetchTrendingTvRes,
+			T.FetchTrendingTvArgs
+		>({
+			query: ({ time_window, language = 'en-US' }) => ({
+				url: `tv/${time_window}`,
+				method: 'GET',
+				params: {
+					language,
+				},
+			}),
+			transformResponse: (response: T.FetchTrendingTvRes) => {
+				const { page, results, total_pages, total_results } = response;
+
+				const normalizedResult = normalize(results || {}, [tvEntity]);
+				const { entities, result } = normalizedResult;
+
+				return {
+					entities,
+					result,
+					totalPages: total_pages,
+					totalResults: total_results,
+					page,
+				};
+			},
+		}),
 	}),
 });
 
-export const { useFetchAllTrendingQuery } = trendingApi;
+export const {
+	useFetchAllTrendingQuery,
+	useFetchTrendingMovieQuery,
+	useFetchTrendingTvQuery,
+} = trendingApi;

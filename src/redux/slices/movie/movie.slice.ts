@@ -82,6 +82,16 @@ const movieSlice = createSlice({
 
 					movieAdapter.upsertMany(state, movieEntities);
 				},
+			)
+			.addMatcher(
+				trendingApi.endpoints.fetchTrendingMovie.matchFulfilled,
+				(state, action) => {
+					const { entities } = action.payload;
+
+					const { movie = {} } = entities;
+
+					movieAdapter.upsertMany(state, movie);
+				},
 			);
 	},
 });
