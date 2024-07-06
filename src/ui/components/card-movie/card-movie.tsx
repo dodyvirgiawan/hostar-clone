@@ -62,7 +62,12 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 				{...otherProps}
 			>
 				<>
-					<div className={styles.noExpand}>
+					<div
+						className={clsx(styles.noExpand, {
+							[styles.noExpandHide]: expand,
+							[styles.noExpandShow]: !expand,
+						})}
+					>
 						<div className={styles.imageContainerNoExpand}>
 							<Image
 								alt={title}
@@ -75,8 +80,8 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 
 					<div
 						className={clsx(styles.expand, {
-							[styles.expandCard]: debouncedExpand,
-							[styles.noExpandCard]: !debouncedExpand,
+							[styles.expandHide]: debouncedExpand,
+							[styles.expandShow]: !debouncedExpand,
 						})}
 					>
 						<div className={styles.imageContainer}>
