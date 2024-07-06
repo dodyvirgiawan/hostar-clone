@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { discoverApi, trendingApi, tvApi } from '@/redux/services';
+import { discoverApi, searchApi, trendingApi, tvApi } from '@/redux/services';
 import { TvInitialState, TvModel } from './tv.type';
 
 export const tvAdapter = createEntityAdapter<TvModel>();
@@ -101,6 +101,16 @@ const tvSlice = createSlice({
 					const { tv = {} } = entities;
 
 					tvAdapter.upsertMany(state, tv);
+				},
+			)
+			.addMatcher(
+				searchApi.endpoints.multiSearch.matchFulfilled,
+				(state, action) => {
+					const { tv } = action.payload;
+
+					const { tv: tvEntities = {} } = tv.entities;
+
+					tvAdapter.upsertMany(state, tvEntities);
 				},
 			);
 	},

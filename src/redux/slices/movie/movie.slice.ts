@@ -1,5 +1,10 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { discoverApi, movieApi, trendingApi } from '@/redux/services';
+import {
+	discoverApi,
+	movieApi,
+	searchApi,
+	trendingApi,
+} from '@/redux/services';
 import { MovieInitialState, MovieModel } from './movie.type';
 
 export const movieAdapter = createEntityAdapter<MovieModel>();
@@ -101,6 +106,16 @@ const movieSlice = createSlice({
 					const { movie = {} } = entities;
 
 					movieAdapter.upsertMany(state, movie);
+				},
+			)
+			.addMatcher(
+				searchApi.endpoints.multiSearch.matchFulfilled,
+				(state, action) => {
+					const { movie } = action.payload;
+
+					const { movie: movieEntities = {} } = movie.entities;
+
+					movieAdapter.upsertMany(state, movieEntities);
 				},
 			);
 	},
