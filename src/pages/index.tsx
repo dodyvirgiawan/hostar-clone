@@ -6,11 +6,15 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { MovieModel, TvModel } from '@/redux/slices';
 
 export interface HomeSSRProps {
-	topRatedMoviesAndTvSeries: (MovieModel | TvModel)[];
-	trendingMovieOfTheWeek: MovieModel[];
-	trendingTvSeriesOfTheWeek: TvModel[];
+	topRatedMovieIds: string[];
+	topRatedTvSeriesIds: string[];
+	trendingMovieOfTheWeekIds: string[];
+	trendingTvSeriesOfTheWeekIds: string[];
 }
 
+// ? If i pass all the movie and tv series object via server, it is around ~150kb, which is higher than threshold.
+// ? https://nextjs.org/docs/messages/large-page-data
+// ? Therefore I only pass the normalized id
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) =>
 		async ({ req, res }) => {
@@ -21,9 +25,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 			const movieState = store.getState().movie;
 			const topRatedMovieIds = movieState.topRatedMovie.ids;
-			const movies = movieState.entities;
-
-			const topRatedMovies = topRatedMovieIds.map((id) => movies[id]);
 
 			// 2. ========= Fetch top rated tv series =========
 			await store.dispatch(
@@ -32,9 +33,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 			const tvState = store.getState().tv;
 			const topRatedTvSeriesIds = tvState.topRatedTv.ids;
-			const tvSeries = tvState.entities;
-
-			const topRatedTvSeries = topRatedTvSeriesIds.map((id) => tvSeries[id]);
 
 			// 3. ========= Fetch trending movie of the week =========
 			await store.dispatch(
@@ -43,14 +41,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				}),
 			);
 
-			const newMovieState = store.getState().movie;
 			const trendingMovieState = store.getState().trending;
-			const trendingMovieIds = trendingMovieState.trendingMovieIds;
-			const trendingMovies = newMovieState.entities;
-
-			const trendingMovieOfTheWeek = trendingMovieIds.map(
-				(id) => trendingMovies[id],
-			);
+			const trendingMovieOfTheWeekIds = trendingMovieState.trendingMovieIds;
 
 			// 3. ========= Fetch trending tv series of the week =========
 			await store.dispatch(
@@ -59,20 +51,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				}),
 			);
 
-			const newTvSeriesState = store.getState().tv;
 			const trendingTvSeriesState = store.getState().trending;
-			const trendingTvSeriesIds = trendingTvSeriesState.trendingTvIds;
-			const trendingTvSeries = newTvSeriesState.entities;
-
-			const trendingTvSeriesOfTheWeek = trendingTvSeriesIds.map(
-				(id) => trendingTvSeries[id],
-			);
+			const trendingTvSeriesOfTheWeekIds = trendingTvSeriesState.trendingTvIds;
 
 			return {
 				props: {
-					topRatedMoviesAndTvSeries: [...topRatedMovies, ...topRatedTvSeries],
-					trendingMovieOfTheWeek,
-					trendingTvSeriesOfTheWeek,
+					topRatedMovieIds,
+					topRatedTvSeriesIds,
+					trendingMovieOfTheWeekIds,
+					trendingTvSeriesOfTheWeekIds,
 				},
 			};
 		},

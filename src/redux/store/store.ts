@@ -7,11 +7,11 @@ import {
 } from '@/redux/services';
 import * as R from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { AppStore } from './store.type';
 
 // https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#configuring-the-store
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
 	[movieApi.reducerPath]: movieApi.reducer,
 	[tvApi.reducerPath]: tvApi.reducer,
 	[trendingApi.reducerPath]: trendingApi.reducer,
@@ -27,9 +27,25 @@ const reducer = combineReducers({
 	search: R.searchReducer,
 });
 
+// ? https://github.com/kirill-konshin/next-redux-wrapper?tab=readme-ov-file#getserversideprops
+const hydratedReducer = (state: any, action: any) => {
+	if (action.type === HYDRATE) {
+		const nextState = {
+			...state, // use previous state
+			...action.payload, // apply delta from hydration
+		};
+
+		console.log(nextState, '<< nextState');
+		console.log(action.payload, '<< payload');
+
+		return nextState;
+	}
+	return combinedReducer(state, action);
+};
+
 export const configureStoreWithMiddlewares = () => {
 	const enhancedStore = configureStore({
-		reducer,
+		reducer: hydratedReducer,
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware()
 				.concat(movieApi.middleware)

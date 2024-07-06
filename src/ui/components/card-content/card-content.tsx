@@ -1,5 +1,5 @@
-import styles from './card-tv-series.module.scss';
-import { CardTvSeriesProps } from './card-tv-series.type';
+import styles from './card-content.module.scss';
+import { CardContentProps } from './card-content.type';
 import { useState } from 'react';
 import { TMDB_IMG_URL } from '@/constants/api';
 import Image from 'next/image';
@@ -12,13 +12,14 @@ import RemoveIcon from '../../../../public/assets/remove-icon.svg';
 import Link from 'next/link';
 import { ButtonProps } from '../button/button.type';
 
-const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
+const CardContent: React.FC<CardContentProps> = (props) => {
 	const {
 		id,
 		title,
 		overview,
 		posterUrl,
 		backdropUrl,
+		mediaType,
 		isInWatchlist = false,
 		buttonLoading = false,
 		onAddToWatchlistClick,
@@ -52,9 +53,9 @@ const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
 	};
 
 	return (
-		<Link href={`/tv-series/${id}`} passHref>
+		<Link href={`/${mediaType}/${id}`} passHref>
 			<div
-				className={styles.cardTvSeriesRoot}
+				className={styles.cardContentRoot}
 				onMouseOver={onMouseOver}
 				onMouseOut={onMouseOut}
 				{...otherProps}
@@ -140,4 +141,4 @@ const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
 	);
 };
 
-export default CardTvSeries;
+export default CardContent;
