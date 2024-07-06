@@ -1,6 +1,6 @@
 import { PageLayout } from '@/ui/layouts';
 import styles from './home-main.module.scss';
-import { Button, CardCarousel, CardMovie, CardTvSeries } from '@/ui/components';
+import { CardCarousel, CardMovie, CardTvSeries } from '@/ui/components';
 import { sampleMovie, sampleTvSeries } from '../../../../../sample';
 
 const HomeMain: React.FC = () => {
@@ -11,7 +11,7 @@ const HomeMain: React.FC = () => {
 					<div className={styles.cardWrapper}>
 						<CardMovie
 							id={sampleMovie.id}
-							title={sampleMovie.title}
+							title="first"
 							overview={sampleMovie.overview}
 							posterUrl={sampleMovie.poster_path}
 							backdropUrl={sampleMovie.backdrop_path}
@@ -101,7 +101,7 @@ const HomeMain: React.FC = () => {
 					<div className={styles.cardWrapper}>
 						<CardMovie
 							id={sampleMovie.id}
-							title={sampleMovie.title}
+							title="last"
 							overview={sampleMovie.overview}
 							posterUrl={sampleMovie.poster_path}
 							backdropUrl={sampleMovie.backdrop_path}
