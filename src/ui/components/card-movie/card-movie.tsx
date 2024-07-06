@@ -99,7 +99,7 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 								{overview}
 							</p>
 
-							<RenderIf isTrue={isInWatchlist}>
+							<RenderIf isTrue={!isInWatchlist}>
 								<Button
 									className={styles.button}
 									fullWidth
@@ -116,7 +116,7 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 								</Button>
 							</RenderIf>
 
-							<RenderIf isTrue={!isInWatchlist}>
+							<RenderIf isTrue={isInWatchlist}>
 								<Button
 									className={styles.button}
 									fullWidth

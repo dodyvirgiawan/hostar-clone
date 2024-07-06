@@ -99,7 +99,7 @@ const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
 								{overview}
 							</p>
 
-							<RenderIf isTrue={isInWatchlist}>
+							<RenderIf isTrue={!isInWatchlist}>
 								<Button
 									className={styles.button}
 									fullWidth
@@ -116,7 +116,7 @@ const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
 								</Button>
 							</RenderIf>
 
-							<RenderIf isTrue={!isInWatchlist}>
+							<RenderIf isTrue={isInWatchlist}>
 								<Button
 									className={styles.button}
 									fullWidth
