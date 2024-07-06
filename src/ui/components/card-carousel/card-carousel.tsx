@@ -36,7 +36,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	const scrollNext = () => {
 		if (!cardContainerRef.current) return;
 
-		const scrollAmount = cardContainerRef.current.clientWidth;
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
 
 		setScrollOffset((prevOffset) =>
 			Math.max(prevOffset - scrollAmount, maxScrollOffset),
@@ -46,7 +46,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	const scrollPrev = () => {
 		if (!cardContainerRef.current) return;
 
-		const scrollAmount = cardContainerRef.current.clientWidth;
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
 
 		setScrollOffset((prevOffset) => Math.min(prevOffset + scrollAmount, 0));
 	};

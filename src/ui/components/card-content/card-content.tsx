@@ -73,7 +73,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								alt={title}
 								layout="fill"
 								objectFit="cover"
-								src={`${TMDB_IMG_URL}/w500${posterUrl}`}
+								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
 							/>
 						</div>
 					</div>
@@ -89,7 +89,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								alt={title}
 								layout="fill"
 								objectFit="cover"
-								src={`${TMDB_IMG_URL}/original${backdropUrl}`}
+								src={`${TMDB_IMG_URL}/w300${backdropUrl}`} // ? Use small image size to improve performance
 							/>
 
 							<div className={styles.ornament} />
