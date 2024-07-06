@@ -66,7 +66,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 			onMouseOut={onMouseOut}
 			{...otherProps}
 		>
-			<p className={clsx(styles.titleText, 'font-h2')}>{title}</p>
+			<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
 
 			<div className={styles.wrapper}>
 				<div className={styles.cardWrapper}>
