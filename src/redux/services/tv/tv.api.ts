@@ -31,8 +31,8 @@ export const tvApi = createApi({
 			transformResponse: (response: T.FetchTopRatedTvRes) => {
 				const { page, results, total_pages, total_results } = response;
 
-				const normalisedResults = normalize(results || {}, [tvEntity]);
-				const { entities, result } = normalisedResults;
+				const normalizedResults = normalize(results || {}, [tvEntity]);
+				const { entities, result } = normalizedResults;
 
 				return {
 					entities,

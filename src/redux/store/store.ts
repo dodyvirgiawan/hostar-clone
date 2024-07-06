@@ -1,4 +1,4 @@
-import { movieApi, tvApi } from '@/redux/services';
+import { movieApi, trendingApi, tvApi } from '@/redux/services';
 import * as R from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
@@ -6,6 +6,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 const reducer = combineReducers({
 	[movieApi.reducerPath]: movieApi.reducer,
 	[tvApi.reducerPath]: tvApi.reducer,
+	[trendingApi.reducerPath]: trendingApi.reducer,
 	movie: R.movieReducer,
 	genre: R.genreReducer,
 	tv: R.tvReducer,
@@ -17,7 +18,8 @@ export const configureStoreWithMiddlewares = () => {
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware()
 				.concat(movieApi.middleware)
-				.concat(tvApi.middleware),
+				.concat(tvApi.middleware)
+				.concat(trendingApi.middleware),
 	});
 
 	return enhancedStore;

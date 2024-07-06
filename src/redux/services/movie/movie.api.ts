@@ -32,8 +32,8 @@ export const movieApi = createApi({
 			transformResponse: (response: T.FetchTopRatedMovieRes) => {
 				const { page, results, total_pages, total_results } = response;
 
-				const normalisedResults = normalize(results || {}, [movieEntity]);
-				const { entities, result } = normalisedResults;
+				const normalizedResults = normalize(results || {}, [movieEntity]);
+				const { entities, result } = normalizedResults;
 
 				return {
 					entities,

@@ -6,6 +6,7 @@ export interface TvModel {
 	overview: string;
 	first_air_date: string;
 	genres?: string[];
+	media_type?: 'tv';
 }
 
 export interface TvState {

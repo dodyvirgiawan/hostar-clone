@@ -6,6 +6,7 @@ export interface MovieModel {
 	overview: string;
 	release_date: string;
 	genres?: string[];
+	media_type?: 'movie';
 }
 
 export interface MovieState {
