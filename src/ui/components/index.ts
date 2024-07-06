@@ -1,3 +1,5 @@
+export * from './button';
+
 export * from './card-movie';
 
 export * from './render-if';

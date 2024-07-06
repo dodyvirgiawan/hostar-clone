@@ -71,6 +71,25 @@
         display: -webkit-box;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
+        margin-bottom: 10px;
+      }
+
+      .button {
+        margin-top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logoContainer {      
+          img {
+            width: 26px;
+            height: 26px;
+          }
+        }
+
+        .buttonText {
+          margin-left: 8px;
+        }
       }
     }
    
