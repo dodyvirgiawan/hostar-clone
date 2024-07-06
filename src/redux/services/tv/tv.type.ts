@@ -1,4 +1,4 @@
-import { EpisodeModel, GenreModel, TvModel } from '@/redux/slices';
+import { EpisodeModel, GenreModel, TvModel, SeasonModel } from '@/redux/slices';
 
 // ============ TOP RATED TV SERIES ============
 
@@ -57,6 +57,7 @@ export interface NormalizedFetchTvDetailByIdRes {
 	entities: {
 		tv?: Record<string, TvModel>;
 		genre?: Record<string, GenreModel>;
+		season?: Record<string, SeasonModel>;
 	};
 	result: string;
 }
