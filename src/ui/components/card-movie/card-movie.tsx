@@ -48,8 +48,6 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 	const handleRemoveFromWatchlist: ButtonProps['onClick'] = (e) => {
 		e?.preventDefault();
 
-		console.log('remove');
-
 		if (onRemoveFromWatchlistClick) onRemoveFromWatchlistClick();
 	};
 
