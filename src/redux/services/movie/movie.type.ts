@@ -1,4 +1,4 @@
-import { GenreModel, MovieDetailModel, MovieModel } from '@/redux/slices';
+import { GenreModel, MovieModel } from '@/redux/slices';
 
 // ============ TOP RATED MOVIES ============
 
@@ -13,6 +13,7 @@ export interface NormalizedFetchTopRatedMovieRes {
 	entities: {
 		movie?: Record<string, MovieModel>;
 	};
+	result: string[];
 	page: number;
 	totalPages: number;
 	totalResults: number;
@@ -37,6 +38,7 @@ export interface NormalizedFetchSimilarMovieRes {
 	entities: {
 		movie?: Record<string, MovieModel>;
 	};
+	result: string[];
 	page: number;
 	totalPages: number;
 	totalResults: number;
@@ -50,11 +52,14 @@ export interface FetchSimilarMovieArgs {
 
 // ============ MOVIE DETAIL BY ID ============
 
-export type FetchMovieDetailByIdRes = MovieDetailModel;
+export type FetchMovieDetailByIdRes = MovieModel;
 
 export interface NormalizedFetchMovieDetailByIdRes {
-	movie?: Record<string, MovieDetailModel>;
-	genre?: Record<string, GenreModel>;
+	entities: {
+		movie?: Record<string, MovieModel>;
+		genre?: Record<string, GenreModel>;
+	};
+	result: string;
 }
 
 export interface FetchMovieDetailByIdArgs {

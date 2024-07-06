@@ -1,72 +1,76 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { movieApi } from '@/redux/services';
-import { MovieDetailModel, MovieModel } from './movie.type';
+import { MovieInitialState, MovieModel } from './movie.type';
 
-export const topRatedMovieAdapter = createEntityAdapter<MovieModel>();
-export const similarMovieAdapter = createEntityAdapter<MovieModel>();
-export const movieDetailAdapter = createEntityAdapter<MovieDetailModel>();
+export const movieAdapter = createEntityAdapter<MovieModel>();
 
 const movieSlice = createSlice({
 	name: 'movie',
-	initialState: {
-		topRatedMovie: topRatedMovieAdapter.getInitialState({
+	initialState: movieAdapter.getInitialState<MovieInitialState>({
+		selectedMovieId: '',
+		topRatedMovie: {
+			ids: [],
 			totalPages: 0,
 			totalResults: 0,
 			page: 0,
-		}),
-		similarMovie: similarMovieAdapter.getInitialState({
+		},
+		similarMovie: {
+			ids: [],
 			totalPages: 0,
 			totalResults: 0,
 			page: 0,
-		}),
-		movieDetail: movieDetailAdapter.getInitialState({
-			selectedMovieId: '',
-		}),
-	},
+		},
+	}),
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
 			.addMatcher(
 				movieApi.endpoints.fetchTopRatedMovie.matchFulfilled,
 				(state, action) => {
-					const { entities, totalPages, totalResults, page } = action.payload;
+					const { entities, totalPages, totalResults, page, result } =
+						action.payload;
 
 					state.topRatedMovie.totalPages = totalPages;
 					state.topRatedMovie.totalResults = totalResults;
 					state.topRatedMovie.page = page;
+					state.topRatedMovie.ids = result;
 
 					const { movie = {} } = entities;
 
-					topRatedMovieAdapter.setAll(state.topRatedMovie, movie);
+					movieAdapter.upsertMany(state, movie);
 				},
 			)
 			.addMatcher(
 				movieApi.endpoints.fetchSimilarMovieById.matchFulfilled,
 				(state, action) => {
-					const { entities, totalPages, totalResults, page } = action.payload;
+					const { entities, totalPages, totalResults, page, result } =
+						action.payload;
 
 					state.similarMovie.totalPages = totalPages;
 					state.similarMovie.totalResults = totalResults;
 					state.similarMovie.page = page;
+					state.similarMovie.ids = result;
 
 					const { movie = {} } = entities;
 
-					similarMovieAdapter.setAll(state.similarMovie, movie);
+					movieAdapter.upsertMany(state, movie);
 				},
 			)
 			.addMatcher(
 				movieApi.endpoints.fetchMovieDetailById.matchFulfilled,
 				(state, action) => {
-					const { movie = {} } = action.payload;
+					const { entities } = action.payload;
 
-					movieDetailAdapter.upsertMany(state.movieDetail, movie);
+					const { movie = {} } = entities;
+
+					movieAdapter.upsertMany(state, movie);
 
 					// ? We also need to store the current selected id application wide to communicate to components
 					const { id } = action.meta.arg.originalArgs;
 
 					if (!id) return;
 
-					state.movieDetail.selectedMovieId = id;
+					state.selectedMovieId = id;
 				},
 			);
 	},

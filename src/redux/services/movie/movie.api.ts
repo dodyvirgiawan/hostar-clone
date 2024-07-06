@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import * as T from './movie.type';
 import { normalize } from 'normalizr';
 import { movieEntity } from './movie.entity';
-import { MovieDetailModel } from '@/redux/slices';
+import { MovieModel } from '@/redux/slices';
 
 export const movieApi = createApi({
 	reducerPath: 'movieApi',
@@ -32,8 +32,12 @@ export const movieApi = createApi({
 			transformResponse: (response: T.FetchTopRatedMovieRes) => {
 				const { page, results, total_pages, total_results } = response;
 
+				const normalisedResults = normalize(results || {}, [movieEntity]);
+				const { entities, result } = normalisedResults;
+
 				return {
-					entities: normalize(results || {}, [movieEntity]).entities,
+					entities,
+					result,
 					totalPages: total_pages,
 					totalResults: total_results,
 					page,
@@ -55,8 +59,12 @@ export const movieApi = createApi({
 			transformResponse: (response: T.FetchSimilarMovieRes) => {
 				const { page, results, total_pages, total_results } = response;
 
+				const normalizedResults = normalize(results || {}, [movieEntity]);
+				const { entities, result } = normalizedResults;
+
 				return {
-					entities: normalize(results || {}, [movieEntity]).entities,
+					entities,
+					result,
 					totalPages: total_pages,
 					totalResults: total_results,
 					page,
@@ -78,7 +86,16 @@ export const movieApi = createApi({
 			transformResponse: (response: T.FetchMovieDetailByIdRes) => {
 				const movie = response;
 
-				return normalize<MovieDetailModel>(movie || {}, movieEntity).entities;
+				const normalizedResults = normalize<MovieModel>(
+					movie || {},
+					movieEntity,
+				);
+				const { entities, result } = normalizedResults;
+
+				return {
+					entities,
+					result,
+				};
 			},
 		}),
 	}),

@@ -1,71 +1,29 @@
 import { RootState } from '@/redux/store';
 import { createSelector } from '@reduxjs/toolkit';
-import {
-	movieDetailAdapter,
-	similarMovieAdapter,
-	topRatedMovieAdapter,
-} from './movie.slice';
+import { movieAdapter } from './movie.slice';
 import memoize from 'lodash/memoize';
 
-// =============== TOP RATED MOVIES SELECTORS ===============
+const selectMovie = (state: RootState) => state.movie;
 
-const {
-	selectEntities: selectTopRatedMovieEntities,
-	selectAll: selectAllTopRatedMovie,
-} = topRatedMovieAdapter.getSelectors<RootState>(
-	(state) => state.movie.topRatedMovie,
+const { selectEntities, selectAll } = movieAdapter.getSelectors<RootState>(
+	(state) => state.movie,
 );
+
+export const selectAllMovies = createSelector(selectAll, (movie) => movie);
 
 export const selectAllTopRatedMovies = createSelector(
-	selectAllTopRatedMovie,
-	(topRatedMovies) => topRatedMovies,
-);
-
-export const selectTopRatedMovieById = memoize((movieId?: string) =>
-	createSelector(
-		selectTopRatedMovieEntities,
-		(topRatedMovieEntities) => topRatedMovieEntities[movieId || ''] || null,
-	),
-);
-
-// =============== SIMILAR MOVIES SELECTORS ===============
-
-const {
-	selectEntities: selectSimilarMovieEntities,
-	selectAll: selectAllSimilarMovie,
-} = similarMovieAdapter.getSelectors<RootState>(
-	(state) => state.movie.similarMovie,
+	selectMovie,
+	(movie) => movie.topRatedMovie.ids,
 );
 
 export const selectAllSimilarMovies = createSelector(
-	selectAllSimilarMovie,
-	(similarMovies) => similarMovies,
+	selectMovie,
+	(movie) => movie.similarMovie.ids,
 );
 
-export const selectSimilarMovieById = memoize((movieId?: string) =>
+export const selectMovieById = memoize((movieId?: string) =>
 	createSelector(
-		selectSimilarMovieEntities,
-		(similarMovieEntities) => similarMovieEntities[movieId || ''] || null,
-	),
-);
-
-// =============== MOVIE DETAIL SELECTORS ===============
-
-const {
-	selectEntities: selectMovieDetailEntities,
-	selectAll: selectAllMovieDetail,
-} = movieDetailAdapter.getSelectors<RootState>(
-	(state) => state.movie.movieDetail,
-);
-
-export const selectAllMovieDetails = createSelector(
-	selectAllMovieDetail,
-	(movieDetails) => movieDetails,
-);
-
-export const selectMovieDetailById = memoize((movieId?: string) =>
-	createSelector(
-		selectMovieDetailEntities,
-		(movieDetailEntities) => movieDetailEntities[movieId || ''] || null,
+		selectEntities,
+		(movieEntities) => movieEntities[movieId || ''] || null,
 	),
 );

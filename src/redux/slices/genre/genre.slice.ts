@@ -12,7 +12,9 @@ const genreSlice = createSlice({
 		builder.addMatcher(
 			movieApi.endpoints.fetchMovieDetailById.matchFulfilled,
 			(state, action) => {
-				const { genre = {} } = action.payload;
+				const { entities } = action.payload;
+
+				const { genre = {} } = entities;
 
 				genreAdapter.upsertMany(state, genre);
 			},
