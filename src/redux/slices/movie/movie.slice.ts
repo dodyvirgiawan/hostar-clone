@@ -1,9 +1,10 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { movieApi } from '@/redux/services';
-import { MovieModel } from './movie.type';
+import { MovieDetailModel, MovieModel } from './movie.type';
 
 export const topRatedMovieAdapter = createEntityAdapter<MovieModel>();
 export const similarMovieAdapter = createEntityAdapter<MovieModel>();
+export const movieDetailAdapter = createEntityAdapter<MovieDetailModel>();
 
 const movieSlice = createSlice({
 	name: 'movie',
@@ -17,6 +18,9 @@ const movieSlice = createSlice({
 			totalPages: 0,
 			totalResults: 0,
 			page: 0,
+		}),
+		movieDetail: movieDetailAdapter.getInitialState({
+			selectedMovieId: '',
 		}),
 	},
 	reducers: {},
@@ -48,6 +52,21 @@ const movieSlice = createSlice({
 					const { movie = {} } = entities;
 
 					similarMovieAdapter.setAll(state.similarMovie, movie);
+				},
+			)
+			.addMatcher(
+				movieApi.endpoints.fetchMovieDetailById.matchFulfilled,
+				(state, action) => {
+					const { movie = {} } = action.payload;
+
+					movieDetailAdapter.upsertMany(state.movieDetail, movie);
+
+					// ? We also need to store the current selected id application wide to communicate to components
+					const { id } = action.meta.arg.originalArgs;
+
+					if (!id) return;
+
+					state.movieDetail.selectedMovieId = id;
 				},
 			);
 	},

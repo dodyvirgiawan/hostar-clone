@@ -1,6 +1,10 @@
 import { RootState } from '@/redux/store';
 import { createSelector } from '@reduxjs/toolkit';
-import { similarMovieAdapter, topRatedMovieAdapter } from './movie.slice';
+import {
+	movieDetailAdapter,
+	similarMovieAdapter,
+	topRatedMovieAdapter,
+} from './movie.slice';
 import memoize from 'lodash/memoize';
 
 // =============== TOP RATED MOVIES SELECTORS ===============
@@ -42,5 +46,26 @@ export const selectSimilarMovieById = memoize((movieId?: string) =>
 	createSelector(
 		selectSimilarMovieEntities,
 		(similarMovieEntities) => similarMovieEntities[movieId || ''] || null,
+	),
+);
+
+// =============== MOVIE DETAIL SELECTORS ===============
+
+const {
+	selectEntities: selectMovieDetailEntities,
+	selectAll: selectAllMovieDetail,
+} = movieDetailAdapter.getSelectors<RootState>(
+	(state) => state.movie.movieDetail,
+);
+
+export const selectAllMovieDetails = createSelector(
+	selectAllMovieDetail,
+	(movieDetails) => movieDetails,
+);
+
+export const selectMovieDetailById = memoize((movieId?: string) =>
+	createSelector(
+		selectMovieDetailEntities,
+		(movieDetailEntities) => movieDetailEntities[movieId || ''] || null,
 	),
 );

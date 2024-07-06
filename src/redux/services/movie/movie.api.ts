@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import * as T from './movie.type';
 import { normalize } from 'normalizr';
 import { movieEntity } from './movie.entity';
+import { MovieDetailModel } from '@/redux/slices';
 
 export const movieApi = createApi({
 	reducerPath: 'movieApi',
@@ -62,8 +63,29 @@ export const movieApi = createApi({
 				};
 			},
 		}),
+		fetchMovieDetailById: builder.query<
+			T.NormalizedFetchMovieDetailByIdRes,
+			T.FetchMovieDetailByIdArgs
+		>({
+			query: ({ id, language = 'en-US', append_to_response }) => ({
+				url: `${id}`,
+				method: 'GET',
+				params: {
+					language,
+					...(!!append_to_response && { append_to_response }),
+				},
+			}),
+			transformResponse: (response: T.FetchMovieDetailByIdRes) => {
+				const movie = response;
+
+				return normalize<MovieDetailModel>(movie || {}, movieEntity).entities;
+			},
+		}),
 	}),
 });
 
-export const { useFetchTopRatedMovieQuery, useFetchSimilarMovieByIdQuery } =
-	movieApi;
+export const {
+	useFetchTopRatedMovieQuery,
+	useFetchSimilarMovieByIdQuery,
+	useFetchMovieDetailByIdQuery,
+} = movieApi;

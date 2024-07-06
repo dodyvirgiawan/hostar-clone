@@ -1,4 +1,4 @@
-import { MovieModel } from '@/redux/slices';
+import { GenreModel, MovieDetailModel, MovieModel } from '@/redux/slices';
 
 // ============ TOP RATED MOVIES ============
 
@@ -46,4 +46,19 @@ export interface FetchSimilarMovieArgs {
 	id: string;
 	page: number;
 	language?: string;
+}
+
+// ============ MOVIE DETAIL BY ID ============
+
+export type FetchMovieDetailByIdRes = MovieDetailModel;
+
+export interface NormalizedFetchMovieDetailByIdRes {
+	movie?: Record<string, MovieDetailModel>;
+	genre?: Record<string, GenreModel>;
+}
+
+export interface FetchMovieDetailByIdArgs {
+	id: string;
+	language?: string;
+	append_to_response?: string; // ? This is needed to append genres
 }

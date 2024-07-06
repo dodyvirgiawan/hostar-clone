@@ -6,6 +6,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 const reducer = combineReducers({
 	[movieApi.reducerPath]: movieApi.reducer,
 	movie: R.movieReducer,
+	genre: R.genreReducer,
 });
 
 export const configureStoreWithMiddlewares = () => {
