@@ -6,9 +6,8 @@
   left: 0;
   height: 100%;
   padding: 36px;
-  width: 120px;
+  width: 50px;
   transition: width 0.6s, background 0.6s;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: start;
@@ -28,6 +27,7 @@
     top: 36px;
 
     img {
+      cursor: pointer;
       width: 52px;
       height: 38px;
     }

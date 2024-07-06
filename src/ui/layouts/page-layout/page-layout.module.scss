@@ -5,4 +5,9 @@
   height: 100%;
   width: 100%;
   background-color: $primary-color;
+
+  .childrenContainer {
+    padding-left: 130px;
+    background-color: $primary-color;
+  }
 }

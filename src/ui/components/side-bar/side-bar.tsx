@@ -4,6 +4,7 @@ import { SidebarProps } from './side-bar.type';
 import { SidebarButton } from '../side-bar-button';
 import Image from 'next/image';
 import HotstarIcon from '../../../../public/assets/disney-plus-hotstar-logo.svg';
+import Link from 'next/link';
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
 	const { menus, ...otherProps } = props;
@@ -29,7 +30,9 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 				{...otherProps}
 			>
 				<div className={styles.logoContainer}>
-					<Image alt="Disney Hotstar" src={HotstarIcon} />
+					<Link passHref href="/">
+						<Image alt="Disney Hotstar" src={HotstarIcon} />
+					</Link>
 				</div>
 
 				{menus.map((menu) => (

@@ -4,7 +4,7 @@ import styles from './home-main.module.scss';
 const HomeMain: React.FC = () => {
 	return (
 		<PageLayout>
-			<div className={styles.sampleChildren}></div>
+			<div className={styles.sampleChildren}>This is HomeMain</div>
 		</PageLayout>
 	);
 };

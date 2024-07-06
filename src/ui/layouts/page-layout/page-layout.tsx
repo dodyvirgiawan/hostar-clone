@@ -10,7 +10,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
 		<div className={styles.pageLayoutRoot} {...otherProps}>
 			<Sidebar menus={Menus} />
 
-			{children}
+			<main className={styles.childrenContainer}>{children}</main>
 		</div>
 	);
 };
