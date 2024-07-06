@@ -1,6 +1,7 @@
 export * from './button';
 
 export * from './card-movie';
+export * from './card-tv-series';
 
 export * from './render-if';
 

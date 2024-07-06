@@ -1,5 +1,5 @@
-import styles from './card-movie.module.scss';
-import { CardMovieProps } from './card-movie.type';
+import styles from './card-tv-series.module.scss';
+import { CardTvSeriesProps } from './card-tv-series.type';
 import { useState } from 'react';
 import { TMDB_IMG_URL } from '@/constants/api';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ import RemoveIcon from '../../../../public/assets/remove-icon.svg';
 import Link from 'next/link';
 import { ButtonProps } from '../button/button.type';
 
-const CardMovie: React.FC<CardMovieProps> = (props) => {
+const CardTvSeries: React.FC<CardTvSeriesProps> = (props) => {
 	const {
 		id,
 		title,
@@ -52,9 +52,9 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 	};
 
 	return (
-		<Link href={`/movie/${id}`} passHref>
+		<Link href={`/tv-series/${id}`} passHref>
 			<div
-				className={styles.cardMovieRoot}
+				className={styles.cardTvSeriesRoot}
 				onMouseOver={onMouseOver}
 				onMouseOut={onMouseOut}
 				{...otherProps}
@@ -140,4 +140,4 @@ const CardMovie: React.FC<CardMovieProps> = (props) => {
 	);
 };
 
-export default CardMovie;
+export default CardTvSeries;

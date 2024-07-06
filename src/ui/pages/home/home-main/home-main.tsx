@@ -1,7 +1,7 @@
 import { PageLayout } from '@/ui/layouts';
 import styles from './home-main.module.scss';
-import { Button, CardMovie } from '@/ui/components';
-import { sampleMovie } from '../../../../../sample';
+import { Button, CardMovie, CardTvSeries } from '@/ui/components';
+import { sampleMovie, sampleTvSeries } from '../../../../../sample';
 
 const HomeMain: React.FC = () => {
 	return (
@@ -14,6 +14,16 @@ const HomeMain: React.FC = () => {
 						overview={sampleMovie.overview}
 						posterUrl={sampleMovie.poster_path}
 						backdropUrl={sampleMovie.backdrop_path}
+					/>
+				</div>
+
+				<div className={styles.sampleCard}>
+					<CardTvSeries
+						id={sampleTvSeries.id}
+						title={sampleTvSeries.name}
+						overview={sampleTvSeries.overview}
+						posterUrl={sampleTvSeries.poster_path}
+						backdropUrl={sampleTvSeries.backdrop_path}
 					/>
 				</div>
 			</div>
