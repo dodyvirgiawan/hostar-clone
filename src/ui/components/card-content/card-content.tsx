@@ -69,6 +69,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 					>
 						<div className={styles.imageContainerNoExpand}>
 							<Image
+								priority
 								alt={title}
 								layout="fill"
 								objectFit="cover"

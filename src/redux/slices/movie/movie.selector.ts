@@ -21,7 +21,7 @@ export const selectAllSimilarMovies = createSelector(
 	(movie) => movie.similarMovie.ids,
 );
 
-export const selectMovieById = memoize((movieId?: string) =>
+export const selectMovieById = memoize((movieId?: number) =>
 	createSelector(
 		selectEntities,
 		(movieEntities) => movieEntities[movieId || ''] || null,

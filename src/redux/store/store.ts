@@ -28,15 +28,13 @@ const combinedReducer = combineReducers({
 });
 
 // ? https://github.com/kirill-konshin/next-redux-wrapper?tab=readme-ov-file#getserversideprops
+// ? This is used to hydrate the server redux state into the client
 const hydratedReducer = (state: any, action: any) => {
 	if (action.type === HYDRATE) {
 		const nextState = {
 			...state, // use previous state
 			...action.payload, // apply delta from hydration
 		};
-
-		console.log(nextState, '<< nextState');
-		console.log(action.payload, '<< payload');
 
 		return nextState;
 	}

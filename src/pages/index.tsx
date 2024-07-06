@@ -3,7 +3,6 @@ import { HomeMain } from '@/ui/pages/home';
 import { wrapper } from '@/redux/store';
 import { movieApi, trendingApi, tvApi } from '@/redux/services';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { MovieModel, TvModel } from '@/redux/slices';
 
 export interface HomeSSRProps {
 	topRatedMovieIds: string[];
@@ -14,7 +13,7 @@ export interface HomeSSRProps {
 
 // ? If i pass all the movie and tv series object via server, it is around ~150kb, which is higher than threshold.
 // ? https://nextjs.org/docs/messages/large-page-data
-// ? Therefore I only pass the normalized id
+// ? Therefore I only pass the normalized id, and get the required data in client side (the normalized entities is hydrated using next-redux-wrapper, so no need to refetch)
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) =>
 		async ({ req, res }) => {
@@ -68,7 +67,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 const Home = (
 	props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
-	return <HomeMain content={props} />;
+	return <HomeMain data={props} />;
 };
 
 export default Home;

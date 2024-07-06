@@ -21,7 +21,7 @@ export const selectAllSimilarTvs = createSelector(
 	(tv) => tv.similarTv.ids,
 );
 
-export const selectTvById = memoize((tvId?: string) =>
+export const selectTvById = memoize((tvId?: number) =>
 	createSelector(
 		selectEntities,
 		(tvEntities) => tvEntities[tvId || ''] || null,
