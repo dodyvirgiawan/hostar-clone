@@ -64,10 +64,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		},
 ) satisfies GetServerSideProps<HomeSSRProps>;
 
-const Home = (
-	props: InferGetServerSidePropsType<typeof getServerSideProps>,
-) => {
-	return <HomeMain data={props} />;
+const Home = ({ pageProps }: { pageProps: HomeSSRProps }) => {
+	return <HomeMain data={pageProps} />;
 };
 
 export default Home;

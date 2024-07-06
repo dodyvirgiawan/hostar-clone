@@ -7,13 +7,18 @@ import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 const HomeMain: React.FC<HomeMainProps> = (props) => {
 	const { data } = props;
 
-	console.log(data);
+	const {
+		topRatedMovieIds,
+		topRatedTvSeriesIds,
+		trendingMovieOfTheWeekIds,
+		trendingTvSeriesOfTheWeekIds,
+	} = data;
 
 	return (
 		<PageLayout>
 			<div className={styles.homeMainRoot}>
-				{/* <CardCarousel title="Top Rated Movies & TV Series">
-					{topRatedMovieIds?.map((id) => {
+				<CardCarousel title="Top Rated Movies & TV Series">
+					{topRatedMovieIds.map((id) => {
 						return (
 							<div key={id} className={styles.cardWrapper}>
 								<CardMovieWrapper id={Number(id)} mediaType="movie" />
@@ -21,14 +26,14 @@ const HomeMain: React.FC<HomeMainProps> = (props) => {
 						);
 					})}
 
-					{topRatedTvSeriesIds?.map((id) => {
+					{topRatedTvSeriesIds.map((id) => {
 						return (
 							<div key={id} className={styles.cardWrapper}>
 								<CardTvWrapper id={Number(id)} mediaType="tv" />
 							</div>
 						);
 					})}
-				</CardCarousel> */}
+				</CardCarousel>
 			</div>
 		</PageLayout>
 	);
