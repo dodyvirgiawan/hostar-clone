@@ -2,8 +2,13 @@ import { PageLayout } from '@/ui/layouts';
 import styles from './home-main.module.scss';
 import { CardCarousel, CardMovie, CardTvSeries } from '@/ui/components';
 import { sampleMovie, sampleTvSeries } from '../../../../../sample';
+import { HomeMainProps } from './home-main.type';
 
-const HomeMain: React.FC = () => {
+const HomeMain: React.FC<HomeMainProps> = (props) => {
+	const { content } = props;
+
+	console.log(content);
+
 	return (
 		<PageLayout>
 			<div className={styles.homeMainRoot}>

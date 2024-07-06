@@ -7,6 +7,8 @@ import {
 } from '@/redux/services';
 import * as R from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import { AppStore } from './store.type';
 
 // https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#configuring-the-store
 const reducer = combineReducers({
@@ -41,3 +43,9 @@ export const configureStoreWithMiddlewares = () => {
 };
 
 export const store = configureStoreWithMiddlewares();
+
+// https://github.com/kirill-konshin/next-redux-wrapper#redux-toolkit
+export const wrapper = createWrapper<AppStore>(configureStoreWithMiddlewares, {
+	serializeState: (state) => JSON.stringify(state),
+	deserializeState: (state) => JSON.parse(state),
+});
