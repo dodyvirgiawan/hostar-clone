@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { TMDB_IMG_URL } from '@/constants/api';
 import clsx from 'clsx';
-import { getYear } from '@/lib/utils';
 import { useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
 import {
@@ -25,6 +24,7 @@ import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 import { sampleEpisode } from '../../../../../sample';
 import CardEpisode from '@/ui/components/card-episode/card-episode';
 import SeasonsWrapper from '@/ui/components-wrapper/seasons-wrapper/seasons-wrapper';
+import dayjs from 'dayjs';
 
 const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const { data } = props;
@@ -96,7 +96,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 								<div className={styles.detailChipContainer}>
 									<div className={styles.chipItem}>
 										<p className={clsx('font-small', styles.chipText)}>
-											{getYear(tvDetail.first_air_date)}
+											{dayjs(tvDetail.first_air_date).year()}
 										</p>
 									</div>
 

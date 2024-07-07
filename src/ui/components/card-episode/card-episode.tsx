@@ -3,6 +3,7 @@ import { CardEpisodeProps } from './card-episode.type';
 import Image from 'next/image';
 import { TMDB_IMG_URL } from '@/constants/api';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 
 const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 	const {
@@ -43,7 +44,9 @@ const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 					<div className={styles.circleDivider} />
 
 					<div className={styles.chipItem}>
-						<p className={clsx('font-small', styles.chipText)}>{airDate}</p>
+						<p className={clsx('font-small', styles.chipText)}>
+							{dayjs(airDate).format('D MMM YYYY')}
+						</p>
 					</div>
 
 					<div className={styles.circleDivider} />

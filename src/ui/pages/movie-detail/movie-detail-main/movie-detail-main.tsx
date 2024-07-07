@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { TMDB_IMG_URL } from '@/constants/api';
 import clsx from 'clsx';
-import { getYear } from '@/lib/utils';
 import { useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
 import {
@@ -16,11 +15,12 @@ import {
 	Tabs,
 } from '@/ui/components';
 import { tabs } from './movie-detail-main.constant';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
 import AddIcon from '../../../../../public/assets/add-icon.svg';
 import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
+import dayjs from 'dayjs';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { data } = props;
@@ -74,7 +74,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 								<div className={styles.detailChipContainer}>
 									<div className={styles.chipItem}>
 										<p className={clsx('font-small', styles.chipText)}>
-											{getYear(movieDetail.release_date)}
+											{dayjs(movieDetail.release_date).year()}
 										</p>
 									</div>
 
