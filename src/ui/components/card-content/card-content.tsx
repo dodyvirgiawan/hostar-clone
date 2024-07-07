@@ -82,6 +82,12 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								fill
 								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
 							/>
+
+							<div className={styles.titlePlaceholder}>
+								<p className={clsx('font-h3', styles.titlePlaceholderText)}>
+									{title}
+								</p>
+							</div>
 						</div>
 					</div>
 
