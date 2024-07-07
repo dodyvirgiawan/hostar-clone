@@ -2,6 +2,7 @@ export * from './button';
 
 export * from './card-carousel';
 export * from './card-content';
+export * from './card-episode';
 export * from './card-grid';
 
 export * from './render-if';

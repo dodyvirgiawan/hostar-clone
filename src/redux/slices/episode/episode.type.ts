@@ -7,4 +7,5 @@ export interface EpisodeModel {
 	season_number: number;
 	episode_number: number;
 	air_date: string;
+	show_id: string;
 }

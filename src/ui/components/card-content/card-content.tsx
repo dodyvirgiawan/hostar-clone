@@ -105,7 +105,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 						<div className={styles.imageContainer}>
 							<Image
 								sizes="(max-width 1540px) 336px"
-								alt={title}
+								alt={`${title} backdrop`}
 								fill
 								src={`${TMDB_IMG_URL}/w300${backdropUrl}`} // ? Use small image size to improve performance
 							/>

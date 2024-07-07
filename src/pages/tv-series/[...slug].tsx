@@ -36,6 +36,21 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			const recommendedTvStateEntities = store.getState().tv.similarTv;
 			const tvRecommendationIds = recommendedTvStateEntities.ids;
 
+			// ========= 3. Populate episodes of the first season ========
+			// ? We need to pre fetch and populate the first episode selection
+			// ? Because it will be rendered, the other season will be fetched on demand
+			// ? because user might not open them.
+			const seasonEntities = store.getState().season.entities;
+			const firstTvSeasonId = tvDetail.seasons[1]; // ? We don't include season 0 /specials (due to it is usually too large)
+			const firstSeasonDetail = seasonEntities[firstTvSeasonId];
+
+			await store.dispatch(
+				tvApi.endpoints.fetchTvSeasonDetail.initiate({
+					series_id: tvId,
+					season_number: firstSeasonDetail.season_number,
+				}),
+			);
+
 			return {
 				props: {
 					tvDetail: tvDetail,

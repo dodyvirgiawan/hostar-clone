@@ -23,6 +23,8 @@ import AddIcon from '../../../../../public/assets/add-icon.svg';
 import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 import { sampleEpisode } from '../../../../../sample';
+import CardEpisode from '@/ui/components/card-episode/card-episode';
+import SeasonsWrapper from '@/ui/components-wrapper/seasons-wrapper/seasons-wrapper';
 
 const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const { data } = props;
@@ -39,11 +41,14 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const seasonTabs = useMemo<TabItem[]>(() => {
 		if (!tvSeasons) return [];
 
-		return tvSeasons.map((season) => ({
-			id: season.id,
-			value: `season-${season.season_number}`,
-			label: season.name,
-		}));
+		// ? We don't include season 0 / specials (due to it is usually too large)
+		return tvSeasons
+			.filter((season) => season.season_number !== 0)
+			.map((season) => ({
+				id: season.id,
+				value: String(season.season_number),
+				label: season.name,
+			}));
 	}, [tvSeasons]);
 
 	const tvGenreString = tvGenres?.map((item) => item.name);
@@ -203,37 +208,12 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 										currentValue={seasonTabValue}
 									>
 										<div className={styles.episodeContainer}>
-											{/* <CardEpisode
-												posterUrl={sampleEpisode.still_path}
-												name={sampleEpisode.name}
-												season={sampleEpisode.season_number}
-												episode={sampleEpisode.episode_number}
-												duration={sampleEpisode.runtime}
-												airDate={sampleEpisode.air_date}
-												overview={sampleEpisode.overview}
+											<SeasonsWrapper
+												seasonId={Number(season.id)}
+												seasonNumber={Number(season.value)}
+												tvSeriesId={Number(tvDetail.id)}
 											/>
-
-											<CardEpisode
-												posterUrl={sampleEpisode.still_path}
-												name={sampleEpisode.name}
-												season={sampleEpisode.season_number}
-												episode={sampleEpisode.episode_number}
-												duration={sampleEpisode.runtime}
-												airDate={sampleEpisode.air_date}
-												overview={sampleEpisode.overview}
-											/>
-
-											<CardEpisode
-												posterUrl={sampleEpisode.still_path}
-												name={sampleEpisode.name}
-												season={sampleEpisode.season_number}
-												episode={sampleEpisode.episode_number}
-												duration={sampleEpisode.runtime}
-												airDate={sampleEpisode.air_date}
-												overview={sampleEpisode.overview}
-											/> */}
 										</div>
-										{season.label}
 									</TabPanel>
 								);
 							})}

@@ -1,0 +1,77 @@
+@import '@/styles/colors';
+
+.cardEpisodeRoot {
+  padding: 8px 8px 8px 0px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 868px;
+  scale: 1;
+  transition: background-color 0.1s, scale 0.3s;
+
+  &:hover {
+    background-color: $background-darkest;
+    scale: 1.03;
+  }
+
+  .imageContainer {
+    position: relative;
+    height: 124px;
+    width: 220px;
+    min-width: 220px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .contentContainer {
+    padding-left: 32px;
+
+    .nameText {
+      font-weight: 700;
+    }
+
+    .overviewText {
+      margin: 0px;
+    }
+
+    .detailChipContainer {
+      display: flex;
+      align-items: center;
+      color: $common-white;
+
+      .chipText {
+        font-weight: 700;
+      }
+
+      .circleDivider {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        margin: 0px 10px;
+        background-color: $font-dark;
+      }
+    }
+  }
+}
+
+.cardEpisodeLoadingRoot {
+  width: 886px;
+  height: 124px;
+  background-color: $primary-color;
+  border-radius: 4px;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  @keyframes skeleton-loading {
+    0% {
+      background-color:  $primary-color;
+    }
+    100% {
+      background-color: $primary-color-light
+    }
+  }
+}
