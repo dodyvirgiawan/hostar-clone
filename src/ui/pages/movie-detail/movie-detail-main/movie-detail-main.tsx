@@ -62,7 +62,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 					<div className={styles.backdropContainer}>
 						<Image
 							priority
-							alt={title}
+							alt={`${title} backdrop`}
 							fill
 							src={`${TMDB_IMG_URL}/w1280${movieDetail.backdrop_path}`} // ? Use small image size to improve performance
 						/>
