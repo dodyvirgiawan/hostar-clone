@@ -6,3 +6,4 @@ export * from './episode';
 export * from './season';
 export * from './discover';
 export * from './search';
+export * from './watchlist';

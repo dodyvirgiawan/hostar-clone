@@ -25,6 +25,7 @@ const combinedReducer = combineReducers({
 	season: R.seasonReducer,
 	discover: R.discoverReducer,
 	search: R.searchReducer,
+	watchlist: R.watchlistReducer,
 });
 
 // ? https://github.com/kirill-konshin/next-redux-wrapper?tab=readme-ov-file#getserversideprops

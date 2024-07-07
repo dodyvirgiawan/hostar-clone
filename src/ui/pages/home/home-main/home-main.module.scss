@@ -10,9 +10,9 @@
   & > *:not(:first-child) {
     margin-top: 90px;
   }
-}
 
-.cardWrapper {
-  min-width: 232px;
-  max-width: 232px;
+  .cardWrapper {
+    min-width: 232px;
+    max-width: 232px;
+  }
 }
