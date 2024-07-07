@@ -1,0 +1,13 @@
+@import '@/styles/colors';
+
+.homeMainRoot {
+  width: 100%;
+  min-height: 100vh;
+  color: $font-light;
+  padding: 80px 0px 180px;
+  overflow: hidden;
+
+  & > *:not(:first-child) {
+    margin-top: 90px;
+  }
+}
