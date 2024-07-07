@@ -3,14 +3,17 @@ import styles from './tabs.module.scss';
 import { TabsProps } from './tabs.type';
 
 const Tabs: React.FC<TabsProps> = (props) => {
-	const { tabs, onChange, value, ...otherProps } = props;
+	const { tabs, onChange, value, useBorder = true, ...otherProps } = props;
 
 	const onSelect: TabsProps['onChange'] = (value) => {
 		if (onChange) onChange(value);
 	};
 
 	return (
-		<div className={styles.tabsRoot} {...otherProps}>
+		<div
+			className={clsx(styles.tabsRoot, { [styles.tabBorder]: useBorder })}
+			{...otherProps}
+		>
 			{tabs.map((tab) => {
 				return (
 					<div

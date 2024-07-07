@@ -3,7 +3,6 @@
 .tabsRoot {
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid $common-grey-darker;
 
   .tabItem {
     padding: 28px;
@@ -24,4 +23,9 @@
       scale: 1.0;
     }
   }
+}
+
+
+.tabBorder {
+  border-bottom: 1px solid $common-grey-darker;
 }

@@ -12,3 +12,4 @@ export * from './side-bar';
 export * from './side-bar-button';
 
 export * from './tabs';
+export * from './tab-panel';

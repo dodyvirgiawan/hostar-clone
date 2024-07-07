@@ -7,11 +7,20 @@ import { TMDB_IMG_URL } from '@/constants/api';
 import clsx from 'clsx';
 import { getYear } from '@/lib/utils';
 import { useAppSelector } from '@/redux/store';
-import { selectMovieGenresByMovieId } from '@/redux/slices';
-import { CardCarousel, RenderIf, Tabs } from '@/ui/components';
+import * as SL from '@/redux/slices';
+import {
+	Button,
+	CardCarousel,
+	RenderIf,
+	TabPanel,
+	Tabs,
+} from '@/ui/components';
 import { tabs } from './movie-detail-main.constant';
 import { useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
+import AddIcon from '../../../../../public/assets/add-icon.svg';
+import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
+import { useWatchlistStorage } from '@/lib/hooks';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { data } = props;
@@ -19,7 +28,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { movieDetail, movieRecommendationIds } = data;
 
 	const movieGenres = useAppSelector(
-		selectMovieGenresByMovieId(Number(movieDetail.id)),
+		SL.selectMovieGenresByMovieId(Number(movieDetail.id)),
 	);
 
 	const movieGenreString = movieGenres?.map((item) => item.name);
@@ -27,6 +36,16 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 
 	const [tabValue, setTabValue] = useState(tabs[0].value);
 
+	const {
+		handlers: { onAddToWatchlist, onRemoveFromWatchlist },
+		state: { isInWatchlist },
+	} = useWatchlistStorage({
+		currentWatchlistDetail: {
+			id: `movie${movieDetail.id}`,
+			mediaType: 'movie',
+			mediaId: Number(movieDetail.id),
+		},
+	});
 	return (
 		<>
 			<Head>
@@ -103,6 +122,44 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 										);
 									})}
 								</div>
+
+								<div className={styles.buttonContainer}>
+									<RenderIf isTrue={!isInWatchlist}>
+										<Button
+											fullWidth
+											className={styles.button}
+											onClick={onAddToWatchlist}
+										>
+											<div className={styles.logoContainer}>
+												<Image alt="Add to Watchlist" src={AddIcon} />
+											</div>
+
+											<p className={clsx('font-p', styles.buttonText)}>
+												Add to Watchlist
+											</p>
+										</Button>
+									</RenderIf>
+
+									<RenderIf isTrue={isInWatchlist}>
+										<Button
+											fullWidth
+											className={styles.button}
+											onClick={onRemoveFromWatchlist}
+										>
+											<div className={styles.logoContainer}>
+												<Image
+													priority
+													alt="Remove from Watchlist"
+													src={RemoveIcon}
+												/>
+											</div>
+
+											<p className={clsx('font-p', styles.buttonText)}>
+												Remove from Watchlist
+											</p>
+										</Button>
+									</RenderIf>
+								</div>
 							</div>
 						</div>
 
@@ -114,15 +171,17 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 					</div>
 
 					<div className={styles.cardContainer}>
-						<CardCarousel>
-							{movieRecommendationIds.map((id) => {
-								return (
-									<div key={id} className={styles.cardWrapper}>
-										<CardMovieWrapper id={Number(id)} mediaType="movie" />
-									</div>
-								);
-							})}
-						</CardCarousel>
+						<TabPanel value="more-like-this" currentValue={tabValue}>
+							<CardCarousel>
+								{movieRecommendationIds.map((id) => {
+									return (
+										<div key={id} className={styles.cardWrapper}>
+											<CardMovieWrapper id={Number(id)} mediaType="movie" />
+										</div>
+									);
+								})}
+							</CardCarousel>
+						</TabPanel>
 					</div>
 				</div>
 			</PageLayout>

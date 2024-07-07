@@ -10,4 +10,5 @@ export interface TabsProps {
 	tabs: TabItem[];
 	value?: TabItem['value'];
 	onChange?: (value: TabItem['value']) => void;
+	useBorder?: boolean;
 }

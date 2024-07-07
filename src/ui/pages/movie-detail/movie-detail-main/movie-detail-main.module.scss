@@ -21,7 +21,7 @@
       position: relative;
       width: 100%;
       // height: 900px;
-      padding: 400px 0px 0px;
+      padding: 380px 0px 0px;
 
       .movieDetailContent {
         display: flex;
@@ -70,6 +70,26 @@
 
           .language {
             text-transform: uppercase;
+          }
+        }
+
+        .buttonContainer {
+          .button {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            .logoContainer {      
+              img {
+                width: 26px;
+                height: 26px;
+              }
+            }
+    
+            .buttonText {
+              margin-left: 8px;
+            }
           }
         }
       }
