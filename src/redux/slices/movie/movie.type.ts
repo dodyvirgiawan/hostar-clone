@@ -7,6 +7,8 @@ export interface MovieModel {
 	release_date: string;
 	genres?: string[];
 	media_type?: 'movie';
+	runtime: number;
+	original_language: string;
 }
 
 export interface MovieState {

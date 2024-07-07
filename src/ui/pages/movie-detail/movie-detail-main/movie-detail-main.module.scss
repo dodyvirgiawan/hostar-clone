@@ -4,10 +4,90 @@
   width: 100%;
   min-height: 100vh;
   color: $font-light;
-  padding: 80px 0px 180px;
+  padding: 0px 0px 180px;
   overflow: hidden;
 
   & > *:not(:first-child) {
     margin-top: 90px;
+  }
+
+  .backdropContainer {
+    position: relative;
+    height: 900px;
+    width: 100%;
+
+    img {
+      object-fit: cover;
+    }
+
+    .content {
+      z-index: 3;
+      position: relative;
+      width: 100%;
+      height: 900px;
+      padding: 360px 0px;
+
+      .movieDetailContent {
+        display: flex;
+        flex-direction: column;
+        max-width: 480px;
+
+        .overviewText {
+          margin-top: 20px;
+        }
+
+        .detailChipContainer {
+          display: flex;
+          align-items: center;
+
+          .chipText {
+            font-weight: 700;
+          }
+
+          .circleDivider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            margin: 0px 10px;
+            background-color: $font-dark;
+          }
+
+          .language {
+            text-transform: uppercase;
+          }
+        }
+
+        .genreChipContainer {
+          display: flex;
+          align-items: center;
+
+          .chipText {
+            font-weight: 700;
+          }
+
+          .lineDivider {
+            height: 16px;
+            border: 0.2px solid $font-dark;
+            background-color: $font-dark;
+            margin: 0px 10px;
+          }
+
+          .language {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+
+    .ornament {
+      position: absolute;
+      bottom: -2px;
+      z-index: 2;
+      height: 910px;
+      width: 100%;
+      box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
+      -webkit-box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
+      -moz-box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
+    }
   }
 }
