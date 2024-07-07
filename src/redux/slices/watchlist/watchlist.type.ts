@@ -1,5 +1,6 @@
 export interface Watchlist {
-	id: number;
+	id: string;
+	mediaId: number;
 	mediaType: 'movie' | 'tv';
 }
 

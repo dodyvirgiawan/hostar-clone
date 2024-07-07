@@ -10,11 +10,11 @@ const watchlistSlice = createSlice({
 	initialState: watchlistInitialState,
 	reducers: {
 		insertToWatchlist(state, { payload }) {
-			const { id, mediaType } = payload;
+			const { id } = payload;
 			const currentWatchlists = state.watchlists;
 
 			const isAlreadyInWatchlist = !!currentWatchlists.find(
-				(item) => item.id === id && item.mediaType === mediaType,
+				(item) => item.id === id,
 			);
 
 			if (isAlreadyInWatchlist) return;
@@ -24,11 +24,11 @@ const watchlistSlice = createSlice({
 			state.watchlists = newWatchlists;
 		},
 		removeFromWatchlist(state, { payload }) {
-			const { id, mediaType } = payload;
+			const { id } = payload;
 			const currentWatchlists = state.watchlists;
 
 			const newWatchlists = currentWatchlists.filter((item) => {
-				return item.id !== id && item.mediaType !== mediaType;
+				return item.id !== id;
 			});
 
 			state.watchlists = newWatchlists;

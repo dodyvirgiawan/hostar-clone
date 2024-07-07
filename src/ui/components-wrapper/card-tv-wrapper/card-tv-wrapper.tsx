@@ -15,7 +15,7 @@ const CardTvWrapper: React.FC<CardTvWrapperProps> = (props) => {
 		handlers: { onAddToWatchlist, onRemoveFromWatchlist },
 		state: { isInWatchlist },
 	} = useWatchlistStorage({
-		currentWatchlistDetail: { id, mediaType },
+		currentWatchlistDetail: { id: `${mediaType}${id}`, mediaType, mediaId: id },
 	});
 
 	// ? If for some reason when reaching this component, data is not yet upserted to slice

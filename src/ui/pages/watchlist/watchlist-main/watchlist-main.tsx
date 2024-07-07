@@ -38,7 +38,7 @@ const WatchlistMain: React.FC = () => {
 									return (
 										<div key={item.id} className={styles.cardWrapper}>
 											<CardMovieWrapper
-												id={Number(item.id)}
+												id={Number(item.mediaId)}
 												mediaType="movie"
 											/>
 										</div>
@@ -46,7 +46,7 @@ const WatchlistMain: React.FC = () => {
 								} else if (item.mediaType === 'tv') {
 									return (
 										<div key={item.id} className={styles.cardWrapper}>
-											<CardTvWrapper id={Number(item.id)} mediaType="tv" />
+											<CardTvWrapper id={Number(item.mediaId)} mediaType="tv" />
 										</div>
 									);
 								}

@@ -9,7 +9,7 @@ const useWatchlistStorage = ({
 }: {
 	currentWatchlistDetail: Watchlist;
 }) => {
-	const { id, mediaType } = currentWatchlistDetail;
+	const { id, mediaType, mediaId } = currentWatchlistDetail;
 
 	const dispatch = useAppDispatch();
 
@@ -29,19 +29,22 @@ const useWatchlistStorage = ({
 	const handleRemoveFromWatchlist = () => {
 		dispatch(SL.removeFromWatchlist(currentWatchlistDetail));
 
-		const newWatchlists = currentWatchlist.filter(
-			(item) => item.id !== id && item.mediaType !== mediaType,
-		);
+		const newWatchlists = currentWatchlist.filter((item) => item.id !== id);
+
+		console.log({
+			currentWatchlist,
+			newWatchlists,
+			currentWatchlistDetail,
+			id,
+			mediaType,
+		});
 
 		localStorage.setItem('myWatchlist', JSON.stringify(newWatchlists));
 	};
 
 	const isInWatchlist = useMemo(
-		() =>
-			!!currentWatchlist.find(
-				(item) => item.id === id && item.mediaType === mediaType,
-			),
-		[currentWatchlist, id, mediaType],
+		() => !!currentWatchlist.find((item) => item.id === id),
+		[currentWatchlist, id],
 	);
 
 	return {
