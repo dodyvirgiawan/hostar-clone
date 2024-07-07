@@ -120,4 +120,17 @@
       max-width: 232px;
     }
   }
+
+  .seasonTabContainer {
+    padding: 28px;
+
+    .episodeContainer {
+      display: flex;
+      flex-direction: column;
+
+      & > *:not(:first-child) {
+        margin-top: 16px;
+      } 
+    }
+  }
 }

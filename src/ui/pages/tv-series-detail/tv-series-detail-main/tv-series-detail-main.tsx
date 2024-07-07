@@ -22,6 +22,7 @@ import { CardTvWrapper } from '@/ui/components-wrapper';
 import AddIcon from '../../../../../public/assets/add-icon.svg';
 import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
+import { sampleEpisode } from '../../../../../sample';
 
 const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const { data } = props;
@@ -192,6 +193,51 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 							value={seasonTabValue}
 							onChange={setSeasonTabValue}
 						/>
+
+						<div className={styles.seasonTabContainer}>
+							{seasonTabs.map((season) => {
+								return (
+									<TabPanel
+										key={season.id}
+										value={season.value}
+										currentValue={seasonTabValue}
+									>
+										<div className={styles.episodeContainer}>
+											{/* <CardEpisode
+												posterUrl={sampleEpisode.still_path}
+												name={sampleEpisode.name}
+												season={sampleEpisode.season_number}
+												episode={sampleEpisode.episode_number}
+												duration={sampleEpisode.runtime}
+												airDate={sampleEpisode.air_date}
+												overview={sampleEpisode.overview}
+											/>
+
+											<CardEpisode
+												posterUrl={sampleEpisode.still_path}
+												name={sampleEpisode.name}
+												season={sampleEpisode.season_number}
+												episode={sampleEpisode.episode_number}
+												duration={sampleEpisode.runtime}
+												airDate={sampleEpisode.air_date}
+												overview={sampleEpisode.overview}
+											/>
+
+											<CardEpisode
+												posterUrl={sampleEpisode.still_path}
+												name={sampleEpisode.name}
+												season={sampleEpisode.season_number}
+												episode={sampleEpisode.episode_number}
+												duration={sampleEpisode.runtime}
+												airDate={sampleEpisode.air_date}
+												overview={sampleEpisode.overview}
+											/> */}
+										</div>
+										{season.label}
+									</TabPanel>
+								);
+							})}
+						</div>
 					</TabPanel>
 
 					<TabPanel value="more-like-this" currentValue={tabValue}>

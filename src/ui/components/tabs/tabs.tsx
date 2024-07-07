@@ -24,7 +24,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
 						onClick={() => onSelect(tab.value)}
 					>
 						<p
-							className={clsx('font-p', styles.tabLabelText, {
+							className={clsx('font-h5', styles.tabLabelText, {
 								[styles.selectedText]: value === tab.value,
 								[styles.unselectedText]: value !== tab.value,
 							})}
