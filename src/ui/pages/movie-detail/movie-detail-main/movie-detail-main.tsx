@@ -16,14 +16,16 @@ import {
 	Tabs,
 } from '@/ui/components';
 import { tabs } from './movie-detail-main.constant';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
 import AddIcon from '../../../../../public/assets/add-icon.svg';
 import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
-import { useWatchlistStorage } from '@/lib/hooks';
+import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { data } = props;
+
+	const { loading } = usePopulateWatchlist();
 
 	const { movieDetail, movieRecommendationIds } = data;
 
@@ -126,6 +128,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 								<div className={styles.buttonContainer}>
 									<RenderIf isTrue={!isInWatchlist}>
 										<Button
+											loading={loading}
 											fullWidth
 											className={styles.button}
 											onClick={onAddToWatchlist}
