@@ -7,9 +7,11 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
 
 	return (
 		<div className={styles.cardGridRoot} {...otherProps}>
-			<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
+			<div className={styles.cardGridWrapper}>
+				<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
 
-			<div className={styles.wrapper}>{children}</div>
+				<div className={styles.wrapper}>{children}</div>
+			</div>
 		</div>
 	);
 };

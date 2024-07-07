@@ -37,8 +37,10 @@
 
   input[type="text"] {
     all: unset;
+    caret-color: $common-blue;
+    height: 64px;
 
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     color: inherit;
   }

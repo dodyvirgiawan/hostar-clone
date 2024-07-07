@@ -105,7 +105,11 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 						<div className={styles.contentContainer}>
 							<p className={clsx('font-h5', styles.title)}>{title}</p>
 							<p className={clsx('font-small', styles.overviewText)}>
-								{overview}
+								<RenderIf isTrue={!!overview}>{overview}</RenderIf>
+
+								<RenderIf isTrue={!overview}>
+									This content does not have overview.
+								</RenderIf>
 							</p>
 
 							<RenderIf isTrue={!isInWatchlist}>
