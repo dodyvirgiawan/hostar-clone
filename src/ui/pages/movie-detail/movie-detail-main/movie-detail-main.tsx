@@ -131,7 +131,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 											onClick={onAddToWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image alt="Add to Watchlist" src={AddIcon} />
+												<Image alt="Select" src={AddIcon} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>
@@ -147,11 +147,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 											onClick={onRemoveFromWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image
-													priority
-													alt="Remove from Watchlist"
-													src={RemoveIcon}
-												/>
+												<Image priority alt="Deselect" src={RemoveIcon} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>

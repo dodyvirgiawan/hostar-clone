@@ -12,7 +12,7 @@ const SidebarButton: React.FC<SidebarButtonProps> = (props) => {
 			<Link href={url} passHref>
 				<div className={styles.wrapper} {...otherProps}>
 					<div className={styles.logoContainer}>
-						<Image alt={title} src={icon} />
+						<Image alt={`Go to ${title}`} src={icon} />
 					</div>
 
 					<p

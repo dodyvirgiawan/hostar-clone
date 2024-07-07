@@ -83,7 +83,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 						<div className={styles.imageContainerNoExpand}>
 							<Image
 								sizes="(max-width 1540px) 232px"
-								alt={title}
+								alt={`${title} Poster`}
 								fill
 								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
 							/>
@@ -131,7 +131,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 									loading={buttonLoading}
 								>
 									<div className={styles.logoContainer}>
-										<Image alt="Add to Watchlist" src={AddIcon} />
+										<Image alt="Select" src={AddIcon} />
 									</div>
 
 									<p className={clsx('font-p', styles.buttonText)}>
@@ -148,11 +148,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 									loading={buttonLoading}
 								>
 									<div className={styles.logoContainer}>
-										<Image
-											priority
-											alt="Remove from Watchlist"
-											src={RemoveIcon}
-										/>
+										<Image priority alt="Deselect" src={RemoveIcon} />
 									</div>
 
 									<p className={clsx('font-p', styles.buttonText)}>

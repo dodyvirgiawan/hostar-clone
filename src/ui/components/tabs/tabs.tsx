@@ -11,6 +11,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
 
 	return (
 		<div
+			role="tablist"
 			className={clsx(styles.tabsRoot, { [styles.tabBorder]: useBorder })}
 			{...otherProps}
 		>
