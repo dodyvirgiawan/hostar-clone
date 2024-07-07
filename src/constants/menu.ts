@@ -1,7 +1,5 @@
 import { StaticImageData } from 'next/image';
-import HomeIcon from '../../public/assets/home-icon.svg';
-import SearchIcon from '../../public/assets/search-icon.svg';
-import WatchlistIcon from '../../public/assets/watchlist-icon.svg';
+import { Icon } from './icon';
 
 export interface MenuItem {
 	icon: StaticImageData;
@@ -10,7 +8,7 @@ export interface MenuItem {
 }
 
 export const Menus: MenuItem[] = [
-	{ icon: HomeIcon, title: 'Home', url: '/' },
-	{ icon: SearchIcon, title: 'Search', url: '/search' },
-	{ icon: WatchlistIcon, title: 'Watchlist', url: '/watchlist' },
+	{ icon: Icon.Search, title: 'Search', url: '/search' },
+	{ icon: Icon.Home, title: 'Home', url: '/' },
+	{ icon: Icon.Watchlist, title: 'Watchlist', url: '/watchlist' },
 ];

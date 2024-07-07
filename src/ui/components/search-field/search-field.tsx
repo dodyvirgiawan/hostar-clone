@@ -2,10 +2,9 @@ import clsx from 'clsx';
 import styles from './search-field.module.scss';
 import { SearchFieldProps } from './search-field.type';
 import { ChangeEventHandler } from 'react';
-import SearchIcon from '../../../../public/assets/search-icon.svg';
-import ClearIcon from '../../../../public/assets/clear-icon.svg';
 import Image from 'next/image';
 import { RenderIf } from '../render-if';
+import { Icon } from '@/constants/icon';
 
 const SearchField: React.FC<SearchFieldProps> = (props) => {
 	const { value, onChange, placeholder, ...otherProps } = props;
@@ -21,7 +20,7 @@ const SearchField: React.FC<SearchFieldProps> = (props) => {
 	return (
 		<div className={clsx(styles.searchFieldRoot)} {...otherProps}>
 			<div className={styles.searchIconContainer}>
-				<Image alt="Search" src={SearchIcon} />
+				<Image alt="Search" src={Icon.Search} />
 			</div>
 
 			<input
@@ -38,7 +37,7 @@ const SearchField: React.FC<SearchFieldProps> = (props) => {
 					role="button"
 					onClick={handleClear}
 				>
-					<Image alt="Clear" src={ClearIcon} />
+					<Image alt="Clear" src={Icon.Clear} />
 				</div>
 			</RenderIf>
 		</div>

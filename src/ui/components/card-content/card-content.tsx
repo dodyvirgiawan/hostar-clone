@@ -7,11 +7,10 @@ import clsx from 'clsx';
 import { useDebounce } from '@/lib/hooks';
 import { Button } from '../button';
 import { RenderIf } from '../render-if';
-import AddIcon from '../../../../public/assets/add-icon.svg';
-import RemoveIcon from '../../../../public/assets/remove-icon.svg';
 import Link from 'next/link';
 import { ButtonProps } from '../button/button.type';
 import { generateUrlFromContent } from './card-content.utils';
+import { Icon } from '@/constants/icon';
 
 const CardContent: React.FC<CardContentProps> = (props) => {
 	const {
@@ -131,7 +130,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 									loading={buttonLoading}
 								>
 									<div className={styles.logoContainer}>
-										<Image alt="Select" src={AddIcon} />
+										<Image alt="Select" src={Icon.Add} />
 									</div>
 
 									<p className={clsx('font-p', styles.buttonText)}>
@@ -148,7 +147,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 									loading={buttonLoading}
 								>
 									<div className={styles.logoContainer}>
-										<Image priority alt="Deselect" src={RemoveIcon} />
+										<Image priority alt="Deselect" src={Icon.Remove} />
 									</div>
 
 									<p className={clsx('font-p', styles.buttonText)}>

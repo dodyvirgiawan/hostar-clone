@@ -9,8 +9,8 @@ import { CardContent, CardGrid, RenderIf } from '@/ui/components';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { usePopulateWatchlist } from '@/lib/hooks';
 import Image from 'next/image';
-import NoResultIcon from '../../../../../public/assets/no-result-icon.svg';
 import Link from 'next/link';
+import { Icon } from '@/constants/icon';
 
 const WatchlistMain: React.FC = () => {
 	const watchlists: Watchlist[] = useAppSelector(selectAllWatchlists);
@@ -57,7 +57,7 @@ const WatchlistMain: React.FC = () => {
 							<RenderIf isTrue={watchlists.length === 0}>
 								<div className={styles.noResultContainer}>
 									<div className={styles.noResultImageContainer}>
-										<Image alt="Empty watchlist" src={NoResultIcon} />
+										<Image alt="Empty watchlist" src={Icon.NoResult} />
 									</div>
 
 									<h1 className={clsx(styles.noResultText, 'font-h1')}>

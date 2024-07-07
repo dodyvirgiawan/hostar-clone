@@ -17,14 +17,10 @@ import {
 } from '@/ui/components';
 import { tabs } from './tv-series-detail-main.constant';
 import { useMemo, useState } from 'react';
-import { CardTvWrapper } from '@/ui/components-wrapper';
-import AddIcon from '../../../../../public/assets/add-icon.svg';
-import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
+import { CardEpisodesWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
-import { sampleEpisode } from '../../../../../sample';
-import CardEpisode from '@/ui/components/card-episode/card-episode';
-import SeasonsWrapper from '@/ui/components-wrapper/seasons-wrapper/seasons-wrapper';
 import dayjs from 'dayjs';
+import { Icon } from '@/constants/icon';
 
 const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const { data } = props;
@@ -156,7 +152,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 											onClick={onAddToWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image alt="Select" src={AddIcon} />
+												<Image alt="Select" src={Icon.Add} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>
@@ -172,7 +168,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 											onClick={onRemoveFromWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image priority alt="Deselect" src={RemoveIcon} />
+												<Image priority alt="Deselect" src={Icon.Remove} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>
@@ -208,7 +204,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 										currentValue={seasonTabValue}
 									>
 										<div className={styles.episodeContainer}>
-											<SeasonsWrapper
+											<CardEpisodesWrapper
 												seasonId={Number(season.id)}
 												seasonNumber={Number(season.value)}
 												tvSeriesId={Number(tvDetail.id)}

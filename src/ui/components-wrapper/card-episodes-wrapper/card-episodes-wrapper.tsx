@@ -1,17 +1,16 @@
 import React from 'react';
-import { SeasonsWrapperProps } from './seasons-wrapper.type';
-import { selectEpisodeIdsBySeriesIdAndSeasonId } from '@/redux/slices';
+import { CardEpisodesWrapperProps } from './card-episodes-wrapper.type';
+import { selectEpisodesBySeriesIdAndSeasonId } from '@/redux/slices';
 import { useAppSelector } from '@/redux/store';
-import { CardEpisodeWrapper } from '../card-episode-wrapper';
 import { useFetchTvSeasonDetailQuery } from '@/redux/services';
 import { RenderIf } from '@/ui/components/render-if';
 import { CardEpisode } from '@/ui/components/card-episode';
 
-const SeasonsWrapper: React.FC<SeasonsWrapperProps> = (props) => {
+const CardEpisodesWrapper: React.FC<CardEpisodesWrapperProps> = (props) => {
 	const { seasonId, tvSeriesId, seasonNumber } = props;
 
-	const episodeIds = useAppSelector(
-		selectEpisodeIdsBySeriesIdAndSeasonId(tvSeriesId, seasonId),
+	const episodes = useAppSelector(
+		selectEpisodesBySeriesIdAndSeasonId(tvSeriesId, seasonId),
 	);
 
 	const { isFetching } = useFetchTvSeasonDetailQuery(
@@ -21,15 +20,26 @@ const SeasonsWrapper: React.FC<SeasonsWrapperProps> = (props) => {
 		},
 		{
 			refetchOnMountOrArgChange: true,
-			skip: !!episodeIds.length, // ? This is to prevent fetching whenever first load, because data is already from server (SSR)
+			skip: !!episodes.length, // ? This is to prevent fetching whenever first load, because data is already from server (SSR)
 		},
 	);
 
 	return (
 		<>
 			<RenderIf isTrue={!isFetching}>
-				{episodeIds.map((id) => {
-					return <CardEpisodeWrapper id={Number(id)} key={id} />;
+				{episodes.map((episode) => {
+					return (
+						<CardEpisode
+							key={episode.id}
+							posterUrl={episode.still_path}
+							name={episode.name}
+							season={episode.season_number}
+							episode={episode.episode_number}
+							duration={episode.runtime}
+							airDate={episode.air_date}
+							overview={episode.overview}
+						/>
+					);
 				})}
 			</RenderIf>
 
@@ -56,4 +66,4 @@ const SeasonsWrapper: React.FC<SeasonsWrapperProps> = (props) => {
 	);
 };
 
-export default SeasonsWrapper;
+export default CardEpisodesWrapper;

@@ -17,10 +17,9 @@ import {
 import { tabs } from './movie-detail-main.constant';
 import { useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
-import AddIcon from '../../../../../public/assets/add-icon.svg';
-import RemoveIcon from '../../../../../public/assets/remove-icon.svg';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 import dayjs from 'dayjs';
+import { Icon } from '@/constants/icon';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { data } = props;
@@ -134,7 +133,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 											onClick={onAddToWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image alt="Select" src={AddIcon} />
+												<Image alt="Select" src={Icon.Add} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>
@@ -150,7 +149,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 											onClick={onRemoveFromWatchlist}
 										>
 											<div className={styles.logoContainer}>
-												<Image priority alt="Deselect" src={RemoveIcon} />
+												<Image priority alt="Deselect" src={Icon.Remove} />
 											</div>
 
 											<p className={clsx('font-p', styles.buttonText)}>

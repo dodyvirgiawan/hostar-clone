@@ -10,9 +10,9 @@ import { useDebounce } from '@/lib/hooks';
 import { useMultiSearchQuery } from '@/redux/services';
 import { useAppSelector } from '@/redux/store';
 import { selectSearchedMovieIds, selectSearchedTvIds } from '@/redux/slices';
-import NoResultIcon from '../../../../../public/assets/no-result-icon.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { Icon } from '@/constants/icon';
 
 const SearchMain: React.FC<SearchMainProps> = (props) => {
 	const { data } = props;
@@ -123,7 +123,7 @@ const SearchMain: React.FC<SearchMainProps> = (props) => {
 								>
 									<div className={styles.noResultContainer}>
 										<div className={styles.noResultImageContainer}>
-											<Image alt="Empty search results" src={NoResultIcon} />
+											<Image alt="Empty search results" src={Icon.NoResult} />
 										</div>
 
 										<h1 className={clsx(styles.noResultText, 'font-h1')}>

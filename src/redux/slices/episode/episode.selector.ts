@@ -34,7 +34,7 @@ export const selectEpisodeIdsBySeriesIdAndSeasonId = memoize(
 					if (
 						String(seasonNumber) === String(episode.season_number) &&
 						String(seriesId) === String(episode.show_id) &&
-						seasonNumber !== 0 // for now we don't include seasonNumber 0 because it is too large
+						seasonNumber !== 0 //? for now we don't include seasonNumber 0 / specials because it is too large
 					) {
 						tempEpisodeIds.push(episode.id);
 					}
@@ -44,4 +44,25 @@ export const selectEpisodeIdsBySeriesIdAndSeasonId = memoize(
 			},
 		),
 	(...args) => JSON.stringify(args), // ? for two params functions, in lodash memoize need to define it this way
+);
+
+export const selectEpisodesBySeriesIdAndSeasonId = memoize(
+	(seriesId?: number, seasonId?: number) =>
+		createSelector(
+			[
+				selectEntities,
+				selectEpisodeIdsBySeriesIdAndSeasonId(seriesId, seasonId),
+			],
+			(episodeEntities, episodeIds) => {
+				const episodes = episodeIds.map((id) => episodeEntities[id]);
+
+				// We want to make sure it is sorted by episode number
+				const sortedEpisodes = episodes.sort((a, b) =>
+					a.episode_number > b.episode_number ? 1 : -1,
+				);
+
+				return sortedEpisodes;
+			},
+		),
+	(...args) => JSON.stringify(args),
 );
