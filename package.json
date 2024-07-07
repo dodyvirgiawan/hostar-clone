@@ -19,7 +19,8 @@
     "normalizr": "^3.6.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.6",

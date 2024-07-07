@@ -55,6 +55,10 @@
       position: relative;
       height: 210px;
 
+      img {
+        object-fit: cover;
+      }
+
       .ornament {
         position: absolute;
         bottom: -2px;

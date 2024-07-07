@@ -53,7 +53,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 	};
 
 	return (
-		<Link href={`/${mediaType}/${id}`} passHref>
+		<Link as="" href={`/${mediaType}/${id}`} passHref>
 			<div
 				className={styles.cardContentRoot}
 				onMouseOver={onMouseOver}
@@ -69,10 +69,9 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 					>
 						<div className={styles.imageContainerNoExpand}>
 							<Image
-								priority
+								sizes="(max-width 1540px) 232px"
 								alt={title}
-								layout="fill"
-								objectFit="cover"
+								fill
 								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
 							/>
 						</div>
@@ -86,9 +85,9 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 					>
 						<div className={styles.imageContainer}>
 							<Image
+								sizes="(max-width 1540px) 336px"
 								alt={title}
-								layout="fill"
-								objectFit="cover"
+								fill
 								src={`${TMDB_IMG_URL}/w300${backdropUrl}`} // ? Use small image size to improve performance
 							/>
 
