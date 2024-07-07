@@ -1,0 +1,46 @@
+@import '@/styles/colors';
+
+.searchFieldRoot {
+  background-color: $common-grey-darker;
+  padding: 12px 24px;
+  border-radius: 8px;
+  min-height: 48px;
+  max-height: 48px;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .searchIconContainer {
+    margin-right: 16px;
+
+    img {
+      width: 36px;
+      height: 36px;
+      margin-top: 4px;
+    }
+  }
+
+  .clearIconContainer {
+    cursor: pointer;
+    padding: 10px;
+
+    img {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .inputRoot {
+    width: 100% !important;
+    color: $font-normal;
+  }
+
+  input[type="text"] {
+    all: unset;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: inherit;
+  }
+}
+

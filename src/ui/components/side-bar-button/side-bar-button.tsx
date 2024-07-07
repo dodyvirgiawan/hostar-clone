@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styles from './side-bar-button.module.scss';
 import { SidebarButtonProps } from './side-bar-button.type';
 import clsx from 'clsx';
-import { RenderIf } from '../render-if';
 import Link from 'next/link';
 
 const SidebarButton: React.FC<SidebarButtonProps> = (props) => {

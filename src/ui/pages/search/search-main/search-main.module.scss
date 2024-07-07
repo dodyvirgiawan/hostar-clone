@@ -1,14 +1,22 @@
 @import '@/styles/colors';
 
-.homeMainRoot {
+.searchMainRoot {
   width: 100%;
   min-height: 100vh;
   color: $font-light;
   padding: 80px 0px 180px;
   overflow: hidden;
 
-  & > *:not(:first-child) {
-    margin-top: 90px;
+  .searchFieldWrapper {
+    padding-right: 140px;
+  }
+
+  .cardGridWrapper {
+    margin-top: 80px;
+
+    & > *:not(:first-child) {
+      margin-top: 90px;
+    }
   }
 }
 

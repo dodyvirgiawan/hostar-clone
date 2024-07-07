@@ -13,3 +13,7 @@ body,
 #__next {
 	height: 100%;
 }
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color:    #8d96b0;
+}

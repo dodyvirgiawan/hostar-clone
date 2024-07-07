@@ -9,4 +9,5 @@ export interface CardContentProps {
 	onAddToWatchlistClick?: () => void;
 	onRemoveFromWatchlistClick?: () => void;
 	buttonLoading?: boolean;
+	loading?: boolean;
 }

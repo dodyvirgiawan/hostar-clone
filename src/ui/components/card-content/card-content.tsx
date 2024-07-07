@@ -22,6 +22,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 		mediaType,
 		isInWatchlist = false,
 		buttonLoading = false,
+		loading = false,
 		onAddToWatchlistClick,
 		onRemoveFromWatchlistClick,
 		...otherProps
@@ -51,6 +52,13 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 
 		if (onRemoveFromWatchlistClick) onRemoveFromWatchlistClick();
 	};
+
+	if (loading)
+		return (
+			<div className={styles.cardContentRoot}>
+				<div className={styles.noExpandLoading} />
+			</div>
+		);
 
 	return (
 		<Link as="" href={`/${mediaType}/${id}`} passHref>
