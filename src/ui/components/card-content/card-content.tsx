@@ -11,6 +11,7 @@ import AddIcon from '../../../../public/assets/add-icon.svg';
 import RemoveIcon from '../../../../public/assets/remove-icon.svg';
 import Link from 'next/link';
 import { ButtonProps } from '../button/button.type';
+import { generateUrlFromContent } from './card-content.utils';
 
 const CardContent: React.FC<CardContentProps> = (props) => {
 	const {
@@ -61,7 +62,11 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 		);
 
 	return (
-		<Link as="" href={`/${mediaType}/${id}`} passHref>
+		<Link
+			as=""
+			href={generateUrlFromContent({ id, mediaType, title })}
+			passHref
+		>
 			<div
 				className={styles.cardContentRoot}
 				onMouseOver={onMouseOver}

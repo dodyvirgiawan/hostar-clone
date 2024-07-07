@@ -1,7 +1,9 @@
+export type MediaType = 'movie' | 'tv';
+
 export interface Watchlist {
 	id: string;
 	mediaId: number;
-	mediaType: 'movie' | 'tv';
+	mediaType: MediaType;
 }
 
 export interface WatchlistInitialState {
