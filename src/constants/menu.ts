@@ -10,7 +10,7 @@ export interface MenuItem {
 }
 
 export const Menus: MenuItem[] = [
-	{ icon: HomeIcon, title: 'Search', url: '/search' },
-	{ icon: SearchIcon, title: 'Home', url: '/' },
+	{ icon: HomeIcon, title: 'Home', url: '/' },
+	{ icon: SearchIcon, title: 'Search', url: '/search' },
 	{ icon: WatchlistIcon, title: 'Watchlist', url: '/watchlist' },
 ];
