@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { discoverApi } from '@/redux/services';
 import * as T from './watchlist.type';
 
 const watchlistInitialState: T.WatchlistInitialState = {
@@ -28,9 +27,9 @@ const watchlistSlice = createSlice({
 			const { id, mediaType } = payload;
 			const currentWatchlists = state.watchlists;
 
-			const newWatchlists = currentWatchlists.filter(
-				(item) => item.id !== id && item.mediaType !== mediaType,
-			);
+			const newWatchlists = currentWatchlists.filter((item) => {
+				return item.id !== id && item.mediaType !== mediaType;
+			});
 
 			state.watchlists = newWatchlists;
 		},

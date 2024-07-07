@@ -32,6 +32,7 @@ const useWatchlistStorage = ({
 		const newWatchlists = currentWatchlist.filter(
 			(item) => item.id !== id && item.mediaType !== mediaType,
 		);
+
 		localStorage.setItem('myWatchlist', JSON.stringify(newWatchlists));
 	};
 
