@@ -21,6 +21,11 @@ const HomeMain: React.FC<HomeMainProps> = (props) => {
 				<title>Disney+ Hotstar | Stream your favourite stories and more</title>
 
 				<meta
+					content="Disney+ Hotstar | Stream your favourite stories and more"
+					name="title"
+				/>
+
+				<meta
 					content="Subscribe now to watch Disney, Pixar, Marvel, Star Wars, National Geographic and Star."
 					name="description"
 				/>
