@@ -10,7 +10,10 @@ const usePopulateWatchlist = () => {
 	useEffect(() => {
 		const rawWatchlist = localStorage.getItem('myWatchlist') || '';
 
-		if (!rawWatchlist) return;
+		if (!rawWatchlist) {
+			localStorage.setItem('myWatchlist', JSON.stringify([]));
+			return;
+		}
 
 		const myWatchlist = JSON.parse(rawWatchlist);
 		dispatch(setWatchlist(myWatchlist));
