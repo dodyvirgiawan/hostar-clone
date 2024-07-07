@@ -1,22 +1,55 @@
 import clsx from 'clsx';
-import styles from './card-carousel.module.scss';
-import { CardCarouselProps } from './card-carousel.type';
+import styles from './card-grid.module.scss';
+import { CardGridProps } from './card-grid.type';
 import ForwardIcon from '../../../../public/assets/arrow-forward.svg';
 import BackIcon from '../../../../public/assets/arrow-back.svg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { RenderIf } from '../render-if';
-import { useCardCarouselLogic } from './use-card-carousel-logic';
 
-const CardCarousel: React.FC<CardCarouselProps> = (props) => {
+const CardGrid: React.FC<CardGridProps> = (props) => {
 	const { title, children, ...otherProps } = props;
 
-	const {
-		handlers: { scrollNext, scrollPrev },
-		state: { renderNextArrow, renderPrevArrow, containerRef, scrollOffset },
-	} = useCardCarouselLogic();
-
 	const [hovered, setIsHovered] = useState(false);
+
+	const [scrollOffset, setScrollOffset] = useState(0);
+	const [maxScrollOffset, setMaxScrollOffset] = useState(0);
+
+	const cardContainerRef = useRef<HTMLDivElement>(null);
+
+	const renderPrevArrow = useMemo(() => scrollOffset < 0, [scrollOffset]);
+	const renderNextArrow = useMemo(
+		() => scrollOffset > maxScrollOffset,
+		[scrollOffset, maxScrollOffset],
+	);
+
+	useEffect(() => {
+		if (!cardContainerRef.current) return;
+
+		const maxOffset =
+			cardContainerRef.current.scrollWidth -
+			cardContainerRef.current.clientWidth;
+
+		setMaxScrollOffset(-maxOffset);
+	}, [cardContainerRef]);
+
+	const scrollNext = () => {
+		if (!cardContainerRef.current) return;
+
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
+
+		setScrollOffset((prevOffset) =>
+			Math.max(prevOffset - scrollAmount, maxScrollOffset),
+		);
+	};
+
+	const scrollPrev = () => {
+		if (!cardContainerRef.current) return;
+
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
+
+		setScrollOffset((prevOffset) => Math.min(prevOffset + scrollAmount, 0));
+	};
 
 	const onMouseOver = () => {
 		setIsHovered(true);
@@ -28,7 +61,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 
 	return (
 		<div
-			className={styles.cardCarouselRoot}
+			className={styles.cardGridRoot}
 			onMouseOver={onMouseOver}
 			onMouseOut={onMouseOut}
 			{...otherProps}
@@ -39,7 +72,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 				<div className={styles.cardWrapper}>
 					<div
 						className={styles.cardContainer}
-						ref={containerRef}
+						ref={cardContainerRef}
 						style={{
 							transform: `translateX(${scrollOffset}px)`,
 							transition: 'transform 0.3s ease-in-out',
@@ -81,4 +114,4 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	);
 };
 
-export default CardCarousel;
+export default CardGrid;

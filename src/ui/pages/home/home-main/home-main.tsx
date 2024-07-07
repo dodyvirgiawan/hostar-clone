@@ -4,6 +4,7 @@ import { CardCarousel } from '@/ui/components';
 import { HomeMainProps } from './home-main.type';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import Head from 'next/head';
+import { Meta } from '@/constants/meta';
 
 const HomeMain: React.FC<HomeMainProps> = (props) => {
 	const { data } = props;
@@ -18,17 +19,10 @@ const HomeMain: React.FC<HomeMainProps> = (props) => {
 	return (
 		<>
 			<Head>
-				<title>Disney+ Hotstar | Stream your favourite stories and more</title>
+				<title>{Meta.home.title}</title>
 
-				<meta
-					content="Disney+ Hotstar | Stream your favourite stories and more"
-					name="title"
-				/>
-
-				<meta
-					content="Subscribe now to watch Disney, Pixar, Marvel, Star Wars, National Geographic and Star."
-					name="description"
-				/>
+				<meta content={Meta.home.title} name="title" />
+				<meta content={Meta.home.description} name="description" />
 			</Head>
 
 			<PageLayout>
