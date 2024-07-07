@@ -1,9 +1,11 @@
 import { setWatchlist } from '@/redux/slices';
 import { useAppDispatch } from '@/redux/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const usePopulateWatchlist = () => {
 	const dispatch = useAppDispatch();
+
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const rawWatchlist = localStorage.getItem('myWatchlist') || '';
@@ -12,7 +14,10 @@ const usePopulateWatchlist = () => {
 
 		const myWatchlist = JSON.parse(rawWatchlist);
 		dispatch(setWatchlist(myWatchlist));
+		setLoading(false);
 	}, [dispatch]);
+
+	return { loading };
 };
 
 export default usePopulateWatchlist;

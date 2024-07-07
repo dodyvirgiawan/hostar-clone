@@ -46,6 +46,11 @@
       .noResultDetailText {
         color: $font-normal;
         text-align: center;
+
+        .searchTextCTA {
+          color: $common-blue;
+          text-decoration: underline;
+        }
       }
     }
   }

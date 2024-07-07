@@ -37,6 +37,10 @@ const hydratedReducer = (state: any, action: any) => {
 			...action.payload, // apply delta from hydration
 		};
 
+		// ? We need to preserve the watchlist that is obtained from the localStorage on Client Side
+		// ? This is to prevent the watchlist is empty when navigating to other site
+		if (state.watchlist) nextState.watchlist = state.watchlist;
+
 		return nextState;
 	}
 	return combinedReducer(state, action);
