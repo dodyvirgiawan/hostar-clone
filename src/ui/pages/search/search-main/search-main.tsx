@@ -95,7 +95,7 @@ const SearchMain: React.FC<SearchMainProps> = (props) => {
 
 							<RenderIf isTrue={!isFetching}>
 								<RenderIf isTrue={searchedMovieIds.length > 0}>
-									<CardGrid title="Movie">
+									<CardGrid title="Movies">
 										{searchedMovieIds.map((id: string) => {
 											return (
 												<div key={id} className={styles.cardWrapper}>
