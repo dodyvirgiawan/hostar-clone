@@ -7,6 +7,8 @@ export interface TvModel {
 	first_air_date: string;
 	genres?: string[];
 	media_type?: 'tv';
+	seasons: string[];
+	original_language: string;
 }
 
 export interface TvState {

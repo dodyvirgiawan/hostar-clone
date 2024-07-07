@@ -46,8 +46,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		},
 ) satisfies GetServerSideProps<MovieDetailSSRProps>;
 
-const Search = ({ pageProps }: { pageProps: MovieDetailSSRProps }) => {
+const MovieDetail = ({ pageProps }: { pageProps: MovieDetailSSRProps }) => {
 	return <MovieDetailMain data={pageProps} />;
 };
 
-export default Search;
+export default MovieDetail;
