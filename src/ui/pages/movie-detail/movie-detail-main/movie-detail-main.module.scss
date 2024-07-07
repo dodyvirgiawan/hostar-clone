@@ -7,10 +7,6 @@
   padding: 0px 0px 180px;
   overflow: hidden;
 
-  & > *:not(:first-child) {
-    margin-top: 90px;
-  }
-
   .backdropContainer {
     position: relative;
     height: 900px;
@@ -24,8 +20,8 @@
       z-index: 3;
       position: relative;
       width: 100%;
-      height: 900px;
-      padding: 360px 0px;
+      // height: 900px;
+      padding: 400px 0px 0px;
 
       .movieDetailContent {
         display: flex;
@@ -88,6 +84,20 @@
       box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
       -webkit-box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
       -moz-box-shadow: 300px -180px 370px 100px rgba(15,16,20,1) inset;
+    }
+  }
+
+  .tabContainer {
+    z-index: 70;
+    margin-top: 16px;
+  }
+
+  .cardContainer {
+    padding: 48px 0px;
+
+    .cardWrapper {
+      min-width: 232px;
+      max-width: 232px;
     }
   }
 }

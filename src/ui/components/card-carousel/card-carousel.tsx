@@ -33,7 +33,9 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 			onMouseOut={onMouseOut}
 			{...otherProps}
 		>
-			<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
+			<RenderIf isTrue={!!title}>
+				<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
+			</RenderIf>
 
 			<div className={styles.wrapper}>
 				<div className={styles.cardWrapper}>

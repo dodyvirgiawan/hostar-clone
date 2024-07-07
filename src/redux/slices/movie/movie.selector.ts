@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { movieAdapter } from './movie.slice';
 import memoize from 'lodash/memoize';
 
-export const selectMovie = (state: RootState) => state.movie;
+const selectMovie = (state: RootState) => state.movie;
 
 const { selectEntities, selectAll } = movieAdapter.getSelectors<RootState>(
 	(state) => state.movie,

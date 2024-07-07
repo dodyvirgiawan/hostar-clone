@@ -6,7 +6,7 @@ import { GetServerSideProps } from 'next';
 
 export interface MovieDetailSSRProps {
 	movieDetail: MovieModel;
-	movieRecommendationIds: MovieModel[];
+	movieRecommendationIds: string[];
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(

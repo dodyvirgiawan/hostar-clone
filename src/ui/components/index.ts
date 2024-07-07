@@ -10,3 +10,5 @@ export * from './search-field';
 
 export * from './side-bar';
 export * from './side-bar-button';
+
+export * from './tabs';

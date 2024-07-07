@@ -8,7 +8,10 @@ import clsx from 'clsx';
 import { getYear } from '@/lib/utils';
 import { useAppSelector } from '@/redux/store';
 import { selectMovieGenresByMovieId } from '@/redux/slices';
-import { RenderIf } from '@/ui/components';
+import { CardCarousel, RenderIf, Tabs } from '@/ui/components';
+import { tabs } from './movie-detail-main.constant';
+import { useState } from 'react';
+import { CardMovieWrapper } from '@/ui/components-wrapper';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 	const { data } = props;
@@ -21,6 +24,8 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 
 	const movieGenreString = movieGenres?.map((item) => item.name);
 	const title = `${movieDetail.title} full movie. ${movieGenreString?.join(' ')} film in Disney Hotstar+`;
+
+	const [tabValue, setTabValue] = useState(tabs[0].value);
 
 	return (
 		<>
@@ -102,6 +107,22 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 						</div>
 
 						<div className={styles.ornament} />
+					</div>
+
+					<div className={styles.tabContainer}>
+						<Tabs tabs={tabs} value={tabValue} onChange={setTabValue} />
+					</div>
+
+					<div className={styles.cardContainer}>
+						<CardCarousel>
+							{movieRecommendationIds.map((id) => {
+								return (
+									<div key={id} className={styles.cardWrapper}>
+										<CardMovieWrapper id={Number(id)} mediaType="movie" />
+									</div>
+								);
+							})}
+						</CardCarousel>
 					</div>
 				</div>
 			</PageLayout>

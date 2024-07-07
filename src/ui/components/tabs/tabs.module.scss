@@ -1,0 +1,27 @@
+@import '@/styles/colors';
+
+.tabsRoot {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid $common-grey-darker;
+
+  .tabItem {
+    padding: 28px;
+    cursor: pointer;
+
+    .tabLabelText {
+      font-weight: 800;
+      transition: scale 0.5s;
+    }
+
+    .selectedText {
+      color: $font-light;
+      scale: 1.06;
+    }
+
+    .unselectedText {
+      color: $font-dark;
+      scale: 1.0;
+    }
+  }
+}
