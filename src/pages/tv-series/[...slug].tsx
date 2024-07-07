@@ -5,7 +5,7 @@ import { TvSeriesDetailMain } from '@/ui/pages/tv-series-detail';
 import { GetServerSideProps } from 'next';
 
 export interface TvDetailSSRProps {
-	tvDetail: TvModel;
+	tvDetail: Omit<TvModel, 'poster_path' | 'seasons'>;
 	tvRecommendationIds: string[];
 }
 
@@ -23,7 +23,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			);
 
 			const tvStateEntities = store.getState().tv.entities;
-			const tvDetail = tvStateEntities[tvId];
+			const tvDetail: TvModel = tvStateEntities[tvId];
 
 			// ========= 2. Tv Recommendations =========
 			await store.dispatch(
@@ -56,9 +56,27 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				}),
 			);
 
+			// ? We want to send essential data only to reduce size and improve performance
+			const {
+				id,
+				backdrop_path,
+				first_air_date,
+				name,
+				original_language,
+				overview,
+				...restTvDetail
+			} = tvDetail;
+
 			return {
 				props: {
-					tvDetail: tvDetail,
+					tvDetail: {
+						id,
+						backdrop_path,
+						first_air_date,
+						name,
+						original_language,
+						overview,
+					},
 					tvRecommendationIds,
 				},
 			};

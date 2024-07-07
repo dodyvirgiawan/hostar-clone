@@ -5,7 +5,7 @@ import { MovieDetailMain } from '@/ui/pages/movie-detail';
 import { GetServerSideProps } from 'next';
 
 export interface MovieDetailSSRProps {
-	movieDetail: MovieModel;
+	movieDetail: Omit<MovieModel, 'poster_path'>;
 	movieRecommendationIds: string[];
 }
 
@@ -24,7 +24,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			);
 
 			const movieStateEntities = store.getState().movie.entities;
-			const movieDetail = movieStateEntities[movieId];
+			const movieDetail: MovieModel = movieStateEntities[movieId];
 
 			// ========= 2. Movie Recommendations =========
 			await store.dispatch(
@@ -37,9 +37,29 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			const recommendedMovieStateEntities = store.getState().movie.similarMovie;
 			const movieRecommendationIds = recommendedMovieStateEntities.ids;
 
+			// ? We want to send essential data only to reduce size and improve performance
+			const {
+				id,
+				backdrop_path,
+				title,
+				original_language,
+				overview,
+				release_date,
+				runtime,
+				...restMovieDetail
+			} = movieDetail;
+
 			return {
 				props: {
-					movieDetail: movieDetail,
+					movieDetail: {
+						id,
+						backdrop_path,
+						title,
+						original_language,
+						overview,
+						release_date,
+						runtime,
+					},
 					movieRecommendationIds,
 				},
 			};
