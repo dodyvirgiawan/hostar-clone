@@ -1,55 +1,12 @@
 import clsx from 'clsx';
 import styles from './card-grid.module.scss';
 import { CardGridProps } from './card-grid.type';
-import ForwardIcon from '../../../../public/assets/arrow-forward.svg';
-import BackIcon from '../../../../public/assets/arrow-back.svg';
-import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { RenderIf } from '../render-if';
+import { useState } from 'react';
 
 const CardGrid: React.FC<CardGridProps> = (props) => {
 	const { title, children, ...otherProps } = props;
 
 	const [hovered, setIsHovered] = useState(false);
-
-	const [scrollOffset, setScrollOffset] = useState(0);
-	const [maxScrollOffset, setMaxScrollOffset] = useState(0);
-
-	const cardContainerRef = useRef<HTMLDivElement>(null);
-
-	const renderPrevArrow = useMemo(() => scrollOffset < 0, [scrollOffset]);
-	const renderNextArrow = useMemo(
-		() => scrollOffset > maxScrollOffset,
-		[scrollOffset, maxScrollOffset],
-	);
-
-	useEffect(() => {
-		if (!cardContainerRef.current) return;
-
-		const maxOffset =
-			cardContainerRef.current.scrollWidth -
-			cardContainerRef.current.clientWidth;
-
-		setMaxScrollOffset(-maxOffset);
-	}, [cardContainerRef]);
-
-	const scrollNext = () => {
-		if (!cardContainerRef.current) return;
-
-		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
-
-		setScrollOffset((prevOffset) =>
-			Math.max(prevOffset - scrollAmount, maxScrollOffset),
-		);
-	};
-
-	const scrollPrev = () => {
-		if (!cardContainerRef.current) return;
-
-		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
-
-		setScrollOffset((prevOffset) => Math.min(prevOffset + scrollAmount, 0));
-	};
 
 	const onMouseOver = () => {
 		setIsHovered(true);
@@ -68,48 +25,7 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
 		>
 			<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
 
-			<div className={styles.wrapper}>
-				<div className={styles.cardWrapper}>
-					<div
-						className={styles.cardContainer}
-						ref={cardContainerRef}
-						style={{
-							transform: `translateX(${scrollOffset}px)`,
-							transition: 'transform 0.3s ease-in-out',
-						}}
-					>
-						{children}
-					</div>
-				</div>
-
-				<RenderIf isTrue={renderPrevArrow}>
-					<div
-						onClick={scrollPrev}
-						className={clsx(styles.leftArrowContainer, {
-							[styles.hide]: !hovered,
-							[styles.show]: !!hovered,
-						})}
-					>
-						<div className={styles.logoContainer}>
-							<Image alt="Previous" src={BackIcon} />
-						</div>
-					</div>
-				</RenderIf>
-
-				<RenderIf isTrue={renderNextArrow}>
-					<div
-						onClick={scrollNext}
-						className={clsx(styles.rightArrowContainer, {
-							[styles.hide]: !hovered,
-							[styles.show]: !!hovered,
-						})}
-					>
-						<div className={styles.logoContainer}>
-							<Image alt="Next" src={ForwardIcon} />
-						</div>
-					</div>
-				</RenderIf>
-			</div>
+			<div className={styles.wrapper}>CardGrid</div>
 		</div>
 	);
 };
