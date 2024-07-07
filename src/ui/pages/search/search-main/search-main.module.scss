@@ -19,11 +19,12 @@
     }
 
     .noResultContainer {
-      padding-right: 140px;
+      margin-right: 140px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      overflow: hidden;
 
       .noResultText {
         margin-top: 4px;
