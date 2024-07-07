@@ -9,6 +9,16 @@ const CardTvWrapper: React.FC<CardTvWrapperProps> = (props) => {
 
 	const tvDetail = useAppSelector(selectTvById(id));
 
+	const handleAddToWatchlist = () => {
+		//...
+	};
+
+	const handleRemoveFromWatchlist = () => {
+		// ...
+	};
+
+	if (!tvDetail) return null;
+
 	return (
 		<CardContent
 			id={Number(id)}
@@ -17,6 +27,8 @@ const CardTvWrapper: React.FC<CardTvWrapperProps> = (props) => {
 			overview={tvDetail.overview}
 			posterUrl={tvDetail.poster_path}
 			title={tvDetail.name}
+			onAddToWatchlistClick={handleAddToWatchlist}
+			onRemoveFromWatchlistClick={handleRemoveFromWatchlist}
 			{...otherProps}
 		/>
 	);

@@ -10,12 +10,14 @@ const CardMovieWrapper: React.FC<CardMovieWrapperProps> = (props) => {
 	const movieDetail = useAppSelector(selectMovieById(id));
 
 	const handleAddToWatchlist = () => {
-		console.log('add watchlist');
+		//...
 	};
 
 	const handleRemoveFromWatchlist = () => {
-		console.log('remove watchlist');
+		// ...
 	};
+
+	if (!movieDetail) return null;
 
 	return (
 		<CardContent
