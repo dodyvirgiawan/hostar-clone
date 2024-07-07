@@ -104,7 +104,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 
 									<div className={styles.chipItem}>
 										<p className={clsx('font-small', styles.chipText)}>
-											{tvDetail.seasons.length} Season
+											{seasonTabs.length} Season
 										</p>
 									</div>
 

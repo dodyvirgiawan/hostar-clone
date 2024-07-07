@@ -41,7 +41,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			// ? Because it will be rendered, the other season will be fetched on demand
 			// ? because user might not open them.
 			const seasonEntities = store.getState().season.entities;
-			const firstTvSeasonId = tvDetail.seasons[1]; // ? We don't include season 0 /specials (due to it is usually too large)
+
+			// ? We don't include season 0 / specials (due to it is usually too large)
+			const totalSeasons = tvDetail.seasons.length;
+			const firstTvSeasonId =
+				totalSeasons > 1 ? tvDetail.seasons[1] : tvDetail.seasons[0];
+
 			const firstSeasonDetail = seasonEntities[firstTvSeasonId];
 
 			await store.dispatch(
