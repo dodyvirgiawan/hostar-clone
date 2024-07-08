@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
 import {
 	usePopulateWatchlist,
-	useScrollPosition,
+	useScrollCoefficient,
 	useWatchlistStorage,
 } from '@/lib/hooks';
 import dayjs from 'dayjs';
@@ -32,7 +32,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 
 	const { movieDetail, movieRecommendationIds } = data;
 
-	const { coefficient } = useScrollPosition();
+	const { coefficient } = useScrollCoefficient();
 
 	const movieGenres = useAppSelector(
 		SL.selectMovieGenresByMovieId(Number(movieDetail.id)),
@@ -69,7 +69,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 							priority
 							alt={`${movieDetail.title} backdrop`}
 							fill
-							style={{ opacity: 1 - coefficient * 3 }}
+							style={{ opacity: 1 - coefficient }}
 							src={`${TMDB_IMG_URL}/w1280${movieDetail.backdrop_path}`} // ? Use small image size to improve performance
 						/>
 

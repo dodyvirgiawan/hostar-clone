@@ -18,7 +18,11 @@ import {
 import { tabs } from './tv-series-detail-main.constant';
 import { useEffect, useMemo, useState } from 'react';
 import { CardEpisodesWrapper, CardTvWrapper } from '@/ui/components-wrapper';
-import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
+import {
+	usePopulateWatchlist,
+	useScrollCoefficient,
+	useWatchlistStorage,
+} from '@/lib/hooks';
 import dayjs from 'dayjs';
 import { Icon } from '@/constants/icon';
 
@@ -28,6 +32,8 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const { loading } = usePopulateWatchlist();
 
 	const { tvDetail, tvRecommendationIds } = data;
+
+	const { coefficient } = useScrollCoefficient();
 
 	const tvGenres = useAppSelector(SL.selectTvGenresByTvId(Number(tvDetail.id)));
 	const tvSeasons = useAppSelector(
@@ -94,6 +100,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 							priority
 							alt={`${tvDetail.name} backdrop`}
 							fill
+							style={{ opacity: 1 - coefficient }}
 							src={`${TMDB_IMG_URL}/w1280${tvDetail.backdrop_path}`} // ? Use small image size to improve performance
 						/>
 
