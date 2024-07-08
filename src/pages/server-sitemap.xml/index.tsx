@@ -7,8 +7,8 @@ import { RootState, wrapper } from '@/redux/store';
 import { movieApi, tvApi } from '@/redux/services';
 
 // ? The idea here is that i want to demonstrate the usage of server-side sitemaps for top rated contents.
-// ? I'm assuming that all the lists of top rated movies & TV series is stable & doesn't change
-// ? So I included it in server sitemap to be indexed by Google faster, as this will be the most popular content
+// ? I'm assuming that all the lists of top rated movies & TV series is stable & doesn't change.
+// ? So I included it in server sitemap to be indexed by Google faster, as this will be the most popular content.
 // ? I don't include trending contents as I assume it will change a lot by time.
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) => async (ctx) => {
