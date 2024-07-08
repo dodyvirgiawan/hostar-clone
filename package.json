@@ -10,7 +10,7 @@
     "lint": "next lint",
     "prepare": "husky",
     "pre-commit": "next lint",
-    "test": "jest --silent",
+    "test": "jest --silent --verbose",
     "test:watch": "jest --silent --watch"
   },
   "dependencies": {

@@ -35,6 +35,7 @@ const SearchField: React.FC<SearchFieldProps> = (props) => {
 				<div
 					className={styles.clearIconContainer}
 					role="button"
+					data-testid="clear-button"
 					onClick={handleClear}
 				>
 					<Image alt="Clear" src={Icon.Clear} />

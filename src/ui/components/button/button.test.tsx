@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Button from './button';
-import { describe } from 'node:test';
 
 describe('Button', () => {
 	describe('View', () => {
@@ -15,7 +14,7 @@ describe('Button', () => {
 			expect(button).toBeInTheDocument();
 		});
 
-		it('should not render label if loading props is true', () => {
+		it('should NOT render label if loading props is true', () => {
 			render(<Button loading>This is button label</Button>);
 
 			const buttonLabel = screen.queryByText(/this is button label/i);
@@ -48,7 +47,7 @@ describe('Button', () => {
 			expect(onClick).toHaveBeenCalledTimes(1);
 		});
 
-		it('should not trigger onClick function, when button is disabled', async () => {
+		it('should NOT trigger onClick function, when button is disabled', async () => {
 			const user = userEvent.setup();
 			const onClick = jest.fn();
 
@@ -65,7 +64,7 @@ describe('Button', () => {
 			expect(onClick).toHaveBeenCalledTimes(0);
 		});
 
-		it('should not trigger onClick function, when button is loading', async () => {
+		it('should NOT trigger onClick function, when button is loading', async () => {
 			const user = userEvent.setup();
 			const onClick = jest.fn();
 

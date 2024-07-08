@@ -1,7 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CardContent from './card-content';
-import { describe } from 'node:test';
 import { DummyMovie } from '@/lib/test-utils/dummy-data';
 
 describe('Card Content', () => {
@@ -46,7 +45,7 @@ describe('Card Content', () => {
 			expect(placeholderTitle).toBeInTheDocument();
 		});
 
-		it('should not render a popup card by default', () => {
+		it('should NOT render a popup card by default', () => {
 			render(
 				<CardContent
 					backdropUrl={DummyMovie.backdrop_path}
