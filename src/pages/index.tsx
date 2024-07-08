@@ -2,7 +2,7 @@ import React from 'react';
 import { HomeMain } from '@/ui/pages/home';
 import { wrapper } from '@/redux/store';
 import { movieApi, trendingApi, tvApi } from '@/redux/services';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetServerSideProps } from 'next';
 
 export interface HomeSSRProps {
 	topRatedMovieIds: string[];

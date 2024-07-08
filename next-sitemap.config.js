@@ -13,7 +13,7 @@ module.exports = {
 	priority: 0.7,
 	changefreq: 'daily',
 	autoLastmod: true,
-	exclude: ['*/404'],
+	exclude: ['*/404', '/server-sitemap.xml'],
 
 	transform: async (config, path) => {
 		return {
@@ -31,6 +31,11 @@ module.exports = {
 				allow: '/',
 				disallow: ['*/404'],
 			},
+		],
+
+		// ? I included server-side sitemaps
+		additionalSitemaps: [
+			`${process.env.NEXT_PUBLIC_SITE_URL}/server-sitemap.xml`,
 		],
 	},
 };

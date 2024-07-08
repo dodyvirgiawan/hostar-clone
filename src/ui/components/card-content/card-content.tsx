@@ -9,8 +9,8 @@ import { Button } from '../button';
 import { RenderIf } from '../render-if';
 import Link from 'next/link';
 import { ButtonProps } from '../button/button.type';
-import { generateUrlFromContent } from './card-content.utils';
 import { Icon } from '@/constants/icon';
+import { generateUrlFromContent } from '@/lib/utils';
 
 const CardContent: React.FC<CardContentProps> = (props) => {
 	const {
