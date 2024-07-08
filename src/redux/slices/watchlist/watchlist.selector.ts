@@ -64,9 +64,7 @@ export const selectWatchlistsByTitle = memoize((title?: string) =>
 				if (item?.title) {
 					const tvId = (item as TvModel).id;
 
-					return watchlists.find(
-						(item: Watchlist) => item.id === `movie${tvId}`,
-					);
+					return watchlists.find((item: Watchlist) => item.id === `tv${tvId}`);
 				}
 			});
 
