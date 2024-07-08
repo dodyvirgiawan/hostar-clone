@@ -18,6 +18,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
 			{tabs.map((tab) => {
 				return (
 					<div
+						data-testid={`${tab.value}-tab-item`}
 						role="tab"
 						key={tab.id}
 						className={styles.tabItem}

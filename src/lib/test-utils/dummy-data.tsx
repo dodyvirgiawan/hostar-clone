@@ -1,4 +1,5 @@
 import * as SL from '@/redux/slices';
+import { TabItem } from '@/ui/components';
 
 export const DummyMovie: SL.MovieModel = {
 	id: '278',
@@ -25,3 +26,16 @@ export const DummyEpisode: SL.EpisodeModel = {
 	show_id: '76479',
 	still_path: '/83vFYTHtCqWwaDtZluSU8bmnFYG.jpg',
 };
+
+export const DummyTabs: TabItem[] = [
+	{
+		id: '1',
+		value: 'similar',
+		label: 'Similar',
+	},
+	{
+		id: '2',
+		value: 'more-like-this',
+		label: 'More Like This',
+	},
+];
