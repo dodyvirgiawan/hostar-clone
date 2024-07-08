@@ -4,7 +4,12 @@ import Head from 'next/head';
 import { Meta } from '@/constants/meta';
 import clsx from 'clsx';
 import { useAppSelector } from '@/redux/store';
-import { selectAllWatchlists, Watchlist } from '@/redux/slices';
+import {
+	selectAllWatchlists,
+	selectWatchlistsContent,
+	selectWatchlistsContentByTitle,
+	Watchlist,
+} from '@/redux/slices';
 import { CardContent, CardGrid, RenderIf } from '@/ui/components';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { usePopulateWatchlist } from '@/lib/hooks';
@@ -16,6 +21,10 @@ const WatchlistMain: React.FC = () => {
 	const watchlists: Watchlist[] = useAppSelector(selectAllWatchlists);
 
 	const { loading } = usePopulateWatchlist();
+
+	const watchlistsContent = useAppSelector(
+		selectWatchlistsContentByTitle('king'),
+	);
 
 	return (
 		<>

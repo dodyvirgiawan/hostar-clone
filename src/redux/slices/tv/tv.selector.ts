@@ -5,11 +5,10 @@ import memoize from 'lodash/memoize';
 
 const selectTv = (state: RootState) => state.tv;
 
-const { selectEntities, selectAll } = tvAdapter.getSelectors<RootState>(
-	(state) => state.tv,
-);
+export const { selectEntities: selectTvEntities, selectAll: selectAllTv } =
+	tvAdapter.getSelectors<RootState>((state) => state.tv);
 
-export const selectAllTvs = createSelector(selectAll, (tv) => tv);
+export const selectAllTvs = createSelector(selectAllTv, (tv) => tv);
 
 export const selectAllTopRatedTvs = createSelector(
 	selectTv,
@@ -23,7 +22,7 @@ export const selectAllSimilarTvs = createSelector(
 
 export const selectTvById = memoize((tvId?: number) =>
 	createSelector(
-		selectEntities,
+		selectTvEntities,
 		(tvEntities) => tvEntities[tvId || ''] || null,
 	),
 );

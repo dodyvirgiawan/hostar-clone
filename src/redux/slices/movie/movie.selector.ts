@@ -5,11 +5,12 @@ import memoize from 'lodash/memoize';
 
 const selectMovie = (state: RootState) => state.movie;
 
-const { selectEntities, selectAll } = movieAdapter.getSelectors<RootState>(
-	(state) => state.movie,
-);
+export const {
+	selectEntities: selectMovieEntities,
+	selectAll: selectAllMovie,
+} = movieAdapter.getSelectors<RootState>((state) => state.movie);
 
-export const selectAllMovies = createSelector(selectAll, (movie) => movie);
+export const selectAllMovies = createSelector(selectAllMovie, (movie) => movie);
 
 export const selectAllTopRatedMovies = createSelector(
 	selectMovie,
@@ -23,7 +24,7 @@ export const selectAllSimilarMovies = createSelector(
 
 export const selectMovieById = memoize((movieId?: number) =>
 	createSelector(
-		selectEntities,
+		selectMovieEntities,
 		(movieEntities) => movieEntities[movieId || ''] || null,
 	),
 );
