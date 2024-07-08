@@ -8,4 +8,5 @@ export interface Watchlist {
 
 export interface WatchlistInitialState {
 	watchlists: Watchlist[];
+	toBeDeletedWatchlists: Watchlist[];
 }

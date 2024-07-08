@@ -72,3 +72,21 @@ export const selectWatchlistsByTitle = memoize((title?: string) =>
 		},
 	),
 );
+
+export const selectToBeDeletedWatchlists = createSelector(
+	selectWatchlist,
+	(watchlist) => watchlist.toBeDeletedWatchlists || [],
+);
+
+export const selectFilteredWatchlist = createSelector(
+	[selectAllWatchlists, selectToBeDeletedWatchlists],
+	(watchlists, toBeDeletedWatchlists) => {
+		const filteredWatchlists = watchlists.filter((watchlist: Watchlist) => {
+			return toBeDeletedWatchlists.every((deleteWatchlist: Watchlist) => {
+				return watchlist.id !== deleteWatchlist.id;
+			});
+		});
+
+		return filteredWatchlists;
+	},
+);

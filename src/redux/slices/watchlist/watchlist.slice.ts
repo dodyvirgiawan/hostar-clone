@@ -3,6 +3,7 @@ import * as T from './watchlist.type';
 
 const watchlistInitialState: T.WatchlistInitialState = {
 	watchlists: [],
+	toBeDeletedWatchlists: [],
 };
 
 const watchlistSlice = createSlice({
@@ -33,11 +34,37 @@ const watchlistSlice = createSlice({
 
 			state.watchlists = newWatchlists;
 		},
-		resetWatchlist(state, { payload }) {
-			state.watchlists = [];
-		},
 		setWatchlist(state, { payload }) {
 			state.watchlists = payload;
+		},
+		insertToBeDeletedWatchlist(state, { payload }) {
+			const { id } = payload;
+			const currentToBeDeletedWatchlists = state.toBeDeletedWatchlists;
+
+			const isAlreadyInWatchlist = !!currentToBeDeletedWatchlists.find(
+				(item) => item.id === id,
+			);
+
+			if (isAlreadyInWatchlist) return;
+
+			const toBeDeletedWatchlists = [payload, ...currentToBeDeletedWatchlists];
+
+			state.toBeDeletedWatchlists = toBeDeletedWatchlists;
+		},
+		removeFromToBeDeletedWatchlist(state, { payload }) {
+			const { id } = payload;
+			const currentToBeDeletedWatchlists = state.toBeDeletedWatchlists;
+
+			const toBeDeletedWatchlists = currentToBeDeletedWatchlists.filter(
+				(item) => {
+					return item.id !== id;
+				},
+			);
+
+			state.toBeDeletedWatchlists = toBeDeletedWatchlists;
+		},
+		setToBeDeletedWatchlist(state, { payload }) {
+			state.toBeDeletedWatchlists = payload;
 		},
 	},
 });
@@ -45,8 +72,10 @@ const watchlistSlice = createSlice({
 export const {
 	insertToWatchlist,
 	removeFromWatchlist,
-	resetWatchlist,
 	setWatchlist,
+	insertToBeDeletedWatchlist,
+	removeFromToBeDeletedWatchlist,
+	setToBeDeletedWatchlist,
 } = watchlistSlice.actions;
 
 export const watchlistReducer = watchlistSlice.reducer;

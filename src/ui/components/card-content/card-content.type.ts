@@ -12,4 +12,7 @@ export interface CardContentProps {
 	onRemoveFromWatchlistClick?: () => void;
 	buttonLoading?: boolean;
 	loading?: boolean;
+	selected?: boolean;
+	mode?: 'default' | 'select';
+	onSelect?: (reason: 'add' | 'remove') => void;
 }

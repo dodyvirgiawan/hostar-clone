@@ -72,6 +72,23 @@
     }
   }
 
+  .selected {
+    border: 2px solid $common-blue;
+  }
+
+  .notSelected {
+    border: 2px solid $background-dark;
+  }
+
+  .animate {
+    scale: 1;
+    transition: scale 0.5s;
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
   .expandHide {
     scale: 1;
     opacity: 0;

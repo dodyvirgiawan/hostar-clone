@@ -21,6 +21,53 @@
     }
   }
 
+  .bulkDeleteWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 30px;
+
+    padding-right: 140px;
+
+    @include breakpoint(lg) {
+      padding-right: 36px;
+    }
+
+    @include breakpoint(md) {
+      flex-direction: column-reverse;
+    }
+
+    .detailSelectText {
+      text-align: right;
+
+      @include breakpoint(md) {
+        margin-top: 10px;
+      }
+    }
+
+    .bulkDeleteButton {
+      @include breakpoint(md) {
+        width: 100%;
+      }
+    }
+
+    .cancelButton {
+      @include breakpoint(md) {
+        width: 100%;
+      }
+    }
+
+    .deleteButton {
+      margin: 0px 10px;
+      color: $common-red;
+
+      @include breakpoint(md) {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  }
+
   .titleWrapper {
     display: flex;
     justify-content: center;

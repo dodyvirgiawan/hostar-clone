@@ -3,9 +3,16 @@ import styles from './watchlist-main.module.scss';
 import Head from 'next/head';
 import { Meta } from '@/constants/meta';
 import clsx from 'clsx';
-import { useAppSelector } from '@/redux/store';
-import { selectWatchlistsByTitle, Watchlist } from '@/redux/slices';
-import { CardContent, CardGrid, RenderIf, SearchField } from '@/ui/components';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import * as SL from '@/redux/slices';
+import {
+	Button,
+	CardContent,
+	CardContentProps,
+	CardGrid,
+	RenderIf,
+	SearchField,
+} from '@/ui/components';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { useDebounce, usePopulateWatchlist } from '@/lib/hooks';
 import Image from 'next/image';
@@ -17,12 +24,30 @@ const WatchlistMain: React.FC = () => {
 	const { loading } = usePopulateWatchlist();
 
 	const [search, setSearch] = useState('');
+	const [mode, setMode] = useState<CardContentProps['mode']>('default');
 
 	const debouncedSearch = useDebounce(search, 700); // ? We only want to search after user has not typed in 700ms
 
-	const watchlists: Watchlist[] = useAppSelector(
-		selectWatchlistsByTitle(debouncedSearch),
+	const watchlists: SL.Watchlist[] = useAppSelector(
+		SL.selectWatchlistsByTitle(debouncedSearch),
 	);
+
+	const onBulkDeleteClick = () => {
+		setMode('select');
+	};
+
+	const filteredWatchlists = useAppSelector(SL.selectFilteredWatchlist);
+	const dispatch = useAppDispatch();
+
+	const onDeleteClick = () => {
+		dispatch(SL.setWatchlist(filteredWatchlists));
+		localStorage.setItem('myWatchlist', JSON.stringify(filteredWatchlists));
+	};
+
+	const onCancelClick = () => {
+		dispatch(SL.setToBeDeletedWatchlist([]));
+		setMode('default');
+	};
 
 	return (
 		<>
@@ -46,6 +71,33 @@ const WatchlistMain: React.FC = () => {
 							placeholder="Search your watchlist"
 						/>
 					</div>
+
+					<RenderIf isTrue={watchlists.length > 0}>
+						<div className={styles.bulkDeleteWrapper}>
+							<RenderIf isTrue={mode === 'default'}>
+								<Button
+									className={styles.bulkDeleteButton}
+									onClick={onBulkDeleteClick}
+								>
+									<p className="font-p">Bulk Delete</p>
+								</Button>
+							</RenderIf>
+
+							<RenderIf isTrue={mode === 'select'}>
+								<p className={clsx('font-p', styles.detailSelectText)}>
+									Please select the content
+								</p>
+
+								<Button className={styles.deleteButton} onClick={onDeleteClick}>
+									<p className="font-p">Delete Selected</p>
+								</Button>
+
+								<Button className={styles.cancelButton} onClick={onCancelClick}>
+									<p className="font-p">Cancel</p>
+								</Button>
+							</RenderIf>
+						</div>
+					</RenderIf>
 
 					<div className={styles.cardGridWrapper}>
 						<RenderIf isTrue={loading}>
@@ -98,6 +150,7 @@ const WatchlistMain: React.FC = () => {
 													<CardMovieWrapper
 														id={Number(item.mediaId)}
 														mediaType="movie"
+														mode={mode}
 													/>
 												</div>
 											);
@@ -107,6 +160,7 @@ const WatchlistMain: React.FC = () => {
 													<CardTvWrapper
 														id={Number(item.mediaId)}
 														mediaType="tv"
+														mode={mode}
 													/>
 												</div>
 											);
