@@ -80,7 +80,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 					<div className={styles.backdropContainer}>
 						<Image
 							priority
-							alt={`${title} backdrop`}
+							alt={`${tvDetail.name} backdrop`}
 							fill
 							src={`${TMDB_IMG_URL}/w1280${tvDetail.backdrop_path}`} // ? Use small image size to improve performance
 						/>
