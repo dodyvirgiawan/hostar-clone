@@ -86,8 +86,6 @@
   }
 
   .expand {
-    min-height: 280px;
-    width: 336px;
     background-color: $primary-color;
     border-radius: 4px;
     overflow: hidden;
@@ -100,9 +98,21 @@
     -webkit-box-shadow: -4px -1px 50px -11px rgba(0,0,0,0.74);
     -moz-box-shadow: -4px -1px 50px -11px rgba(0,0,0,0.74);
 
+    min-height: 280px;
+    width: 336px;
+
+    @include breakpoint(lg) {
+      min-height: 200px;
+      width: 300px;
+    }
+
     .imageContainer {
       position: relative;
       height: 210px;
+
+      @include breakpoint(lg) {
+        height: 120px;
+      }
 
       img {
         object-fit: cover;
