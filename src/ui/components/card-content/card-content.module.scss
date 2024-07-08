@@ -55,14 +55,14 @@
     }
   }
 
-  .expandShow {
+  .expandHide {
     scale: 1;
     opacity: 0;
     left: 0px;
     display: none;
   }
 
-  .expandHide {
+  .expandShow {
     scale: 1.05;
     opacity: 1;
     left: 8px;

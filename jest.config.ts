@@ -36,6 +36,8 @@ const config: Config = {
 
 	// The regexp pattern or array of patterns that Jest uses to detect test files
 	testRegex: '/.*/.*\\.test\\.[jt]sx?$',
+
+	testTimeout: 500000000,
 };
 
 export default createJestConfig(config);

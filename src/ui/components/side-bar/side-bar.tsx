@@ -3,8 +3,8 @@ import styles from './side-bar.module.scss';
 import { SidebarProps } from './side-bar.type';
 import { SidebarButton } from '../side-bar-button';
 import Image from 'next/image';
-import HotstarIcon from '../../../../public/assets/disney-plus-hotstar-logo.svg';
 import Link from 'next/link';
+import { Icon } from '@/constants/icon';
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
 	const { menus, ...otherProps } = props;
@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 			>
 				<div className={styles.logoContainer}>
 					<Link passHref href="/">
-						<Image alt="Disney Hotstar" src={HotstarIcon} />
+						<Image alt="Disney Hotstar" src={Icon.Hotstar} />
 					</Link>
 				</div>
 

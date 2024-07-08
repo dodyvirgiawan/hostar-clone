@@ -1,12 +1,11 @@
 import clsx from 'clsx';
 import styles from './card-carousel.module.scss';
 import { CardCarouselProps } from './card-carousel.type';
-import ForwardIcon from '../../../../public/assets/arrow-forward.svg';
-import BackIcon from '../../../../public/assets/arrow-back.svg';
 import Image from 'next/image';
 import { useState } from 'react';
 import { RenderIf } from '../render-if';
 import { useCardCarouselLogic } from './use-card-carousel-logic';
+import { Icon } from '@/constants/icon';
 
 const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	const { title, children, ...otherProps } = props;
@@ -60,7 +59,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 						})}
 					>
 						<div className={styles.logoContainer}>
-							<Image alt="Previous" src={BackIcon} />
+							<Image alt="Previous" src={Icon.Back} />
 						</div>
 					</div>
 				</RenderIf>
@@ -74,7 +73,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 						})}
 					>
 						<div className={styles.logoContainer}>
-							<Image alt="Next" src={ForwardIcon} />
+							<Image alt="Next" src={Icon.Forward} />
 						</div>
 					</div>
 				</RenderIf>

@@ -17,3 +17,7 @@ body,
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	color:    #8d96b0;
 }
+
+#nprogress .spinner { /* Hide nprogress spinner */
+	visibility: hidden;
+}

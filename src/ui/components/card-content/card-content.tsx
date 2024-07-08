@@ -78,6 +78,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 							[styles.noExpandHide]: expand,
 							[styles.noExpandShow]: !expand,
 						})}
+						data-testid={`${mediaType}-${id}-base-card`}
 					>
 						<div className={styles.imageContainerNoExpand}>
 							<Image
@@ -87,7 +88,10 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
 							/>
 
-							<div className={styles.titlePlaceholder}>
+							<div
+								className={styles.titlePlaceholder}
+								data-testid={`movie-${id}-title-placeholder`}
+							>
 								<p className={clsx('font-h3', styles.titlePlaceholderText)}>
 									{title}
 								</p>
@@ -97,9 +101,10 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 
 					<div
 						className={clsx(styles.expand, {
-							[styles.expandHide]: debouncedExpand,
-							[styles.expandShow]: !debouncedExpand,
+							[styles.expandShow]: debouncedExpand,
+							[styles.expandHide]: !debouncedExpand,
 						})}
+						data-testid={`${mediaType}-${id}-popup-card`}
 					>
 						<div className={styles.imageContainer}>
 							<Image

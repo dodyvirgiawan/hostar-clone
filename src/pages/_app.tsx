@@ -19,7 +19,7 @@ const App = ({ Component, ...rest }: AppProps) => {
 			</Head>
 
 			<Provider store={store}>
-				<NextNProgress color="#9f9fa1" height={2} />
+				<NextNProgress color="#3c89fd" height={2} />
 				<Component {...props} />
 			</Provider>
 		</>

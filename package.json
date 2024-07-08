@@ -10,8 +10,8 @@
     "lint": "next lint",
     "prepare": "husky",
     "pre-commit": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --silent",
+    "test:watch": "jest --silent --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
@@ -47,6 +47,7 @@
     "lint-staged": "^15.2.7",
     "sass": "^1.77.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "whatwg-fetch": "^3.6.20"
   }
 }
