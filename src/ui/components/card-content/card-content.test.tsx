@@ -2,6 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CardContent from './card-content';
 import { DummyMovie } from '@/lib/test-utils/dummy-data';
+import { generateUrlFromContent } from '@/lib/utils';
 
 describe('Card Content', () => {
 	describe('View', () => {
@@ -24,6 +25,30 @@ describe('Card Content', () => {
 
 			expect(baseCard).toBeInTheDocument();
 			expect(posterImage).toBeInTheDocument();
+		});
+
+		it('should render an anchor tag with correct link', async () => {
+			render(
+				<CardContent
+					backdropUrl={DummyMovie.backdrop_path}
+					id={Number(DummyMovie.id)}
+					mediaType="movie"
+					overview={DummyMovie.overview}
+					title={DummyMovie.title}
+					posterUrl={DummyMovie.poster_path}
+				/>,
+			);
+
+			const url = screen.getByRole('link');
+
+			expect(url).toHaveAttribute(
+				'href',
+				generateUrlFromContent({
+					id: Number(DummyMovie.id),
+					mediaType: 'movie',
+					title: DummyMovie.title,
+				}),
+			);
 		});
 
 		it('should render a title placeholder by default', () => {
