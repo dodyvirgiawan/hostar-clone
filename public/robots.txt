@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+Disallow: */404
+
+# Host
+Host: https://hotstar-clone.com
+
+# Sitemaps
+Sitemap: https://hotstar-clone.com/sitemap.xml
