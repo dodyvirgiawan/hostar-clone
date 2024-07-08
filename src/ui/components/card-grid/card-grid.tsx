@@ -8,7 +8,10 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
 
 	return (
 		<div className={styles.cardGridRoot} {...otherProps}>
-			<div className={styles.cardGridWrapper}>
+			<div
+				className={styles.cardGridWrapper}
+				data-testid={`${title}-card-grid-wrapper`}
+			>
 				<RenderIf isTrue={!!title}>
 					<h2 className={clsx(styles.titleText, 'font-h2')}>{title}</h2>
 				</RenderIf>
