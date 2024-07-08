@@ -38,3 +38,5 @@ next-env.d.ts
 
 # others
 archived
+public/sitemap.xml
+public/robots.txt
