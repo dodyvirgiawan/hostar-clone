@@ -28,6 +28,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	return (
 		<div
 			className={styles.cardCarouselRoot}
+			role="listbox"
 			onMouseOver={onMouseOver}
 			onMouseOut={onMouseOut}
 			{...otherProps}
@@ -41,6 +42,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 					<div
 						className={styles.cardContainer}
 						ref={containerRef}
+						data-testid={`card-carousel${title || ''}`}
 						style={{
 							transform: `translateX(${scrollOffset}px)`,
 							transition: 'transform 0.3s ease-in-out',
@@ -53,6 +55,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 				<RenderIf isTrue={renderPrevArrow}>
 					<div
 						onClick={scrollPrev}
+						data-testid="prev-button"
 						className={clsx(styles.leftArrowContainer, {
 							[styles.hide]: !hovered,
 							[styles.show]: !!hovered,
@@ -67,6 +70,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 				<RenderIf isTrue={renderNextArrow}>
 					<div
 						onClick={scrollNext}
+						data-testid="next-button"
 						className={clsx(styles.rightArrowContainer, {
 							[styles.hide]: !hovered,
 							[styles.show]: !!hovered,
