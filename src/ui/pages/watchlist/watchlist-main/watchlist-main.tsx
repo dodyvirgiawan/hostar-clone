@@ -4,26 +4,24 @@ import Head from 'next/head';
 import { Meta } from '@/constants/meta';
 import clsx from 'clsx';
 import { useAppSelector } from '@/redux/store';
-import {
-	selectAllWatchlists,
-	selectWatchlistsContent,
-	selectWatchlistsContentByTitle,
-	Watchlist,
-} from '@/redux/slices';
-import { CardContent, CardGrid, RenderIf } from '@/ui/components';
+import { selectWatchlistsByTitle, Watchlist } from '@/redux/slices';
+import { CardContent, CardGrid, RenderIf, SearchField } from '@/ui/components';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
-import { usePopulateWatchlist } from '@/lib/hooks';
+import { useDebounce, usePopulateWatchlist } from '@/lib/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@/constants/icon';
+import { useState } from 'react';
 
 const WatchlistMain: React.FC = () => {
-	const watchlists: Watchlist[] = useAppSelector(selectAllWatchlists);
-
 	const { loading } = usePopulateWatchlist();
 
-	const watchlistsContent = useAppSelector(
-		selectWatchlistsContentByTitle('king'),
+	const [search, setSearch] = useState('');
+
+	const debouncedSearch = useDebounce(search, 700); // ? We only want to search after user has not typed in 700ms
+
+	const watchlists: Watchlist[] = useAppSelector(
+		selectWatchlistsByTitle(debouncedSearch),
 	);
 
 	return (
@@ -39,6 +37,14 @@ const WatchlistMain: React.FC = () => {
 				<div className={styles.watchlistMainRoot}>
 					<div className={styles.titleWrapper}>
 						<h1 className={clsx('font-h1', styles.titleText)}>Watchlist</h1>
+					</div>
+
+					<div className={styles.searchFieldWrapper}>
+						<SearchField
+							value={search}
+							onChange={setSearch}
+							placeholder="Search your watchlist"
+						/>
 					</div>
 
 					<div className={styles.cardGridWrapper}>

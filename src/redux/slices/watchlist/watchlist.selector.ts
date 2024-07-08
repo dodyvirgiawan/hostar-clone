@@ -15,8 +15,6 @@ export const selectAllWatchlists = createSelector(
 export const selectWatchlistsContent = createSelector(
 	[selectMovieEntities, selectTvEntities, selectAllWatchlists],
 	(movieData, tvData, watchlist: Watchlist[]) => {
-		console.log({ movieData, tvData, watchlist });
-
 		const watchlistContent = watchlist.map((item) => {
 			if (item.mediaType === 'movie') {
 				return movieData[Number(item.mediaId)];
@@ -33,24 +31,46 @@ export const selectWatchlistsContent = createSelector(
 	},
 );
 
-export const selectWatchlistsContentByTitle = memoize((title?: string) =>
-	createSelector([selectWatchlistsContent], (watchlistData) => {
-		if (!title) return watchlistData;
+export const selectWatchlistsByTitle = memoize((title?: string) =>
+	createSelector(
+		[selectAllWatchlists, selectWatchlistsContent],
+		(watchlists, watchlistData) => {
+			if (!title) return watchlists;
 
-		return watchlistData.filter((item: any) => {
-			if (item?.title) {
-				const movieTitle = (item as MovieModel).title;
+			const filteredWatchlist = watchlistData.filter((item: any) => {
+				if (item?.title) {
+					const movieTitle = (item as MovieModel).title;
 
-				return movieTitle.toLowerCase().includes(title);
-			}
+					return movieTitle.toLowerCase().includes(title);
+				}
 
-			if (item?.name) {
-				const tvTitle = (item as TvModel).name as TvModel['name'];
+				if (item?.name) {
+					const tvTitle = (item as TvModel).name as TvModel['name'];
 
-				return tvTitle.toLowerCase().includes(title);
-			}
+					return tvTitle.toLowerCase().includes(title);
+				}
 
-			return false;
-		});
-	}),
+				return false;
+			});
+
+			const translatedWatchlist = filteredWatchlist.map((item: any) => {
+				if (item?.title) {
+					const movieId = (item as MovieModel).id;
+
+					return watchlists.find(
+						(item: Watchlist) => item.id === `movie${movieId}`,
+					);
+				}
+				if (item?.title) {
+					const tvId = (item as TvModel).id;
+
+					return watchlists.find(
+						(item: Watchlist) => item.id === `movie${tvId}`,
+					);
+				}
+			});
+
+			return translatedWatchlist;
+		},
+	),
 );
