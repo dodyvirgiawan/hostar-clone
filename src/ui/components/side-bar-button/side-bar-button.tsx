@@ -8,7 +8,11 @@ const SidebarButton: React.FC<SidebarButtonProps> = (props) => {
 	const { icon, title, url, expanded = false, ...otherProps } = props;
 
 	return (
-		<div className={styles.sidebarButtonRoot} role="button">
+		<div
+			className={styles.sidebarButtonRoot}
+			role="button"
+			data-testid={`${title}-sidebar-button`}
+		>
 			<Link href={url} passHref>
 				<div className={styles.wrapper} {...otherProps}>
 					<div className={styles.logoContainer}>
