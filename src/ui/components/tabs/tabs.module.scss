@@ -1,12 +1,17 @@
 @import '@/styles/colors';
+@import '@/styles/media';
 
 .tabsRoot {
   display: flex;
   flex-wrap: wrap;
 
   .tabItem {
-    padding: 28px;
     cursor: pointer;
+    padding: 28px;
+
+    @include breakpoint(lg) {
+      padding: 20px;
+    }
 
     .tabLabelText {
       font-weight: 800;

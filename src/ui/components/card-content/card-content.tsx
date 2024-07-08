@@ -82,7 +82,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 					>
 						<div className={styles.imageContainerNoExpand}>
 							<Image
-								sizes="(max-width 1540px) 232px"
+								sizes="(max-width 1540px) 232px (max-width 1240px) 180px"
 								alt={`${title} Poster`}
 								fill
 								src={`${TMDB_IMG_URL}/w342${posterUrl}`} // ? Use small image size to improve performance
