@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 			{...otherProps}
 		>
 			<RenderIf isTrue={loading}>
-				<div className={styles.loader} />
+				<div className={styles.loader} role="progressbar" />
 			</RenderIf>
 
 			<RenderIf isTrue={!loading}>{children}</RenderIf>
