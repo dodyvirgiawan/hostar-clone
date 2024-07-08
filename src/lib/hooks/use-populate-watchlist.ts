@@ -15,9 +15,18 @@ const usePopulateWatchlist = () => {
 			return;
 		}
 
-		const myWatchlist = JSON.parse(rawWatchlist);
-		dispatch(setWatchlist(myWatchlist));
-		setLoading(false);
+		try {
+			const parsedWatchlist = JSON.parse(rawWatchlist);
+
+			if (!Array.isArray(parsedWatchlist)) {
+				localStorage.setItem('myWatchlist', JSON.stringify([]));
+			} else {
+				dispatch(setWatchlist(parsedWatchlist));
+				setLoading(false);
+			}
+		} catch (e) {
+			localStorage.setItem('myWatchlist', JSON.stringify([]));
+		}
 	}, [dispatch]);
 
 	return { loading };
