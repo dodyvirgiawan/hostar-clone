@@ -4,6 +4,7 @@ import { wrapper } from '@/redux/store';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 import { useCanonical } from '@/lib/hooks';
+import NextNProgress from 'nextjs-progressbar';
 
 const App = ({ Component, ...rest }: AppProps) => {
 	const { store, props } = wrapper.useWrappedStore(rest);
@@ -18,6 +19,7 @@ const App = ({ Component, ...rest }: AppProps) => {
 			</Head>
 
 			<Provider store={store}>
+				<NextNProgress color="#9f9fa1" height={2} />
 				<Component {...props} />
 			</Provider>
 		</>

@@ -16,7 +16,7 @@ import {
 	Tabs,
 } from '@/ui/components';
 import { tabs } from './tv-series-detail-main.constant';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CardEpisodesWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 import dayjs from 'dayjs';
@@ -54,6 +54,18 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 	const [seasonTabValue, setSeasonTabValue] = useState(
 		seasonTabs[0]?.value || '',
 	);
+
+	useEffect(() => {
+		setTabValue(tabs[0].value);
+	}, []);
+
+	useEffect(() => {
+		setSeasonTabValue(seasonTabs[0]?.value || '');
+	}, [tabValue, seasonTabs]);
+
+	useEffect(() => {
+		setSeasonTabValue(seasonTabs[0]?.value || '');
+	}, [seasonTabs]);
 
 	const {
 		handlers: { onAddToWatchlist, onRemoveFromWatchlist },

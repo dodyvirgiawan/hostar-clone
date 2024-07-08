@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { TMDB_IMG_URL } from '@/constants/api';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import { RenderIf } from '../render-if';
 
 const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 	const {
@@ -29,6 +30,12 @@ const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 					fill
 					src={`${TMDB_IMG_URL}/w300${posterUrl}`} // ? Use small image size to improve performance
 				/>
+
+				<div className={styles.titlePlaceholder}>
+					<p className={clsx('font-h3', styles.titlePlaceholderText)}>
+						{`S${season} E${episode}`}
+					</p>
+				</div>
 			</div>
 
 			<div className={styles.contentContainer}>
@@ -41,19 +48,23 @@ const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 						>{`S${season} E${episode}`}</p>
 					</div>
 
-					<div className={styles.circleDivider} />
+					<RenderIf isTrue={!!airDate}>
+						<div className={styles.circleDivider} />
 
-					<div className={styles.chipItem}>
-						<p className={clsx('font-small', styles.chipText)}>
-							{dayjs(airDate).format('D MMM YYYY')}
-						</p>
-					</div>
+						<div className={styles.chipItem}>
+							<p className={clsx('font-small', styles.chipText)}>
+								{dayjs(airDate).format('D MMM YYYY')}
+							</p>
+						</div>
+					</RenderIf>
 
-					<div className={styles.circleDivider} />
+					<RenderIf isTrue={!!duration}>
+						<div className={styles.circleDivider} />
 
-					<div className={styles.chipItem}>
-						<p className={clsx('font-small', styles.chipText)}>{duration}m</p>
-					</div>
+						<div className={styles.chipItem}>
+							<p className={clsx('font-small', styles.chipText)}>{duration}m</p>
+						</div>
+					</RenderIf>
 				</div>
 
 				<p className={clsx('font-small', styles.overviewText)}>{overview}</p>

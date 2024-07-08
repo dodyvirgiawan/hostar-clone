@@ -22,9 +22,25 @@
     min-width: 220px;
     border-radius: 4px;
     overflow: hidden;
+    background-color: $primary-color;
 
     img {
       object-fit: cover;
+      z-index: 0;
+    }
+
+    .titlePlaceholder {
+      width: 220px;
+      height: 124px;
+      z-index: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .titlePlaceholderText {
+        text-align: center;
+        color: $primary-color-lighter;
+      }
     }
   }
 
