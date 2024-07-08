@@ -28,7 +28,6 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 	return (
 		<div
 			className={styles.cardCarouselRoot}
-			role="listbox"
 			onMouseOver={onMouseOver}
 			onMouseOut={onMouseOut}
 			{...otherProps}

@@ -53,6 +53,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 			mediaId: Number(movieDetail.id),
 		},
 	});
+
 	return (
 		<>
 			<Head>

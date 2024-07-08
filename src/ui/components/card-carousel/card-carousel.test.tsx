@@ -4,14 +4,6 @@ import CardCarousel from './card-carousel';
 // TODO: Improve later
 describe('Card Carousel', () => {
 	describe('View', () => {
-		it('should render the component as listbox role', async () => {
-			render(<CardCarousel title="Popular Searches">Children</CardCarousel>);
-
-			const carousel = screen.getByRole(`listbox`);
-
-			expect(carousel).toBeInTheDocument();
-		});
-
 		it('should render children', async () => {
 			render(<CardCarousel title="Popular Searches">Children</CardCarousel>);
 

@@ -109,33 +109,39 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 								<p className="font-h1">{tvDetail.name}</p>
 
 								<div className={styles.detailChipContainer}>
-									<div className={styles.chipItem}>
-										<p className={clsx('font-small', styles.chipText)}>
-											{dayjs(tvDetail.first_air_date).year()}
-										</p>
-									</div>
+									<RenderIf isTrue={!!tvDetail.first_air_date}>
+										<div className={styles.chipItem}>
+											<p className={clsx('font-small', styles.chipText)}>
+												{dayjs(tvDetail.first_air_date).year()}
+											</p>
+										</div>
 
-									<div className={styles.circleDivider} />
+										<div className={styles.circleDivider} />
+									</RenderIf>
 
-									<div className={styles.chipItem}>
-										<p className={clsx('font-small', styles.chipText)}>
-											{seasonTabs.length} Season
-										</p>
-									</div>
+									<RenderIf isTrue={!!seasonTabs.length}>
+										<div className={styles.chipItem}>
+											<p className={clsx('font-small', styles.chipText)}>
+												{seasonTabs.length} Season
+											</p>
+										</div>
 
-									<div className={styles.circleDivider} />
+										<div className={styles.circleDivider} />
+									</RenderIf>
 
-									<div className={styles.chipItem}>
-										<p
-											className={clsx(
-												'font-small',
-												styles.chipText,
-												styles.language,
-											)}
-										>
-											{tvDetail.original_language}
-										</p>
-									</div>
+									<RenderIf isTrue={!!tvDetail.original_language}>
+										<div className={styles.chipItem}>
+											<p
+												className={clsx(
+													'font-small',
+													styles.chipText,
+													styles.language,
+												)}
+											>
+												{tvDetail.original_language}
+											</p>
+										</div>
+									</RenderIf>
 								</div>
 
 								<p className={clsx('font-p', styles.overviewText)}>
