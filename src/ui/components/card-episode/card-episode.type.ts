@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface CardEpisodeProps {
+	id: string;
 	name: string;
 	season: number;
 	episode: number;

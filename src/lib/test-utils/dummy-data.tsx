@@ -1,6 +1,6 @@
-import { MovieModel } from '@/redux/slices';
+import * as SL from '@/redux/slices';
 
-export const DummyMovie: MovieModel = {
+export const DummyMovie: SL.MovieModel = {
 	id: '278',
 	backdrop_path: '/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg',
 	genres: ['18', '80'],
@@ -11,4 +11,17 @@ export const DummyMovie: MovieModel = {
 	release_date: '1994-09-23',
 	runtime: 142,
 	title: 'The Shawshank Redemption',
+};
+
+export const DummyEpisode: SL.EpisodeModel = {
+	air_date: '2019-07-25',
+	episode_number: 1,
+	id: '1705013',
+	name: 'The Name of the Game',
+	overview:
+		'When a Supe kills the love of his life, A/V salesman Hughie Campbell teams up with Billy Butcher, a vigilante hell-bent on punishing corrupt Supes — and Hughie’s life will never be the same again.',
+	runtime: 61,
+	season_number: 1,
+	show_id: '76479',
+	still_path: '/83vFYTHtCqWwaDtZluSU8bmnFYG.jpg',
 };

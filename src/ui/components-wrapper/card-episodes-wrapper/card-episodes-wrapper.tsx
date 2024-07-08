@@ -30,6 +30,7 @@ const CardEpisodesWrapper: React.FC<CardEpisodesWrapperProps> = (props) => {
 				{episodes.map((episode) => {
 					return (
 						<CardEpisode
+							id={episode.id}
 							key={episode.id}
 							posterUrl={episode.still_path}
 							name={episode.name}
@@ -48,6 +49,7 @@ const CardEpisodesWrapper: React.FC<CardEpisodesWrapperProps> = (props) => {
 					{Array.from(Array(5).keys()).map((idx) => {
 						return (
 							<CardEpisode
+								id=""
 								key={idx}
 								posterUrl=""
 								name=""

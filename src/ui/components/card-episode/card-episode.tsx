@@ -8,6 +8,7 @@ import { RenderIf } from '../render-if';
 
 const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 	const {
+		id,
 		name,
 		season,
 		episode,
@@ -26,12 +27,15 @@ const CardEpisode: React.FC<CardEpisodeProps> = (props) => {
 			<div className={styles.imageContainer}>
 				<Image
 					sizes="(max-width 1540px) 220px"
-					alt={`${name} poster`}
+					alt={`${name} Poster`}
 					fill
 					src={`${TMDB_IMG_URL}/w300${posterUrl}`} // ? Use small image size to improve performance
 				/>
 
-				<div className={styles.titlePlaceholder}>
+				<div
+					className={styles.titlePlaceholder}
+					data-testid={`episode-${id}${season}${episode}-title-placeholder`}
+				>
 					<p className={clsx('font-h3', styles.titlePlaceholderText)}>
 						{`S${season} E${episode}`}
 					</p>
