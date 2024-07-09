@@ -1,31 +1,33 @@
-import {
-	discoverApi,
-	movieApi,
-	searchApi,
-	trendingApi,
-	tvApi,
-} from '@/redux/services';
-import * as R from '@/redux/slices';
+import * as SR from '@/redux/services';
+import * as SL from '@/redux/slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { AppStore } from './store.type';
 
-// https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#configuring-the-store
+/**
+ * 	? My Store Definitions steps:
+ * 	? 1. First, we need to combine all the lists of reducer we are using (const combinedReducer = ...)
+ * 	?			(Reference: https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#configuring-the-store)
+ *	? 2. Second, we need to handle syncing state from server <-> client, using next-redux-wrapper we can do state reconciliation in hydration (const hydratedReducer = ...)
+ *	?			(Reference: https://github.com/kirill-konshin/next-redux-wrapper?tab=readme-ov-file#state-reconciliation-during-hydration)
+ *	? 3. Third, we insert all our API services' middlewares when calling configureStore function, as it is recommended by redux best practice
+ *	? 4. Fourth, we call createWrapper function from next-redux-wrapper to wrap our store to enable SSR with Redux
+ */
 const combinedReducer = combineReducers({
-	[movieApi.reducerPath]: movieApi.reducer,
-	[tvApi.reducerPath]: tvApi.reducer,
-	[trendingApi.reducerPath]: trendingApi.reducer,
-	[discoverApi.reducerPath]: discoverApi.reducer,
-	[searchApi.reducerPath]: searchApi.reducer,
-	movie: R.movieReducer,
-	tv: R.tvReducer,
-	trending: R.trendingReducer,
-	genre: R.genreReducer,
-	episode: R.episodeReducer,
-	season: R.seasonReducer,
-	discover: R.discoverReducer,
-	search: R.searchReducer,
-	watchlist: R.watchlistReducer,
+	[SR.movieApi.reducerPath]: SR.movieApi.reducer,
+	[SR.tvApi.reducerPath]: SR.tvApi.reducer,
+	[SR.trendingApi.reducerPath]: SR.trendingApi.reducer,
+	[SR.discoverApi.reducerPath]: SR.discoverApi.reducer,
+	[SR.searchApi.reducerPath]: SR.searchApi.reducer,
+	movie: SL.movieReducer,
+	tv: SL.tvReducer,
+	trending: SL.trendingReducer,
+	genre: SL.genreReducer,
+	episode: SL.episodeReducer,
+	season: SL.seasonReducer,
+	discover: SL.discoverReducer,
+	search: SL.searchReducer,
+	watchlist: SL.watchlistReducer,
 });
 
 // ? https://github.com/kirill-konshin/next-redux-wrapper?tab=readme-ov-file#getserversideprops
@@ -51,11 +53,11 @@ export const configureStoreWithMiddlewares = () => {
 		reducer: hydratedReducer,
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware()
-				.concat(movieApi.middleware)
-				.concat(tvApi.middleware)
-				.concat(trendingApi.middleware)
-				.concat(discoverApi.middleware)
-				.concat(searchApi.middleware),
+				.concat(SR.movieApi.middleware)
+				.concat(SR.tvApi.middleware)
+				.concat(SR.trendingApi.middleware)
+				.concat(SR.discoverApi.middleware)
+				.concat(SR.searchApi.middleware),
 	});
 
 	return enhancedStore;
