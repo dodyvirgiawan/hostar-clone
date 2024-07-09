@@ -67,10 +67,12 @@ npm run test
 I used Next.js for its powerful features like SSR (Server Side Rendering), and many built in SEO optimizations.
 - **Typescript**:
 I opted for Typescript to improve code quality and maintainability, making the development process more safe and prevent and/or reduce runtime errors.
-- **Redux Toolkit with**
+- **Redux Toolkit**
 I selected Redux Toolkit for its structured approach managing state in a React application. Throughout the app I also implemented data normalizations using `normalizr`. In redux, I implemented different layers that handle different thing (i.e services for API calls, slices for storing normalized state, and selectors). `next-redux-wrapper` was also used to hydrate server side states to client
 - **Normalizr**
 I used normalizr to efficiently normalize TMDB API's nested JSON data, making state management in Redux more scalable in terms of performance, while also reduce redundancy by integrating this with the concept of slice in redux.
+- **SASS**
+I selected SASS for styling due to its additional powerful feature compared to normal css, like storing variables and mixins, which greatly helps the mantainability of the project.
 - **(Other libraries)**
   - `clsx` for conditionally joining class names efficiently for my components
   - `dayjs` for handling fast date and time manipulations
@@ -78,4 +80,6 @@ I used normalizr to efficiently normalize TMDB API's nested JSON data, making st
   - `next-redux-wrapper` to integrate redux with Next.js, especially when handling SSR.
   - `next-sitemap` to automate sitemap and robots.txt generation (+ provide server side sitemap)
   - `nextjs-progressbar` to prevent page from feeling like unresponsive by showing page load progress.
+  - `@testing-library`, `jest` for unit component tests.
+  - `husky`, `eslint`, `lint-staged` for automation in quality check of my code by doing pre-commit hooks
 
