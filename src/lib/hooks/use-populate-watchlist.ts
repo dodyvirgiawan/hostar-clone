@@ -17,6 +17,7 @@ const usePopulateWatchlist = () => {
 
 		if (!rawWatchlist) {
 			localStorage.setItem(WatchlistVarName, JSON.stringify([]));
+			setLoading(false);
 			return;
 		}
 
@@ -25,12 +26,14 @@ const usePopulateWatchlist = () => {
 
 			if (!Array.isArray(parsedWatchlist)) {
 				localStorage.setItem(WatchlistVarName, JSON.stringify([]));
+				setLoading(false);
 			} else {
 				dispatch(setWatchlist(parsedWatchlist));
 				setLoading(false);
 			}
 		} catch (e) {
 			localStorage.setItem(WatchlistVarName, JSON.stringify([]));
+			setLoading(false);
 		}
 	}, [dispatch]);
 
