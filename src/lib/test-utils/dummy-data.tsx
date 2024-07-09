@@ -1,6 +1,7 @@
 import * as SL from '@/redux/slices';
 import { TabItem } from '@/ui/components';
 
+// ? Dummy data for test purposes
 export const DummyMovie: SL.MovieModel = {
 	id: '278',
 	backdrop_path: '/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg',

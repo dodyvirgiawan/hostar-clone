@@ -2,6 +2,10 @@ import { setWatchlist } from '@/redux/slices';
 import { useAppDispatch } from '@/redux/store';
 import { useEffect, useState } from 'react';
 
+// ? Hooks to handle populating watchlist from localStorage to redux state
+// ? Every mount:
+// ?  - If there is no watchlist in storage, create an empty array
+// ?  - If there is already one, set the redux state
 const usePopulateWatchlist = () => {
 	const dispatch = useAppDispatch();
 

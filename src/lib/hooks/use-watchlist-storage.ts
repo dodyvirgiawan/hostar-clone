@@ -3,12 +3,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
 import { useMemo } from 'react';
 
+// ? Hooks to handle adding and removing from watchlist, the input is the watchlist in question
+// ? When adding/removing, set local storage and also update the redux state.
 const useWatchlistStorage = ({
 	currentWatchlistDetail,
 }: {
 	currentWatchlistDetail: Watchlist;
 }) => {
-	const { id, mediaType, mediaId } = currentWatchlistDetail;
+	const { id } = currentWatchlistDetail;
 
 	const dispatch = useAppDispatch();
 

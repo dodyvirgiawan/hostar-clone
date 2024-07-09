@@ -1,3 +1,5 @@
+// ? Constant to convert mediaType to url path
+
 import HomeIcon from '../../public/assets/home-icon.svg';
 import SearchIcon from '../../public/assets/search-icon.svg';
 import WatchlistIcon from '../../public/assets/watchlist-icon.svg';

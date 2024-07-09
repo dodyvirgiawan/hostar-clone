@@ -1,3 +1,5 @@
+// ? Constant to store meta title and description
+
 export const Meta = {
 	home: {
 		title: 'Disney+ Hotstar | Stream your favourite stories and more',

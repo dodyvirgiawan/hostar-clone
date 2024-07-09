@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
-// ? I implement this to get scroll constant of scrollY pos divided by viewport height
+// ? I implement this to get scroll coefficient => scrollY pos divided by viewport height
+// ? For use in handling opacity of main image in homepage, movie detail and tv series detail
 export const useScrollCoefficient = () => {
 	const [scrollY, setScrollY] = useState(0);
 	const [viewportHeight, setViewportHeight] = useState(0);
@@ -36,7 +37,7 @@ export const useScrollCoefficient = () => {
 		if (!viewportHeight && viewportHeight !== 0) return 0;
 		if (scrollY === 0 && viewportHeight === 0) return 0;
 
-		return (Number(scrollY) / Number(viewportHeight)) * 2;
+		return (Number(scrollY) / Number(viewportHeight)) * 2; // ? 2 is just some multiplier to tweak the value
 	}, [scrollY, viewportHeight]);
 
 	return {
