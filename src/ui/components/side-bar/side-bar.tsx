@@ -28,15 +28,17 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 					</Link>
 				</div>
 
-				{menus.map((menu) => (
-					<SidebarButton
-						expanded={expand}
-						key={menu.title}
-						title={menu.title}
-						url={menu.url}
-						icon={menu.icon}
-					/>
-				))}
+				<div className={styles.sidebarButtonWrapper}>
+					{menus.map((menu) => (
+						<SidebarButton
+							expanded={expand}
+							key={menu.title}
+							title={menu.title}
+							url={menu.url}
+							icon={menu.icon}
+						/>
+					))}
+				</div>
 			</nav>
 		</aside>
 	);
