@@ -2,46 +2,31 @@ import { PageLayout } from '@/ui/layouts';
 import styles from './movie-detail-main.module.scss';
 import { MovieDetailMainProps } from './movie-detail-main.type';
 import Head from 'next/head';
-import Image from 'next/image';
-import { TMDB_IMG_URL } from '@/constants/api';
-import clsx from 'clsx';
 import { useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
-import {
-	Button,
-	CardCarousel,
-	RenderIf,
-	TabPanel,
-	Tabs,
-} from '@/ui/components';
+import * as C from '@/ui/components';
 import { tabs } from './movie-detail-main.constant';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CardMovieWrapper } from '@/ui/components-wrapper';
-import {
-	usePopulateWatchlist,
-	useScrollCoefficient,
-	useWatchlistStorage,
-} from '@/lib/hooks';
-import dayjs from 'dayjs';
-import { Icon } from '@/constants/icon';
+import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 
 const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
-	const { data } = props;
+	const {
+		data: { movieDetail, movieRecommendationIds },
+	} = props;
 
 	const { loading } = usePopulateWatchlist();
-
-	const { movieDetail, movieRecommendationIds } = data;
-
-	const { coefficient } = useScrollCoefficient();
+	const [tabValue, setTabValue] = useState(tabs[0].value);
 
 	const movieGenres = useAppSelector(
 		SL.selectMovieGenresByMovieId(Number(movieDetail.id)),
 	);
 
-	const movieGenreString = movieGenres?.map((item) => item.name);
-	const title = `${movieDetail.title} full movie. ${movieGenreString?.join(' ')} film in Disney Hotstar+`;
+	const title = useMemo(() => {
+		const movieGenreString = movieGenres?.map((item) => item.name);
 
-	const [tabValue, setTabValue] = useState(tabs[0].value);
+		return `${movieDetail.title} full movie. ${movieGenreString?.join(' ')} film in Disney Hotstar+`;
+	}, [movieGenres, movieDetail]);
 
 	const {
 		handlers: { onAddToWatchlist, onRemoveFromWatchlist },
@@ -64,121 +49,29 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 			</Head>
 
 			<PageLayout>
-				<div className={styles.homeMainRoot}>
-					<div className={styles.backdropContainer}>
-						<Image
-							priority
-							alt={`${movieDetail.title} backdrop`}
-							fill
-							style={{ opacity: 1 - coefficient }}
-							src={`${TMDB_IMG_URL}/w1280${movieDetail.backdrop_path}`} // ? Use small image size to improve performance
-						/>
-
-						<div className={styles.content}>
-							<div className={styles.movieDetailContent}>
-								<p className="font-h1">{movieDetail.title}</p>
-
-								<div className={styles.detailChipContainer}>
-									<div className={styles.chipItem}>
-										<p className={clsx('font-small', styles.chipText)}>
-											{dayjs(movieDetail.release_date).year()}
-										</p>
-									</div>
-
-									<div className={styles.circleDivider} />
-
-									<div className={styles.chipItem}>
-										<p className={clsx('font-small', styles.chipText)}>
-											{movieDetail.runtime} min
-										</p>
-									</div>
-
-									<div className={styles.circleDivider} />
-
-									<div className={styles.chipItem}>
-										<p
-											className={clsx(
-												'font-small',
-												styles.chipText,
-												styles.language,
-											)}
-										>
-											{movieDetail.original_language}
-										</p>
-									</div>
-								</div>
-
-								<p className={clsx('font-p', styles.overviewText)}>
-									{movieDetail.overview}
-								</p>
-
-								<div className={styles.genreChipContainer}>
-									{movieGenres?.map((genre, idx) => {
-										const isLast = idx === movieGenres.length - 1;
-
-										return (
-											<>
-												<div className={styles.chipItem}>
-													<p className={clsx('font-small', styles.chipText)}>
-														{genre.name}
-													</p>
-												</div>
-
-												<RenderIf isTrue={!isLast}>
-													<div className={styles.lineDivider} />
-												</RenderIf>
-											</>
-										);
-									})}
-								</div>
-
-								<div className={styles.buttonContainer}>
-									<RenderIf isTrue={!isInWatchlist}>
-										<Button
-											loading={loading}
-											fullWidth
-											className={styles.button}
-											onClick={onAddToWatchlist}
-										>
-											<div className={styles.logoContainer}>
-												<Image alt="Select" src={Icon.Add} />
-											</div>
-
-											<p className={clsx('font-p', styles.buttonText)}>
-												Add to Watchlist
-											</p>
-										</Button>
-									</RenderIf>
-
-									<RenderIf isTrue={isInWatchlist}>
-										<Button
-											fullWidth
-											className={styles.button}
-											onClick={onRemoveFromWatchlist}
-										>
-											<div className={styles.logoContainer}>
-												<Image priority alt="Deselect" src={Icon.Remove} />
-											</div>
-
-											<p className={clsx('font-p', styles.buttonText)}>
-												Remove from Watchlist
-											</p>
-										</Button>
-									</RenderIf>
-								</div>
-							</div>
-						</div>
-
-						<div className={styles.ornament} />
-					</div>
+				<div className={styles.movieDetailMainRoot}>
+					<C.HeroContentMovie
+						id={movieDetail.id}
+						title={movieDetail.title}
+						overview={movieDetail.overview}
+						backdropUrl={movieDetail.backdrop_path}
+						genres={movieGenres || []}
+						language={movieDetail.original_language}
+						releaseDate={movieDetail.release_date}
+						runtime={movieDetail.runtime}
+						loadingButton={loading}
+						isInWatchlist={isInWatchlist}
+						onAddToWatchlist={onAddToWatchlist}
+						onRemoveFromWatchlist={onRemoveFromWatchlist}
+					/>
 
 					<div className={styles.tabContainer}>
-						<Tabs tabs={tabs} value={tabValue} onChange={setTabValue} />
+						<C.Tabs tabs={tabs} value={tabValue} onChange={setTabValue} />
 					</div>
 
 					<div className={styles.cardContainer}>
-						<TabPanel value="more-like-this" currentValue={tabValue}>
-							<CardCarousel>
+						<C.TabPanel value="more-like-this" currentValue={tabValue}>
+							<C.CardCarousel>
 								{movieRecommendationIds.map((id) => {
 									return (
 										<div key={id} className={styles.cardWrapper}>
@@ -186,8 +79,8 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 										</div>
 									);
 								})}
-							</CardCarousel>
-						</TabPanel>
+							</C.CardCarousel>
+						</C.TabPanel>
 					</div>
 				</div>
 			</PageLayout>

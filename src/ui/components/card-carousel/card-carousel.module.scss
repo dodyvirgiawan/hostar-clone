@@ -26,7 +26,6 @@
       .cardContainer {
         width: 100%;
         display: flex;
-        // overflow-x: scroll;
         position: relative;
         scroll-behavior: smooth;
         
@@ -72,13 +71,17 @@
       transition: opacity 0.6s;
       z-index: 500;
       cursor: pointer;
-      height: 310px;
+      height: 312px;
 
       @include breakpoint(lg) {
-        height: 240px;
+        width: 80px;
+        height: 242px;
+        opacity: 1 !important;
       }
 
       .logoContainer {   
+        margin: auto;
+
         img {
           width: 36px;
           height: 36px;
@@ -97,13 +100,17 @@
       transition: opacity 0.6s;
       z-index: 500;
       cursor: pointer;
-      height: 310px;
+      height: 312px;
 
       @include breakpoint(lg) {
-        height: 240px;
+        width: 80px;
+        height: 242px;
+        opacity: 1 !important;
       }
-
+      
       .logoContainer {   
+        margin: auto;
+
         img {
           width: 36px;
           height: 36px;

@@ -20,7 +20,9 @@ const CardEpisodesWrapper: React.FC<CardEpisodesWrapperProps> = (props) => {
 		},
 		{
 			refetchOnMountOrArgChange: true,
-			skip: !!episodes.length, // ? This is to prevent fetching whenever first load, because data is already from server (SSR)
+			// ? This is to prevent fetching whenever first load, because data is already from server for first season (SSR)
+			// ? When user open another season, data is fetched on demand, therefore episodes.length will be empty and it will fetch
+			skip: !!episodes.length,
 		},
 	);
 

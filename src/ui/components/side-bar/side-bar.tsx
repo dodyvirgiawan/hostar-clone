@@ -11,13 +11,8 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
 	const [expand, setIsExpand] = useState(false);
 
-	const onMouseOver = () => {
-		setIsExpand(true);
-	};
-
-	const onMouseOut = () => {
-		setIsExpand(false);
-	};
+	const onMouseOver = () => setIsExpand(true);
+	const onMouseOut = () => setIsExpand(false);
 
 	return (
 		<aside>

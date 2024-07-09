@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Disney Hotstar+ Clone
 
-## Getting Started
+This is a disney hotstar+ clone app that is built using Next.js to leverage `SSR (Server Side Rendering)` for `SEO (Search Engine Optimization)`. Website was ensured to have both good SEO best practices, good performance, while also taking careful optimizations measure to conform with `CWV (Core Web Vitals)` standards.
 
-First, run the development server:
+You can visit the [live demo](https://hotstar-clone-mu.vercel.app/)
+
+**Features:**
+- Browse top rated movies & tv series
+- Browse trending movies & tv series
+- Search for movies & tv series
+- Add to watchlist
+- Delete from watchlist (with bulk delete)
+
+## Installation Steps
+
+This installation process require you to already have Node.js and npm installed on your machine. 
+
+### 1. Install required dependencies
+
+First, install the required dependencies with `npm` by running the following command
+
+```bash
+npm install
+```
+
+### 2. Create environment variables
+
+Second, you have to create a new `.env` file in root directory, with the following format. Or you can copy paste also from `.env.template`
+
+```env
+NEXT_PUBLIC_TMDB_API_URL=https://api.themoviedb.org
+NEXT_PUBLIC_TMDB_API_KEY=<fill this with your TMDB API key>
+NEXT_PUBLIC_TMDB_IMG_URL=https://image.tmdb.org/t/p
+NEXT_PUBLIC_SITE_URL=<fill this with the domain url you wish to deploy it to>
+```
+
+Note: 
+- You can get your TMDB API key by following [this instruction](https://developer.themoviedb.org/docs/getting-started)
+- Example for `NEXT_PUBLIC_SITE_URL` = `https://hotstar-clone-mu.vercel.app`
+
+
+### 3. Run the development server
+
+If you wish to start the development server, you can run this command
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you want to view the production build, run:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. Tests
 
-## Learn More
+This application is built with component unit tests, you can run this command to run unit tests:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack & Libraries
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Next.js (React)**: 
+I used Next.js for its powerful features like SSR (Server Side Rendering), and many built in SEO optimizations.
+- **Typescript**:
+I opted for Typescript to improve code quality and maintainability, making the development process more safe and prevent and/or reduce runtime errors.
+- **Redux Toolkit**
+I selected Redux Toolkit for its structured approach managing state in a React application. Throughout the app I also implemented data normalizations using `normalizr`. In redux, I implemented different layers that handle different thing (i.e services for API calls, slices for storing normalized state, and selectors). `next-redux-wrapper` was also used to hydrate server side states to client
+- **Normalizr**
+I used normalizr to efficiently normalize TMDB API's nested JSON data, making state management in Redux more scalable in terms of performance, while also reduce redundancy by integrating this with the concept of slice in redux.
+- **SASS**
+I selected SASS for styling due to its additional powerful feature compared to normal css, like storing variables and mixins, which greatly helps the mantainability of the project.
+- **(Other libraries)**
+  - `clsx` for conditionally joining class names efficiently for my components
+  - `dayjs` for handling fast date and time manipulations
+  - `lodash/memoize` for memoizing redux selectors (to increase performance)
+  - `next-redux-wrapper` to integrate redux with Next.js, especially when handling SSR.
+  - `next-sitemap` to automate sitemap and robots.txt generation (+ provide server side sitemap)
+  - `nextjs-progressbar` to prevent page from feeling like unresponsive by showing page load progress.
+  - `@testing-library`, `jest` for unit component tests.
+  - `husky`, `eslint`, `lint-staged` for automation in quality check of my code by doing pre-commit hooks
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

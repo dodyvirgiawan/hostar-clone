@@ -17,13 +17,8 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 
 	const [hovered, setIsHovered] = useState(false);
 
-	const onMouseOver = () => {
-		setIsHovered(true);
-	};
-
-	const onMouseOut = () => {
-		setIsHovered(false);
-	};
+	const onMouseOver = () => setIsHovered(true);
+	const onMouseOut = () => setIsHovered(false);
 
 	return (
 		<div
@@ -43,7 +38,7 @@ const CardCarousel: React.FC<CardCarouselProps> = (props) => {
 						ref={containerRef}
 						data-testid={`card-carousel${title || ''}`}
 						style={{
-							transform: `translateX(${scrollOffset}px)`,
+							transform: `translateX(-${scrollOffset}px)`,
 							transition: 'transform 0.3s ease-in-out',
 						}}
 					>

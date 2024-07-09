@@ -4,6 +4,7 @@ import { PageLayoutProps } from './page-layout.type';
 import { Menus } from '@/constants/menu';
 import clsx from 'clsx';
 
+// ? This is page layout that will be reused throughout all the pages (this includes sidebar)
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
 	const { children, usePadding = true, ...otherProps } = props;
 

@@ -5,13 +5,24 @@ import { MovieDetailMain } from '@/ui/pages/movie-detail';
 import { GetServerSideProps } from 'next';
 
 export interface MovieDetailSSRProps {
-	movieDetail: Omit<MovieModel, 'poster_path'>;
+	movieDetail: Omit<MovieModel, 'poster_path'>; // ? poster_path is not needed as only backdrop path is shown in this page
 	movieRecommendationIds: string[];
 }
 
+/**
+ *  ? Movie Detail Page
+ * 	?	- SSR Content:
+ * 	?			[1] The detail of the movie
+ * 	?			[2] List of similar/recommended movies
+ * 	?						-> to reduce size, only the IDs is sent to client, will populate on client when state is hydrated from redux
+ *  ?
+ *  ? - NoSSR Content:
+ * 	?     n/a
+ *
+ */
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) =>
-		async ({ req, res, params }) => {
+		async ({ params }) => {
 			const { slug } = params as { slug: string[] };
 			const movieId = slug[1];
 
@@ -37,7 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			const recommendedMovieStateEntities = store.getState().movie.similarMovie;
 			const movieRecommendationIds = recommendedMovieStateEntities.ids;
 
-			// ? We want to send essential data only to reduce size and improve performance
+			// ? We want to only send essential data, from server to client, to reduce size and improve performance
 			const {
 				id,
 				backdrop_path,
@@ -46,7 +57,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				overview,
 				release_date,
 				runtime,
-				...restMovieDetail
 			} = movieDetail;
 
 			return {

@@ -1,3 +1,5 @@
+// ? Constant to store menu list to sidebar
+
 import { StaticImageData } from 'next/image';
 import { Icon } from './icon';
 

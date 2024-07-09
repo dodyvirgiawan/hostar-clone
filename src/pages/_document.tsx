@@ -1,5 +1,9 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
+/**
+ *  ? Document App
+ *  ? - I only loaded fonts from google fonts cdn for simplicity.
+ */
 export default function Document() {
 	return (
 		<Html lang="en">

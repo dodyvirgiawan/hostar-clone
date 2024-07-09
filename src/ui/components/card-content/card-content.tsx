@@ -32,9 +32,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 	} = props;
 
 	const [expand, setIsExpand] = useState(false);
-
-	// ? Need to debounce because don't want to immediate expand (500ms)
-	const debouncedExpand = useDebounce(expand, 600);
+	const debouncedExpand = useDebounce(expand, 600); // ? Need to debounce because don't want to immediate expand (500ms)
 
 	const onMouseOver = () => {
 		if (mode === 'select') return;
@@ -48,13 +46,11 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 
 	const handleAddToWatchlist: ButtonProps['onClick'] = (e) => {
 		e?.preventDefault();
-
 		if (onAddToWatchlistClick) onAddToWatchlistClick();
 	};
 
 	const handleRemoveFromWatchlist: ButtonProps['onClick'] = (e) => {
 		e?.preventDefault();
-
 		if (onRemoveFromWatchlistClick) onRemoveFromWatchlistClick();
 	};
 
@@ -71,6 +67,8 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 				<div className={styles.noExpandLoading} />
 			</div>
 		);
+
+	// ? Code reaches here if it is not loading
 
 	const CardContent = (
 		<div
@@ -162,7 +160,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								loading={buttonLoading}
 							>
 								<div className={styles.logoContainer}>
-									<Image priority alt="Deselect" src={Icon.Remove} />
+									<Image alt="Deselect" src={Icon.Remove} />
 								</div>
 
 								<p className={clsx('font-p', styles.buttonText)}>
@@ -187,6 +185,8 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 			</Link>
 		);
 	}
+
+	// ? Code reaches here if mode is select
 
 	return <div onClick={handleSelect}>{CardContent}</div>;
 };
