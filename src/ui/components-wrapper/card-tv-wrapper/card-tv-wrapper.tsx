@@ -1,15 +1,11 @@
-import { useAppDispatch, useAppSelector } from '@/redux/store';
 import React, { useMemo } from 'react';
 import { CardTvWrapperProps } from './card-tv-wrapper.type';
-import * as SL from '@/redux/slices';
-import { CardContent, CardContentProps } from '@/ui/components/card-content';
+import { CardContent } from '@/ui/components/card-content';
 import { useWatchlistStorage } from '@/lib/hooks';
-import { useFetchTvDetailByIdQuery } from '@/redux/services';
+import { useCardTvWrapperLogic } from './use-card-tv-wrapper-logic';
 
 const CardTvWrapper: React.FC<CardTvWrapperProps> = (props) => {
 	const { id, mediaType, mode, ...otherProps } = props;
-
-	const tvDetail = useAppSelector(SL.selectTvById(id));
 
 	const currentWatchlistDetail = useMemo(
 		() => ({
@@ -27,40 +23,16 @@ const CardTvWrapper: React.FC<CardTvWrapperProps> = (props) => {
 		currentWatchlistDetail,
 	});
 
-	// ? If for some reason when reaching this component, data is not yet upserted to slice
-	// ? We need to refetch it again. Case is when refreshing in watchlist page
-	// ? In watchlist page we do not fetch anything page-wide.
-	const { isFetching } = useFetchTvDetailByIdQuery(
-		{ id: String(id) },
-		{ skip: !!tvDetail },
-	);
-
-	const dispatch = useAppDispatch();
-	const toBeDeletedWatchlists = useAppSelector(SL.selectToBeDeletedWatchlists);
-
-	const handleSelect: CardContentProps['onSelect'] = (reason) => {
-		if (reason === 'add') {
-			dispatch(SL.insertToBeDeletedWatchlist(currentWatchlistDetail));
-		}
-
-		if (reason === 'remove') {
-			dispatch(SL.removeFromToBeDeletedWatchlist(currentWatchlistDetail));
-		}
-	};
-
-	const isSelected = useMemo(() => {
-		if (mode === 'default') return false;
-
-		return !!toBeDeletedWatchlists.find(
-			(watchlist: SL.Watchlist) => watchlist.id === currentWatchlistDetail.id,
-		);
-	}, [mode, toBeDeletedWatchlists, currentWatchlistDetail]);
+	const {
+		handlers: { onSelectCard },
+		state: { isFetching, isSelected, tvDetail },
+	} = useCardTvWrapperLogic({ currentWatchlistDetail, mode });
 
 	return (
 		<CardContent
 			mode={mode}
 			selected={isSelected}
-			onSelect={handleSelect}
+			onSelect={onSelectCard}
 			loading={isFetching || !tvDetail}
 			id={Number(id)}
 			backdropUrl={tvDetail?.backdrop_path || ''}

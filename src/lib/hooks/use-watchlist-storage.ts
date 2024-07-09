@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 
 // ? Hooks to handle adding and removing from watchlist, the input is the watchlist in question
 // ? When adding/removing, set local storage and also update the redux state.
+// ? This is reusable hooks
 const useWatchlistStorage = ({
 	currentWatchlistDetail,
 }: {
