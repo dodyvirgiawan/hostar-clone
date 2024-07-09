@@ -5,8 +5,12 @@ import { HomeMainProps } from './home-main.type';
 import * as CW from '@/ui/components-wrapper';
 import Head from 'next/head';
 import { Meta } from '@/constants/meta';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as H from '@/lib/hooks';
+
+const maxMovieHeading = 3;
+const maxTvHeading = 2;
+const duration = 5000;
 
 const HomeMain: React.FC<HomeMainProps> = (props) => {
 	const {
@@ -18,13 +22,35 @@ const HomeMain: React.FC<HomeMainProps> = (props) => {
 		},
 	} = props;
 
-	// ========== Get the current trending movie to display as a hero content
-	const featuredTrendingMovieId = useMemo(() => {
-		if (!trendingMovieOfTheWeekIds.length) return null;
-		return Number(trendingMovieOfTheWeekIds[0]);
-	}, [trendingMovieOfTheWeekIds]);
+	// ========== Get the current trending content to display as a hero content that alternates
+	const featuredTrendingContents = useMemo(() => {
+		const movies = trendingMovieOfTheWeekIds
+			.slice(0, maxMovieHeading)
+			.map((id) => ({ id: `movie${id}`, type: 'movie', mediaId: Number(id) }));
+		const tvSeries = trendingTvSeriesOfTheWeekIds
+			.slice(0, maxTvHeading)
+			.map((id) => ({ id: `tv${id}`, type: 'tv', mediaId: Number(id) }));
+
+		return [...movies, ...tvSeries];
+	}, [trendingMovieOfTheWeekIds, trendingTvSeriesOfTheWeekIds]);
 
 	const { loading } = H.usePopulateWatchlist();
+
+	const [currIndex, setCurrIndex] = useState(0);
+
+	useEffect(() => {
+		setTimeout(() => {
+			const max = maxMovieHeading + maxTvHeading;
+			const toBeIndex = currIndex + 1;
+
+			const nextIndex = (() => {
+				if (toBeIndex > max - 1) return 0;
+				return toBeIndex;
+			})();
+
+			setCurrIndex(nextIndex);
+		}, duration);
+	});
 
 	return (
 		<>
@@ -37,10 +63,33 @@ const HomeMain: React.FC<HomeMainProps> = (props) => {
 
 			<PageLayout>
 				<div className={styles.homeMainRoot}>
-					<CW.HeroContentMovieWrapper
-						id={featuredTrendingMovieId}
-						loadingButton={loading}
-					/>
+					{featuredTrendingContents.map((content, idx) => {
+						if (content.type === 'movie') {
+							return (
+								<CW.HeroContentMovieWrapper
+									enableHref
+									key={content.mediaId}
+									show={currIndex === idx}
+									id={content.mediaId}
+									loadingButton={loading}
+								/>
+							);
+						}
+
+						if (content.type === 'tv') {
+							return (
+								<CW.HeroContentTvWrapper
+									enableHref
+									key={content.mediaId}
+									show={currIndex === idx}
+									id={content.mediaId}
+									loadingButton={loading}
+								/>
+							);
+						}
+
+						return null;
+					})}
 
 					<div className={styles.carouselContainer}>
 						<CardCarousel title="Top Rated Movies & TV Series">

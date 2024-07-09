@@ -4,13 +4,16 @@ import Image from 'next/image';
 import { useScrollCoefficient } from '@/lib/hooks';
 import clsx from 'clsx';
 import { RenderIf } from '../render-if';
-import { Button } from '../button';
+import { Button, ButtonProps } from '../button';
 import { Icon } from '@/constants/icon';
 import { TMDB_IMG_URL } from '@/constants/api';
 import dayjs from 'dayjs';
+import Link from 'next/link';
+import { generateUrlFromContent } from '@/lib/utils';
 
 const HeroContentMovie: React.FC<HeroContentMovieProps> = (props) => {
 	const {
+		id,
 		title,
 		backdropUrl,
 		releaseDate,
@@ -21,16 +24,34 @@ const HeroContentMovie: React.FC<HeroContentMovieProps> = (props) => {
 		onAddToWatchlist,
 		onRemoveFromWatchlist,
 		isInWatchlist,
+		show = true,
 		loadingButton = false,
+		enableHref = false,
 		...otherProps
 	} = props;
 
 	const { coefficient } = useScrollCoefficient();
 
-	return (
-		<div className={styles.heroContentMovieRoot} {...otherProps}>
+	const handleAddToWatchlist: ButtonProps['onClick'] = (e) => {
+		e?.preventDefault();
+		if (onAddToWatchlist) onAddToWatchlist();
+	};
+
+	const handleRemoveFromWatchlist: ButtonProps['onClick'] = (e) => {
+		e?.preventDefault();
+		if (onRemoveFromWatchlist) onRemoveFromWatchlist();
+	};
+
+	const HeroContentMovie = (
+		<div
+			className={clsx(styles.heroContentMovieRoot, {
+				[styles.heroMovieShow]: show,
+				[styles.heroMovieHide]: !show,
+			})}
+			{...otherProps}
+		>
 			<Image
-				priority
+				priority={show}
 				alt={`${title} backdrop`}
 				fill
 				style={{ opacity: 1 - coefficient }}
@@ -105,7 +126,7 @@ const HeroContentMovie: React.FC<HeroContentMovieProps> = (props) => {
 								loading={loadingButton}
 								fullWidth
 								className={styles.button}
-								onClick={onAddToWatchlist}
+								onClick={handleAddToWatchlist}
 							>
 								<div className={styles.logoContainer}>
 									<Image alt="Select" src={Icon.Add} />
@@ -121,10 +142,10 @@ const HeroContentMovie: React.FC<HeroContentMovieProps> = (props) => {
 							<Button
 								fullWidth
 								className={styles.button}
-								onClick={onRemoveFromWatchlist}
+								onClick={handleRemoveFromWatchlist}
 							>
 								<div className={styles.logoContainer}>
-									<Image priority alt="Deselect" src={Icon.Remove} />
+									<Image alt="Deselect" src={Icon.Remove} />
 								</div>
 
 								<p className={clsx('font-p', styles.buttonText)}>
@@ -138,6 +159,22 @@ const HeroContentMovie: React.FC<HeroContentMovieProps> = (props) => {
 
 			<div className={styles.ornament} />
 		</div>
+	);
+
+	if (!enableHref) return HeroContentMovie;
+
+	return (
+		<Link
+			aria-label={`View detail of ${title}`}
+			as=""
+			href={generateUrlFromContent({
+				id: Number(id),
+				mediaType: 'movie',
+				title,
+			})}
+		>
+			{HeroContentMovie}
+		</Link>
 	);
 };
 

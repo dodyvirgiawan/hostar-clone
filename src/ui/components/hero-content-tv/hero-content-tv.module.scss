@@ -5,6 +5,7 @@
   position: relative;
   height: 900px;
   width: 100%;
+  transition: opacity 0.5s;
 
   @include breakpoint(lg) {
     height: 780px;
@@ -122,4 +123,13 @@
       -moz-box-shadow: 240px -180px 370px 100px rgba(15,16,20,1) inset;
     }
   }
+}
+
+.heroTvShow {
+  opacity: 1;
+}
+
+.heroTvHide {
+  display: none;
+  opacity: 0;
 }

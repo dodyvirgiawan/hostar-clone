@@ -1,6 +1,7 @@
 import { GenreModel, MovieModel } from '@/redux/slices';
 
 export interface HeroContentMovieProps {
+	id: MovieModel['id'];
 	title: MovieModel['title'];
 	backdropUrl: MovieModel['backdrop_path'];
 	releaseDate: MovieModel['release_date'];
@@ -12,4 +13,6 @@ export interface HeroContentMovieProps {
 	onAddToWatchlist?: () => void;
 	onRemoveFromWatchlist?: () => void;
 	loadingButton?: boolean;
+	show?: boolean;
+	enableHref?: boolean;
 }

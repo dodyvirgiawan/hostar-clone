@@ -1,6 +1,7 @@
 import { GenreModel, TvModel } from '@/redux/slices';
 
 export interface HeroContentTvProps {
+	id: TvModel['id'];
 	title: TvModel['name'];
 	backdropUrl: TvModel['backdrop_path'];
 	airDate: TvModel['first_air_date'];
@@ -12,4 +13,6 @@ export interface HeroContentTvProps {
 	onAddToWatchlist?: () => void;
 	onRemoveFromWatchlist?: () => void;
 	loadingButton?: boolean;
+	show?: boolean;
+	enableHref?: boolean;
 }

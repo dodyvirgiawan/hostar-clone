@@ -8,7 +8,13 @@ import { HeroContentMovie } from '@/ui/components/hero-content-movie';
 const HeroContentMovieWrapper: React.FC<HeroContentMovieWrapperProps> = (
 	props,
 ) => {
-	const { id, loadingButton = false, ...otherProps } = props;
+	const {
+		id,
+		loadingButton = false,
+		show = true,
+		enableHref = false,
+		...otherProps
+	} = props;
 
 	const currentWatchlistDetail = useMemo<SL.Watchlist>(
 		() => ({
@@ -36,6 +42,9 @@ const HeroContentMovieWrapper: React.FC<HeroContentMovieWrapperProps> = (
 
 	return (
 		<HeroContentMovie
+			enableHref={enableHref}
+			id={movie.id}
+			show={show}
 			title={movie.title}
 			overview={movie.overview}
 			backdropUrl={movie.backdrop_path}

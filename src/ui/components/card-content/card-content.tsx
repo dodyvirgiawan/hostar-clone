@@ -160,7 +160,7 @@ const CardContent: React.FC<CardContentProps> = (props) => {
 								loading={buttonLoading}
 							>
 								<div className={styles.logoContainer}>
-									<Image priority alt="Deselect" src={Icon.Remove} />
+									<Image alt="Deselect" src={Icon.Remove} />
 								</div>
 
 								<p className={clsx('font-p', styles.buttonText)}>

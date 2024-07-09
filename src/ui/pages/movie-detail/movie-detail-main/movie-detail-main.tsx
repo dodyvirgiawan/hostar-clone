@@ -51,6 +51,7 @@ const MovieDetailMain: React.FC<MovieDetailMainProps> = (props) => {
 			<PageLayout>
 				<div className={styles.movieDetailMainRoot}>
 					<C.HeroContentMovie
+						id={movieDetail.id}
 						title={movieDetail.title}
 						overview={movieDetail.overview}
 						backdropUrl={movieDetail.backdrop_path}

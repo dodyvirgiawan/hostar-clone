@@ -81,6 +81,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 			<PageLayout>
 				<div className={styles.tvSeriesDetailMainRoot}>
 					<C.HeroContentTv
+						id={tvDetail.id}
 						title={tvDetail.name}
 						overview={tvDetail.overview}
 						backdropUrl={tvDetail.backdrop_path}

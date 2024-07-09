@@ -6,7 +6,13 @@ import * as SL from '@/redux/slices';
 import { HeroContentTv } from '@/ui/components/hero-content-tv';
 
 const HeroContentTvWrapper: React.FC<HeroContentTvWrapperProps> = (props) => {
-	const { id, loadingButton = false, ...otherProps } = props;
+	const {
+		id,
+		loadingButton = false,
+		show = true,
+		enableHref,
+		...otherProps
+	} = props;
 
 	const currentWatchlistDetail = useMemo<SL.Watchlist>(
 		() => ({
@@ -41,6 +47,9 @@ const HeroContentTvWrapper: React.FC<HeroContentTvWrapperProps> = (props) => {
 
 	return (
 		<HeroContentTv
+			enableHref={enableHref}
+			id={tv.id}
+			show={show}
 			title={tv.name}
 			overview={tv.overview}
 			backdropUrl={tv.backdrop_path}
