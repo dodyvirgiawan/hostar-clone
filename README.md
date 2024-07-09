@@ -23,7 +23,7 @@ npm install
 
 ### 2. Create environment variables
 
-Second, you have to create a new `.env` file in root directory, with the following format.
+Second, you have to create a new `.env` file in root directory, with the following format. Or you can copy paste also from `.env.template`
 
 ```env
 NEXT_PUBLIC_TMDB_API_URL=https://api.themoviedb.org
@@ -65,11 +65,11 @@ npm run test
 I used Next.js for its powerful features like SSR (Server Side Rendering), and many built in SEO optimizations.
 - **Typescript**:
 I opted for Typescript to improve code quality and maintainability, making the development process more safe and prevent and/or reduce runtime errors.
-- **Redux Toolkit**
-I selected Redux Toolkit for its structured approach managing state in a React application. Throughout the app I also implemented data normalizations using `normalizr`. In redux, I implemented different layers that handle different thing (i.e services for API calls, slices for storing normalized state, and selectors)
+- **Redux Toolkit with**
+I selected Redux Toolkit for its structured approach managing state in a React application. Throughout the app I also implemented data normalizations using `normalizr`. In redux, I implemented different layers that handle different thing (i.e services for API calls, slices for storing normalized state, and selectors). `next-redux-wrapper` was also used to hydrate server side states to client
 - **Normalizr**
 I used normalizr to efficiently normalize TMDB API's nested JSON data, making state management in Redux more scalable in terms of performance, while also reduce redundancy by integrating this with the concept of slice in redux.
-- **(Other utilities libraries)**
+- **(Other libraries)**
   - `clsx` for conditionally joining class names efficiently for my components
   - `dayjs` for handling fast date and time manipulations
   - `lodash/memoize` for memoizing redux selectors (to increase performance)
