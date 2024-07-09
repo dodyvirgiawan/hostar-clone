@@ -2,6 +2,8 @@
 
 This is a disney hotstar+ clone app that is built using Next.js to leverage `SSR (Server Side Rendering)` for `SEO (Search Engine Optimization)`. Website was ensured to have both good SEO best practices, good performance, while also taking careful optimizations measure to conform with `CWV (Core Web Vitals)` standards.
 
+You can visit the [live demo](https://hotstar-clone-mu.vercel.app/)
+
 **Features:**
 - Browse top rated movies & tv series
 - Browse trending movies & tv series
