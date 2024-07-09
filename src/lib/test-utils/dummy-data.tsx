@@ -15,6 +15,18 @@ export const DummyMovie: SL.MovieModel = {
 	title: 'The Shawshank Redemption',
 };
 
+export const DummyTv: SL.TvModel = {
+	backdrop_path: '/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',
+	first_air_date: '2022-08-21',
+	id: '94997',
+	name: 'House of the Dragon',
+	overview:
+		'The Targaryen dynasty is at the absolute apex of its power, with more than 15 dragons under their yoke. Most empires crumble from such heights. In the case of the Targaryens, their slow fall begins when King Viserys breaks with a century of tradition by naming his daughter Rhaenyra heir to the Iron Throne. But when Viserys later fathers a son, the court is shocked when Rhaenyra retains her status as his heir, and seeds of division sow friction across the realm.',
+	poster_path: '/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg',
+	seasons: [],
+	original_language: 'en',
+};
+
 export const DummyEpisode: SL.EpisodeModel = {
 	air_date: '2019-07-25',
 	episode_number: 1,
