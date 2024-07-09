@@ -6,10 +6,9 @@ import { getServerSideSitemapLegacy } from 'next-sitemap';
 import { RootState, wrapper } from '@/redux/store';
 import { movieApi, tvApi } from '@/redux/services';
 
-// ? The idea here is that i want to demonstrate the usage of server-side sitemaps for top rated contents.
-// ? I'm assuming that all the lists of top rated movies & TV series is stable & doesn't change.
-// ? So I included it in server sitemap to be indexed by Google faster, as this will be the most popular content.
-// ? I don't include trending contents as I assume it will change a lot by time.
+// ? The idea here is that i want to demonstrate the usage of server-side sitemaps (using next-sitemap) for top rated contents.
+// ? I'm assuming that all the lists of top rated movies & TV series doesn't change, or at least rarely change. Whether in trending contents I assume it changes more frequent
+// ? So I included them in server sitemap to be indexed by Google faster.
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) => async (ctx) => {
 		// ========= 1. Fetch top rated movies =========

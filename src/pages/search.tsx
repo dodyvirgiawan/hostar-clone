@@ -8,32 +8,42 @@ export interface SearchSSRProps {
 	discoverTvSeriesIds: string[];
 }
 
+/**
+ *  ? Search Page
+ * 	?	- SSR Content:
+ * 	?			[1] Discover new movies (assuming its popular searches)
+ * 	?			[2] Discover new TV series (assuming its popular searches)
+ *  ?
+ *  ? - NoSSR Content:
+ * 	?     [1] The search resuts
+ * 	?						-> because it is based on user input in client side
+ *	?
+ */
 export const getServerSideProps = wrapper.getServerSideProps(
-	(store) =>
-		async ({ req, res }) => {
-			// ========= 1. Discover movies =========
-			await store.dispatch(
-				discoverApi.endpoints.fetchDiscoverMovie.initiate({ page: 1 }),
-			);
+	(store) => async () => {
+		// ========= 1. Discover movies =========
+		await store.dispatch(
+			discoverApi.endpoints.fetchDiscoverMovie.initiate({ page: 1 }),
+		);
 
-			const movieDiscoverState = store.getState().discover;
-			const discoverMovieIds = movieDiscoverState.discoverMovieIds;
+		const movieDiscoverState = store.getState().discover;
+		const discoverMovieIds = movieDiscoverState.discoverMovieIds;
 
-			// ========= 1. Discover TV serues =========
-			await store.dispatch(
-				discoverApi.endpoints.fetchDiscoverTv.initiate({ page: 1 }),
-			);
+		// ========= 1. Discover TV serues =========
+		await store.dispatch(
+			discoverApi.endpoints.fetchDiscoverTv.initiate({ page: 1 }),
+		);
 
-			const tvSeriesDiscoverState = store.getState().discover;
-			const discoverTvSeriesIds = tvSeriesDiscoverState.discoverTvIds;
+		const tvSeriesDiscoverState = store.getState().discover;
+		const discoverTvSeriesIds = tvSeriesDiscoverState.discoverTvIds;
 
-			return {
-				props: {
-					discoverMovieIds,
-					discoverTvSeriesIds,
-				},
-			};
-		},
+		return {
+			props: {
+				discoverMovieIds,
+				discoverTvSeriesIds,
+			},
+		};
+	},
 ) satisfies GetServerSideProps<SearchSSRProps>;
 
 const Search = ({ pageProps }: { pageProps: SearchSSRProps }) => {

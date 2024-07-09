@@ -2,8 +2,7 @@ import { RootState } from '@/redux/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { episodeAdapter } from './episode.slice';
 import memoize from 'lodash/memoize';
-import { selectSeasonById, selectTvSeasonsByTvId } from '../season';
-import { selectTvById } from '../tv';
+import { selectSeasonById } from '../season';
 
 const { selectEntities } = episodeAdapter.getSelectors<RootState>(
 	(state) => state.episode,
@@ -23,7 +22,6 @@ export const selectEpisodeIdsBySeriesIdAndSeasonId = memoize(
 			(episodeEntities, season) => {
 				const seasonNumber = season.season_number;
 
-				// ? Find in episodeEntities all where
 				// * Need to get all episodeEntities where seasonNumber and tvSeasonNumber and seriesId match
 
 				let tempEpisodeIds: string[] = [];
@@ -43,7 +41,7 @@ export const selectEpisodeIdsBySeriesIdAndSeasonId = memoize(
 				return tempEpisodeIds;
 			},
 		),
-	(...args) => JSON.stringify(args), // ? for two params functions, in lodash memoize need to define it this way
+	(...args) => JSON.stringify(args), // ? for two params functions, in lodash memoize need to define it this way as a cache key
 );
 
 export const selectEpisodesBySeriesIdAndSeasonId = memoize(
@@ -54,6 +52,7 @@ export const selectEpisodesBySeriesIdAndSeasonId = memoize(
 				selectEpisodeIdsBySeriesIdAndSeasonId(seriesId, seasonId),
 			],
 			(episodeEntities, episodeIds) => {
+				// Populate from ID into entity
 				const episodes = episodeIds.map((id) => episodeEntities[id]);
 
 				// We want to make sure it is sorted by episode number
@@ -64,5 +63,5 @@ export const selectEpisodesBySeriesIdAndSeasonId = memoize(
 				return sortedEpisodes;
 			},
 		),
-	(...args) => JSON.stringify(args),
+	(...args) => JSON.stringify(args), // ? for two params functions, in lodash memoize need to define it this way as a cache key
 );

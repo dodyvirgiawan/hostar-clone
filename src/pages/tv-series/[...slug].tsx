@@ -9,9 +9,29 @@ export interface TvDetailSSRProps {
 	tvRecommendationIds: string[];
 }
 
+/**
+ *  ? Tv Detail Detail Page
+ * 	?	- SSR Content:
+ * 	?			[1] The detail of the TV Series
+ * 	?			[2] ONLY the episodes in first season
+ * 	?						-> Because in the client it is rendered as tabs, and the first season is the opened tab by default.
+ *  ?						-> For the rest of the seasons, user might not open them, so it will be fetched on demand in client-side
+ * 	?						-> This is also to reduce size
+ * 	?			[3] List of similar/recommended TV series
+ * 	?						-> Although this is also not visible by default (as the default opened tab is list of Seasons), I still want it to be SSR'd as it only store the string of tv series Ids
+ *  ?						-> In my opinion, it doesn't impact the payload size that much, and user will have the content faster when they open the tab.
+ *  ?
+ * 	? - NoSSR Content:
+ * 	?     [1] Other episodes in other season
+ * 	?						-> Because user might not open them
+ * 	?
+ * 	?
+ * 	? * Notes: Based on my experience consuming TMDB API, the first season is usually "Specials" season and contains many episodes (and therefore large object).
+ * 	?					I don't include this "Specials" season because I'm assuming the relevant content user want to see is the actual episodes.
+ */
 export const getServerSideProps = wrapper.getServerSideProps(
 	(store) =>
-		async ({ req, res, params }) => {
+		async ({ params }) => {
 			const { slug } = params as { slug: string[] };
 			const tvId = slug[1];
 
@@ -64,7 +84,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 				name,
 				original_language,
 				overview,
-				...restTvDetail
 			} = tvDetail;
 
 			return {
