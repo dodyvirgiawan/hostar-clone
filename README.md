@@ -8,8 +8,8 @@ You can visit the [live demo](https://hotstar-clone-mu.vercel.app/)
 - Browse top rated movies & tv series
 - Browse trending movies & tv series
 - Search for movies & tv series
-- Add to watchlist
-- Delete from watchlist (with bulk delete)
+- Add and search watchlist
+- Delete watchlist (single & bulk delete)
 
 ## Installation Steps
 
