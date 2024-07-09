@@ -51,6 +51,7 @@ If you want to view the production build, run:
 
 ```bash
 npm run build
+npm run start
 ```
 
 ### 4. Tests
