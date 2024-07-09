@@ -5,14 +5,7 @@ import { Meta } from '@/constants/meta';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
-import {
-	Button,
-	CardContent,
-	CardContentProps,
-	CardGrid,
-	RenderIf,
-	SearchField,
-} from '@/ui/components';
+import * as C from '@/ui/components';
 import { CardMovieWrapper, CardTvWrapper } from '@/ui/components-wrapper';
 import { useDebounce, usePopulateWatchlist } from '@/lib/hooks';
 import Image from 'next/image';
@@ -25,7 +18,7 @@ const WatchlistMain: React.FC = () => {
 	const { loading } = usePopulateWatchlist();
 
 	const [search, setSearch] = useState('');
-	const [mode, setMode] = useState<CardContentProps['mode']>('default');
+	const [mode, setMode] = useState<C.CardContentProps['mode']>('default');
 
 	const debouncedSearch = useDebounce(search, 700); // ? We only want to search after user has not typed in 700ms
 
@@ -66,47 +59,53 @@ const WatchlistMain: React.FC = () => {
 					</div>
 
 					<div className={styles.searchFieldWrapper}>
-						<SearchField
+						<C.SearchField
 							value={search}
 							onChange={setSearch}
 							placeholder="Search your watchlist"
 						/>
 					</div>
 
-					<RenderIf isTrue={watchlists.length > 0}>
+					<C.RenderIf isTrue={watchlists.length > 0}>
 						<div className={styles.bulkDeleteWrapper}>
-							<RenderIf isTrue={mode === 'default'}>
-								<Button
+							<C.RenderIf isTrue={mode === 'default'}>
+								<C.Button
 									className={styles.bulkDeleteButton}
 									onClick={onBulkDeleteClick}
 								>
 									<p className="font-p">Bulk Delete</p>
-								</Button>
-							</RenderIf>
+								</C.Button>
+							</C.RenderIf>
 
-							<RenderIf isTrue={mode === 'select'}>
+							<C.RenderIf isTrue={mode === 'select'}>
 								<p className={clsx('font-p', styles.detailSelectText)}>
 									Please select the content
 								</p>
 
-								<Button className={styles.deleteButton} onClick={onDeleteClick}>
+								<C.Button
+									className={styles.deleteButton}
+									onClick={onDeleteClick}
+								>
 									<p className="font-p">Delete Selected</p>
-								</Button>
+								</C.Button>
 
-								<Button className={styles.cancelButton} onClick={onCancelClick}>
+								<C.Button
+									className={styles.cancelButton}
+									onClick={onCancelClick}
+								>
 									<p className="font-p">Cancel</p>
-								</Button>
-							</RenderIf>
+								</C.Button>
+							</C.RenderIf>
 						</div>
-					</RenderIf>
+					</C.RenderIf>
 
 					<div className={styles.cardGridWrapper}>
-						<RenderIf isTrue={loading}>
-							<CardGrid title="">
+						<C.RenderIf isTrue={loading}>
+							<C.CardGrid title="">
 								{Array.from(Array(20).keys()).map((idx) => {
 									return (
 										<div key={idx} className={styles.cardWrapper}>
-											<CardContent
+											<C.CardContent
 												id={idx}
 												backdropUrl=""
 												mediaType="movie"
@@ -118,11 +117,11 @@ const WatchlistMain: React.FC = () => {
 										</div>
 									);
 								})}
-							</CardGrid>
-						</RenderIf>
+							</C.CardGrid>
+						</C.RenderIf>
 
-						<RenderIf isTrue={!loading}>
-							<RenderIf isTrue={watchlists.length === 0}>
+						<C.RenderIf isTrue={!loading}>
+							<C.RenderIf isTrue={watchlists.length === 0}>
 								<div className={styles.noResultContainer}>
 									<div className={styles.noResultImageContainer}>
 										<Image alt="Empty watchlist" src={Icon.NoResult} />
@@ -140,10 +139,10 @@ const WatchlistMain: React.FC = () => {
 										for content and adding it to your watchlist
 									</h2>
 								</div>
-							</RenderIf>
+							</C.RenderIf>
 
-							<RenderIf isTrue={watchlists.length > 0}>
-								<CardGrid>
+							<C.RenderIf isTrue={watchlists.length > 0}>
+								<C.CardGrid>
 									{watchlists.map((item) => {
 										if (item.mediaType === 'movie') {
 											return (
@@ -169,9 +168,9 @@ const WatchlistMain: React.FC = () => {
 
 										return null;
 									})}
-								</CardGrid>
-							</RenderIf>
-						</RenderIf>
+								</C.CardGrid>
+							</C.RenderIf>
+						</C.RenderIf>
 					</div>
 				</div>
 			</PageLayout>

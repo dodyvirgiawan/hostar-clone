@@ -7,7 +7,6 @@ import Head from 'next/head';
 import { Meta } from '@/constants/meta';
 import * as H from '@/lib/hooks';
 import { useHomeMainCarousel } from './use-home-main-carousel';
-import clsx from 'clsx';
 import Image from 'next/image';
 import { Icon } from '@/constants/icon';
 
