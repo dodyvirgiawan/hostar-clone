@@ -1,3 +1,5 @@
+// ? Index file to export all components
+
 export * from './button';
 
 export * from './card-carousel';

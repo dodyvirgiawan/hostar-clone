@@ -8,9 +8,9 @@ export const useCardCarouselLogic = () => {
 
 	const cardContainerRef = useRef<HTMLDivElement>(null);
 
-	const renderPrevArrow = useMemo(() => scrollOffset < 0, [scrollOffset]);
+	const renderPrevArrow = useMemo(() => scrollOffset > 0, [scrollOffset]);
 	const renderNextArrow = useMemo(
-		() => scrollOffset > maxScrollOffset,
+		() => scrollOffset < maxScrollOffset,
 		[scrollOffset, maxScrollOffset],
 	);
 
@@ -19,31 +19,32 @@ export const useCardCarouselLogic = () => {
 
 		// ? maxOffset would be the delta between the width of the container, and the width of the viewable content (if all card is displayed)
 		const maxOffset =
-			cardContainerRef.current.scrollWidth -
-			cardContainerRef.current.clientWidth;
+			cardContainerRef.current.clientWidth -
+			cardContainerRef.current.scrollWidth;
 
-		// ? need a positive value
-		setMaxScrollOffset(-maxOffset);
+		setMaxScrollOffset(Math.abs(maxOffset));
 	}, [cardContainerRef]);
 
 	const scrollNext = () => {
 		if (!cardContainerRef.current) return;
 
-		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a multiplier just to decrease the scrollAmount (prevent a card item not being accesible, can be tweaked)
 
 		// ? to prevent from scrolling to blank space on the right-most content
+		// ? need to find the min value between to-be-offset and the max scroll offset (the right most)
 		setScrollOffset((prevOffset) =>
-			Math.max(prevOffset - scrollAmount, maxScrollOffset),
+			Math.min(prevOffset + scrollAmount, maxScrollOffset),
 		);
 	};
 
 	const scrollPrev = () => {
 		if (!cardContainerRef.current) return;
 
-		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible)
+		const scrollAmount = cardContainerRef.current.clientWidth / 1.5; // ? 1.5 is a divider just to decrease the scrollAmount (prevent a card item not being accesible, can be tweaked)
 
 		// ? to prevent from scrolling to blank space on the left-most content
-		setScrollOffset((prevOffset) => Math.min(prevOffset + scrollAmount, 0));
+		// ? need to find the max value between to-be-offset and 0 (the left most)
+		setScrollOffset((prevOffset) => Math.max(prevOffset - scrollAmount, 0));
 	};
 
 	return {

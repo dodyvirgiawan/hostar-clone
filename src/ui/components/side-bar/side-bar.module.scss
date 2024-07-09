@@ -2,7 +2,6 @@
 @import '@/styles/media';
 
 .sidebarRoot {
-  // background: $background-dark;
   box-shadow: -1px 1px 0px 200px rgba(19,21,27,0) inset;
   -webkit-box-shadow: -1px 1px 0px 200px rgba(19,21,27,0) inset;
   -moz-box-shadow: -1px 1px 0px 200px rgba(19,21,27,0) inset;
@@ -33,7 +32,6 @@
 
   &:hover {
     width: 200px;
-    // background: $background-darker;
     box-shadow: 200px -6px 235px 43px rgba(19,21,27,0.75) inset;
     -webkit-box-shadow: 200px -6px 235px 43px rgba(19,21,27,0.75) inset;
     -moz-box-shadow: 200px -6px 235px 43px rgba(19,21,27,0.75) inset;
