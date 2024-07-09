@@ -19,6 +19,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@/constants/icon';
 import { useState } from 'react';
+import { WatchlistVarName } from '@/constants/local-storage';
 
 const WatchlistMain: React.FC = () => {
 	const { loading } = usePopulateWatchlist();
@@ -41,7 +42,7 @@ const WatchlistMain: React.FC = () => {
 
 	const onDeleteClick = () => {
 		dispatch(SL.setWatchlist(filteredWatchlists));
-		localStorage.setItem('myWatchlist', JSON.stringify(filteredWatchlists));
+		localStorage.setItem(WatchlistVarName, JSON.stringify(filteredWatchlists));
 	};
 
 	const onCancelClick = () => {

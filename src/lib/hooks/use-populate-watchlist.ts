@@ -1,3 +1,4 @@
+import { WatchlistVarName } from '@/constants/local-storage';
 import { setWatchlist } from '@/redux/slices';
 import { useAppDispatch } from '@/redux/store';
 import { useEffect, useState } from 'react';
@@ -12,10 +13,10 @@ const usePopulateWatchlist = () => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const rawWatchlist = localStorage.getItem('myWatchlist') || '';
+		const rawWatchlist = localStorage.getItem(WatchlistVarName) || '';
 
 		if (!rawWatchlist) {
-			localStorage.setItem('myWatchlist', JSON.stringify([]));
+			localStorage.setItem(WatchlistVarName, JSON.stringify([]));
 			return;
 		}
 
@@ -23,13 +24,13 @@ const usePopulateWatchlist = () => {
 			const parsedWatchlist = JSON.parse(rawWatchlist);
 
 			if (!Array.isArray(parsedWatchlist)) {
-				localStorage.setItem('myWatchlist', JSON.stringify([]));
+				localStorage.setItem(WatchlistVarName, JSON.stringify([]));
 			} else {
 				dispatch(setWatchlist(parsedWatchlist));
 				setLoading(false);
 			}
 		} catch (e) {
-			localStorage.setItem('myWatchlist', JSON.stringify([]));
+			localStorage.setItem(WatchlistVarName, JSON.stringify([]));
 		}
 	}, [dispatch]);
 
