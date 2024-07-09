@@ -2,45 +2,27 @@ import { PageLayout } from '@/ui/layouts';
 import styles from './tv-series-detail-main.module.scss';
 import { TvSeriesDetailMainProps } from './tv-series-detail-main.type';
 import Head from 'next/head';
-import Image from 'next/image';
-import { TMDB_IMG_URL } from '@/constants/api';
-import clsx from 'clsx';
 import { useAppSelector } from '@/redux/store';
 import * as SL from '@/redux/slices';
-import {
-	Button,
-	CardCarousel,
-	RenderIf,
-	TabItem,
-	TabPanel,
-	Tabs,
-} from '@/ui/components';
+import * as C from '@/ui/components';
 import { tabs } from './tv-series-detail-main.constant';
 import { useEffect, useMemo, useState } from 'react';
 import { CardEpisodesWrapper, CardTvWrapper } from '@/ui/components-wrapper';
-import {
-	usePopulateWatchlist,
-	useScrollCoefficient,
-	useWatchlistStorage,
-} from '@/lib/hooks';
-import dayjs from 'dayjs';
-import { Icon } from '@/constants/icon';
+import { usePopulateWatchlist, useWatchlistStorage } from '@/lib/hooks';
 
 const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
-	const { data } = props;
+	const {
+		data: { tvDetail, tvRecommendationIds },
+	} = props;
 
 	const { loading } = usePopulateWatchlist();
-
-	const { tvDetail, tvRecommendationIds } = data;
-
-	const { coefficient } = useScrollCoefficient();
 
 	const tvGenres = useAppSelector(SL.selectTvGenresByTvId(Number(tvDetail.id)));
 	const tvSeasons = useAppSelector(
 		SL.selectTvSeasonsByTvId(Number(tvDetail.id)),
 	);
 
-	const seasonTabs = useMemo<TabItem[]>(() => {
+	const seasonTabs = useMemo<C.TabItem[]>(() => {
 		if (!tvSeasons) return [];
 
 		// ? We don't include season 0 / specials (due to it is usually too large)
@@ -53,8 +35,11 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 			}));
 	}, [tvSeasons]);
 
-	const tvGenreString = tvGenres?.map((item) => item.name);
-	const title = `${tvDetail.name}, ${tvGenreString?.join(' ')} TV Series - Watch All Latest Episodes Online on Disney+ Hotstar`;
+	const title = useMemo(() => {
+		const tvGenreString = tvGenres?.map((item) => item.name);
+
+		return `${tvDetail.name}, ${tvGenreString?.join(' ')} TV Series - Watch All Latest Episodes Online on Disney+ Hotstar`;
+	}, [tvGenres, tvDetail]);
 
 	const [tabValue, setTabValue] = useState(tabs[0].value);
 	const [seasonTabValue, setSeasonTabValue] = useState(
@@ -95,125 +80,26 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 
 			<PageLayout>
 				<div className={styles.tvSeriesDetailMainRoot}>
-					<div className={styles.backdropContainer}>
-						<Image
-							priority
-							alt={`${tvDetail.name} backdrop`}
-							fill
-							style={{ opacity: 1 - coefficient }}
-							src={`${TMDB_IMG_URL}/w1280${tvDetail.backdrop_path}`} // ? Use small image size to improve performance
-						/>
-
-						<div className={styles.content}>
-							<div className={styles.tvDetailContent}>
-								<p className="font-h1">{tvDetail.name}</p>
-
-								<div className={styles.detailChipContainer}>
-									<RenderIf isTrue={!!tvDetail.first_air_date}>
-										<div className={styles.chipItem}>
-											<p className={clsx('font-small', styles.chipText)}>
-												{dayjs(tvDetail.first_air_date).year()}
-											</p>
-										</div>
-
-										<div className={styles.circleDivider} />
-									</RenderIf>
-
-									<RenderIf isTrue={!!seasonTabs.length}>
-										<div className={styles.chipItem}>
-											<p className={clsx('font-small', styles.chipText)}>
-												{seasonTabs.length} Season
-											</p>
-										</div>
-
-										<div className={styles.circleDivider} />
-									</RenderIf>
-
-									<RenderIf isTrue={!!tvDetail.original_language}>
-										<div className={styles.chipItem}>
-											<p
-												className={clsx(
-													'font-small',
-													styles.chipText,
-													styles.language,
-												)}
-											>
-												{tvDetail.original_language}
-											</p>
-										</div>
-									</RenderIf>
-								</div>
-
-								<p className={clsx('font-p', styles.overviewText)}>
-									{tvDetail.overview}
-								</p>
-
-								<div className={styles.genreChipContainer}>
-									{tvGenres?.map((genre, idx) => {
-										const isLast = idx === tvGenres.length - 1;
-
-										return (
-											<>
-												<div className={styles.chipItem}>
-													<p className={clsx('font-small', styles.chipText)}>
-														{genre.name}
-													</p>
-												</div>
-
-												<RenderIf isTrue={!isLast}>
-													<div className={styles.lineDivider} />
-												</RenderIf>
-											</>
-										);
-									})}
-								</div>
-
-								<div className={styles.buttonContainer}>
-									<RenderIf isTrue={!isInWatchlist}>
-										<Button
-											loading={loading}
-											fullWidth
-											className={styles.button}
-											onClick={onAddToWatchlist}
-										>
-											<div className={styles.logoContainer}>
-												<Image alt="Select" src={Icon.Add} />
-											</div>
-
-											<p className={clsx('font-p', styles.buttonText)}>
-												Add to Watchlist
-											</p>
-										</Button>
-									</RenderIf>
-
-									<RenderIf isTrue={isInWatchlist}>
-										<Button
-											fullWidth
-											className={styles.button}
-											onClick={onRemoveFromWatchlist}
-										>
-											<div className={styles.logoContainer}>
-												<Image priority alt="Deselect" src={Icon.Remove} />
-											</div>
-
-											<p className={clsx('font-p', styles.buttonText)}>
-												Remove from Watchlist
-											</p>
-										</Button>
-									</RenderIf>
-								</div>
-							</div>
-						</div>
-
-						<div className={styles.ornament} />
-					</div>
+					<C.HeroContentTv
+						title={tvDetail.name}
+						overview={tvDetail.overview}
+						backdropUrl={tvDetail.backdrop_path}
+						genres={tvGenres || []}
+						language={tvDetail.original_language}
+						airDate={tvDetail.first_air_date}
+						numberOfSeasons={seasonTabs.length}
+						loadingButton={loading}
+						isInWatchlist={isInWatchlist}
+						onAddToWatchlist={onAddToWatchlist}
+						onRemoveFromWatchlist={onRemoveFromWatchlist}
+					/>
 
 					<div className={styles.tabContainer}>
-						<Tabs tabs={tabs} value={tabValue} onChange={setTabValue} />
+						<C.Tabs tabs={tabs} value={tabValue} onChange={setTabValue} />
 					</div>
 
-					<TabPanel value="episodes" currentValue={tabValue}>
-						<Tabs
+					<C.TabPanel value="episodes" currentValue={tabValue}>
+						<C.Tabs
 							useBorder={false}
 							tabs={seasonTabs}
 							value={seasonTabValue}
@@ -223,7 +109,7 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 						<div className={styles.seasonTabContainer}>
 							{seasonTabs.map((season) => {
 								return (
-									<TabPanel
+									<C.TabPanel
 										key={season.id}
 										value={season.value}
 										currentValue={seasonTabValue}
@@ -235,15 +121,15 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 												tvSeriesId={Number(tvDetail.id)}
 											/>
 										</div>
-									</TabPanel>
+									</C.TabPanel>
 								);
 							})}
 						</div>
-					</TabPanel>
+					</C.TabPanel>
 
-					<TabPanel value="more-like-this" currentValue={tabValue}>
+					<C.TabPanel value="more-like-this" currentValue={tabValue}>
 						<div className={styles.cardContainer}>
-							<CardCarousel>
+							<C.CardCarousel>
 								{tvRecommendationIds.map((id) => {
 									return (
 										<div key={id} className={styles.cardWrapper}>
@@ -251,9 +137,9 @@ const TvSeriesDetailMain: React.FC<TvSeriesDetailMainProps> = (props) => {
 										</div>
 									);
 								})}
-							</CardCarousel>
+							</C.CardCarousel>
 						</div>
-					</TabPanel>
+					</C.TabPanel>
 				</div>
 			</PageLayout>
 		</>

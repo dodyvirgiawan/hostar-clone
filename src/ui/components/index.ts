@@ -7,6 +7,9 @@ export * from './card-content';
 export * from './card-episode';
 export * from './card-grid';
 
+export * from './hero-content-movie';
+export * from './hero-content-tv';
+
 export * from './render-if';
 
 export * from './search-field';
